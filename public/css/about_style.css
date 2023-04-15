@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+
+.header {
+  padding: 60px;
+  text-align: center;
+  /* background-color: #301E67; */
+  background-color: #444af4;
+  color: white;
+  font-size: 30px;
+  margin-top: -8px;
+  margin-left: -10px;
+  margin-right: -10px;
+  transition-delay: 1s;
+  font-family: "Poppins", sans-serif;
+}
+
+
+.header p{
+    margin-top: 90px;
+}
+* {
+	
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+.content{
+    position: relative;
+}
+
+
+.content h1 {
+    font-size: 2em;
+    position: absolute;
+    transform: translate(1%, -50%);
+    color: transparent;
+    -webkit-text-stroke: 2px #fff;
+    left: 408px;
+
+}
+
+.content h1:nth-child(1) {
+	color: transparent;
+	-webkit-text-stroke: 2px #fff;
+}
+
+.content h1:nth-child(2) {
+	color: #fff;
+	animation: animate 4s ease-in-out infinite;
+}
+
+@keyframes animate {
+	0%,
+	100% {
+		clip-path: polygon(
+			0% 45%,
+			16% 44%,
+			33% 50%,
+			54% 60%,
+			70% 61%,
+			84% 59%,
+			100% 52%,
+			100% 100%,
+			0% 100%
+		);
+	}
+
+	50% {
+		clip-path: polygon(
+			0% 60%,
+			15% 65%,
+			34% 66%,
+			51% 62%,
+			67% 50%,
+			84% 45%,
+			100% 46%,
+			100% 100%,
+			0% 100%
+		);
+	}
+}
+
+
+
+body {
+	background: #F6F1F1;
+	min-height: 100vh;
+	align-items: center;
+	justify-content: center;
+	
+}
+
+
+.content-container {
+ margin-top: 50px;
+  font-size: 18px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+
+.main-nav-list {
+  list-style: none;
+  display: flex;
+  gap: 2.2rem;
+  float: right;
+}
+
+.main-nav-link:link,
+.main-nav-link:visited {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1.8rem;
+  transition: all 0.3s;
+}
+
+.main-nav-link:hover,
+.main-nav-link:active {
+  color: #425ff0;
+}
+
+.main-nav-link.main-nav-link-lc:link,
+.main-nav-link.main-nav-link-lc:visited {
+  padding: 0rem 0.5rem;
+  border-radius: 9px;
+  background-color: #fff;
+  color: #425ff0;
+}
+
+.main-nav-link.main-nav-link-lc:hover,
+.main-nav-link.main-nav-link-lc:active {
+  background-color:azure;
+}
+
+.homepage{
+	margin-top: -60px;
+}

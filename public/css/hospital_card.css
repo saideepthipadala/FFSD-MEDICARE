@@ -1,0 +1,73 @@
+.card {
+  width: 100%;
+  box-shadow: 0 2.4rem 4.8rem rgba(27, 20, 128, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.hospital_card-img {
+  width: 100%;
+  align-self: center;
+}
+
+.Hospital-cards {
+  padding: 5rem 5rem;
+}
+
+.card-text {
+  padding: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  color: #333;
+}
+
+.hospital-name {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #4823fc;
+}
+
+.address-hospital {
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: #5f5f5f;
+}
+
+.contact-detail {
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: #5f5f5f;
+}
+
+.email-id-hoapital {
+  font-weight: 600;
+  font-size: 1.8rem;
+  padding-bottom: 2rem;
+  color: #5f5f5f;
+}
+
+.align_center {
+  width: 100%;
+  padding: 2rem;
+  background-color: #4823fc;
+
+  text-align: center;
+  border-radius: 12px;
+}
+
+.pharmacy_btn {
+  text-decoration: none;
+  text-align: center;
+  color: #eee;
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.align_center:hover {
+  background-color: #425ff0;
+}

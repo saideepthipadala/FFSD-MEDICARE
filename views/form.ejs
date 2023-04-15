@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/Medicare (1).png"
+      />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap"
+      rel="stylesheet"
+      />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+      />
+    <link rel="stylesheet" href="./css/form.css" />
+    <title>Consult Form</title>
+  </head>
+
+  <body>
+    <div class="logo-div">
+      <a href="/"><img src="./images/Header_logo.png" alt="" /></a>
+
+      <a href="/hospital" id="home-link">BACK</a>
+    </div>
+    <div class="container-css">
+      <p id="Heading"></p>
+      <form action="./success">
+        
+        <label for="pname">Name of the Patient :
+          <input type="text" id="pname" value="" required />
+        </label>
+        <label for="Gender">Patient Gender :
+          <select name="Gender" id="Gender" required>
+            <option value="" selected>Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label for="age">Patient's Age :
+          <input type="number" id="age" value="0" min="3" max="80" required />
+        </label>
+        <label for="problem">Tell Us about Patient's Problem
+          <textarea name="" id="" cols="3" rows="3" required></textarea>
+        </label>
+        <label for="date">Date of Consultation :
+          <input type="date" id="date" required onkeyup="validateDate()" />
+        </label>
+        <p class="error"></p>
+        <label for="time">Time of Consultation :
+          <input
+            type="time"
+            name="time"
+            id="time"
+            min="09:00"
+            max="17:00"
+            required
+            />
+        </label>
+        <button type="submit">Book Appointment</button>
+      </form>
+    </div>
+
+    <script src="./js/form.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"></script>
+  </body>
+</html>

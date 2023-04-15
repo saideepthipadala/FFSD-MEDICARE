@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Rubik:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style_home_page.css" />
+  </head>
+  <body>
+    <header class="header">
+      <a href="/">
+        <img src="./images/Medicare.png" class="logo" alt="header-logo" />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li>
+            <a class="main-nav-link" href="/">Home</a>
+          </li>
+          <li>
+            <a class="main-nav-link main-nav-link-lc" href="/register"
+              >Sign in</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <section class="section-cta" style="height: 100vb">
+      <div class="container">
+        <div id="login_id" class="cta">
+          <div class="cta-text-box">
+            <div class="cta-img-box" role="img" aria-label="login img"></div>
+            <h2 class="heading-secondary">Become a part of our family</h2>
+            <p class="cta-text">
+              Welcome! We invite you to join our community and become a part of
+              our family. By creating an account and logging in, you'll gain
+              access to a variety of benefits and opportunities.
+            </p>
+            <form class="cta-form" onsubmit="return false;" id="form">
+              <div>
+                <label class="cta-label" for="email">Email address</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="me@gmail.com"
+                  required
+                />
+              </div>
+              <div>
+                <label class="cta-label" for="password">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="gnk7bfg89456/*"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-form">Login</button>
+              <div
+                class="alert alert-danger"
+                role="alert"
+                id="error"
+                style="
+                  display: none;
+                  background-color: rgba(255, 0, 0, 0.318);
+                  color: white;
+                  width: 100%;
+                  padding: 1.2rem;
+                  font-size: 1.8rem;
+                  font-family: inherit;
+                  border: none;
+
+                  border-radius: 9px;
+                  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+                "
+              ></div>
+              <div
+                class="alert alert-success"
+                role="alert"
+                id="success"
+                style="
+                  display: none;
+                  background-color: rgba(172, 255, 47, 0.611);
+                  color: white;
+                  width: 100%;
+                  padding: 1.2rem;
+                  font-size: 1.8rem;
+                  font-family: inherit;
+                  border: none;
+
+                  border-radius: 9px;
+                  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+                "
+              ></div>
+            </form>
+          </div>
+          <div class="cta-img-box" role="img" aria-label="login page"></div>
+        </div>
+      </div>
+    </section>
+
+    <script src="/js/login.js"></script>
+  </body>
+</html>

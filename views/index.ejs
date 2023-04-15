@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Rubik:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style_home_page.css" />
+  </head>
+  <body>
+    <header class="header">
+      <a href="#">
+        <img src="/images/Medicare.png" class="logo" alt="header-logo" />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+         
+          <li><a class="main-nav-link" href="/blogs">Blogs</a></li>
+          <li><a class="main-nav-link" href="#footer">Contact us</a></li>
+          <%if(status == "loggedIn"){%>
+          <li>
+            <a class="main-nav-link main-nav-link-lc" href="/logout">
+              Logout
+            </a>
+          </li>
+          <%}else{%> 
+            <li><a class="main-nav-link" href="/login">Login</a></li>
+            <li>
+              <a class="main-nav-link main-nav-link-lc" href="/register">
+                Signup
+              </a>
+            </li>
+            <%}%>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero-section">
+        <div class="hero">
+          <div class="hero-text">
+            <h1 class="heading-primary">
+              Prioritize your health. Invest in quality healthcare .
+            </h1>
+            <p class="hero-summary">
+              "Don't compromise on your well being ,discover the power of
+              exceptional healthcare today."
+            </p>
+            <a href="/about_page" class="btn btn--full margin-right-sm">More about us</a>
+          </div>
+          <div class="hero-img-box">
+            <img
+              src="/images/hero-section-img.png"
+              class="hero-img"
+              alt="image of doctors"
+            />
+          </div>
+        </div>
+      </section>
+      <%if(status == "loggedIn"){%> 
+      <section class="section-how" >
+        <div class="container">
+          <span class="subheading">OUR SERVICES</span>
+          <h2 class="heading-secondary">
+            Your health is your wealth, prioritize it.
+          </h2>
+        </div>
+        <div class="container grid grid--2--cols grid--center--v">
+          <div id="Hospitals_id" class="step-text-box">
+            <p class="step-number">01</p>
+            <h3 class="heading-tertiary">
+              <a id="Near_by_hospitals_id" href="/hospital" class="how-it-work-link"
+                >Near By Hospitals</a
+              >
+            </h3>
+            <p class="step-dscription">
+              When it comes to your health, every second counts - use our
+              comprehensive hospital locator to quickly and easily locate all
+              hospitals in your area, ensuring that you receive the best
+              possible care when you need it most.
+            </p>
+          </div>
+          <div class="step-img-box">
+            <img
+              src="/images/Hospital_how_it_work.jpg"
+              class="step-img"
+              alt="hospital image"
+            />
+          </div>
+          <div class="step-img-box">
+            <img
+              src="/images/doctor_how_it_work.jpg"
+              class="step-img"
+              alt="doctor image"
+            />
+          </div>
+          <div class="step-text-box">
+            <p class="step-number">02</p>
+            <h3 class="heading-tertiary">
+              <a id="Consult_a_doctor" href="/doctor" class="how-it-work-link">Consult A Doctor</a>
+            </h3>
+            <p class="step-dscription">
+              Finding the right doctor near you has never been easier, our
+              advanced physician locator allows you to easily search for and
+              connect with trusted healthcare professionals in your area,
+              helping you prioritize your health and well being.
+            </p>
+          </div>
+
+          <div class="step-text-box">
+            <p class="step-number">03</p>
+            <h3 class="heading-tertiary">
+              <a id="Near_by_pharmacy_id" href="/pharmecy" class="how-it-work-link"
+                >Find Near By Pharmacy</a
+              >
+            </h3>
+            <p class="step-dscription">
+              Quickly locate near by pharmacies to ensure that you have easy
+              access to the medications and supplies you need to stay healthy,
+              by using our reliable and user-friendly pharmacy locator.
+            </p>
+          </div>
+          <div class="step-img-box">
+            <img
+              src="/images/pharmecy_how_it_work.jpg"
+              class="step-img"
+              alt="pharmecy image"
+            />
+          </div>
+        </div>
+      </section>
+      <%}%>
+     
+    </main>
+    <footer class="footer" id="footer">
+      <div class="container grid grid-footer">
+        <div class="logo-col">
+          <a href="#" class="footer-logo">
+            <img
+              alt="logo"
+              src="/images/Header_logo.png"
+              class="logo"
+            />
+          </a>
+          <ul class="social-links">
+            <li>
+              <a class="footer-link href="#"><ion-icon class="social-icon" name="logo-instagram"></ion-icon></a>
+            </li>
+            <li>
+              <a class="footer-link href="#"><ion-icon class="social-icon" name="logo-instagram"></ion-icon></a>
+            </li>
+            <li>
+              <a class="footer-link href="#"><ion-icon class="social-icon" name="logo-twitter"></ion-icon></a>
+            </li>
+          </ul>
+          <p class="copy-right">
+            Copyright &copy; 2023 by Medicare, Inc.All rights are reserved.
+          </p>
+        </div>
+        <div class="address-col">
+          <p class="footer-heading">Contact us</p>
+          <address class="contacts">
+            <p class="address">623 Star streets St., 2nd Floor, New Delhi</p>
+            <p>
+              <a class="footer-link" href="tel:415-201-6370">415-201-6370</a><br />
+              <a class="footer-link" href="mailto:hello@omnifood.com">hello@medicare.com</a>
+            </p>
+          </address>
+          
+        </div>
+        <nav class="nav-col">
+          <p class="footer-heading">Company</p>
+          <ul class="footer-nav">
+            <li><a class="footer-link" href="#">About Medicare</a></li>
+            <li><a class="footer-link" href="#Near_by_hospitals_id">Near by hospitals</a></li>
+            <li><a class="footer-link" href="#Near_by_pharmacy_id">Near by pharmacies</a></li>
+            <li><a class="footer-link" href="#Consult_a_doctor">Consult a doctor</a></li>
+
+          </ul>
+        </nav>
+      </div>
+    </footer>
+    <script
+    type="module"
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+  ></script>
+  <script
+    nomodule
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+  ></script>
+
+ 
+  </body>
+</html>
