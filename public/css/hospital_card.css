@@ -3,14 +3,25 @@
   box-shadow: 0 2.4rem 4.8rem rgba(27, 20, 128, 0.25);
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 4rem;
   border-radius: 18px;
   overflow: hidden;
+  margin-top: -28px;
 }
 
 .hospital_card-img {
   width: 100%;
   align-self: center;
+  margin-bottom: -40px;
+}
+
+.pharmacy_card-img{
+    width: 92%;
+  align-self: center;
+  margin-bottom: -60px;
+  margin-top: -20px;
+  margin-left: 16px;
+
 }
 
 .Hospital-cards {
@@ -21,12 +32,12 @@
   padding: 2rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2rem;
   color: #333;
 }
 
-.hospital-name {
-  font-size: 2rem;
+.hospital-name h1{
+  font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
   color: #4823fc;
@@ -44,21 +55,27 @@
   color: #5f5f5f;
 }
 
-.email-id-hoapital {
+.email-id-hospital {
   font-weight: 600;
   font-size: 1.8rem;
-  padding-bottom: 2rem;
+  color: #5f5f5f;
+}
+
+.noOfDoctors{
+ 
+  font-weight: 600;
+  font-size: 1.8rem;
   color: #5f5f5f;
 }
 
 .align_center {
   width: 100%;
-  padding: 2rem;
+  padding: 1rem;
   background-color: #4823fc;
-
   text-align: center;
   border-radius: 12px;
 }
+
 
 .pharmacy_btn {
   text-decoration: none;
@@ -66,8 +83,70 @@
   color: #eee;
   font-size: 2.4rem;
   font-weight: 700;
+  margin-top: -10px;
 }
 
 .align_center:hover {
   background-color: #425ff0;
+}
+
+search-box{
+    position: relative;
+    margin-left: -5px;
+ 
+}
+
+#search:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.search-box input{
+    width: 35vw;
+    height: 60px;
+    border: 2px solid #425ff0;
+    font-size: larger;
+    text-indent: 70px;
+    outline: none;
+    background-color: #FFFFFF;
+    margin-right: 0;
+}
+
+.search-box i{
+    position: absolute;
+    top: 42px;
+    margin-left: 2px;
+    color: #425ff0;
+ 
+    margin-left: 15px;
+}
+
+/* .search-box a{
+   margin-left: -5px;
+    width: fit-content;
+    text-decoration: none;
+    color: white;
+    padding: 20px;
+    background-color: #425ff0;
+    font-size: larger;
+    font-weight: 400;
+} */
+
+
+.search-box span{
+  margin-left: -5px;
+    width: fit-content;
+    text-decoration: none;
+    color: white;
+    padding: 17.5px;
+    padding-bottom: 16px;
+    background-color: #425ff0;
+   font-size: 1.6rem;
+  font-weight: 500;
+}
+
+
+input[type="text"] {
+  font-size: 17.5px;
+  font-family: Arial;
 }

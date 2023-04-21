@@ -19,12 +19,10 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.get("/pharmecy", (req, res) => {
-  res.render("pharmecy");
-});
+
 app.get("/form", (_, res) => res.render("form"));
 
-app.get("/hospital", (_, res) => res.render("hospital"));
+
 app.get("/blogs", (_, res) => res.render("blog"));
 app.get("/doctor", (_, res) => res.render("doctor"));
 app.get("/about_page", (_, res) => res.render("about_page"));

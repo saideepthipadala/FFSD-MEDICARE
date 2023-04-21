@@ -23,11 +23,14 @@
                 <h1 id="Heading">Hospital Registration Form</h1>
 
                 <label for="hospitalName">Hospital Name:</label>
-                <input type="text" id="hospitalName" name="hospitalName" pattern="[A-Za-z]+" title="Please enter alphabetic characters only" required>
+        <input type="text" id="hospitalName" name="hospitalName" pattern="[A-Za-z\s.'-]+" title="Please enter alphabetic characters, spaces, full stops, apostrophes, and hyphens only" required>
+
                 <span class="error-message" id="hospitalNameError"></span>
 
                 <label for="location">Location:</label>
-                <input type="text" id="location" name="location" pattern="[A-Za-z ]+" title="Please enter alphabetic characters only" required>
+              <input type="text" id="location" name="location" pattern="[A-Za-z0-9\s,:]+"
+ title="Please enter a valid address including alphabetic characters, digits, spaces, commas, and colons" required>
+
                 <span class="error-message" id="locationError"></span>
 
                 <label for="contactNumber">Contact Number:</label>
