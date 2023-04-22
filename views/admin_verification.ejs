@@ -16,28 +16,24 @@
 
 
     <div class="logo-div">
-      <a href="/"><img style="margin-left: 10px;" src="images/Medicare.png" alt="" /></a>
+      <a href="/"><img style="margin-left: 10px;" src="images/Medicare.png"
+          alt="" /></a>
       <h1>Registration Requests</h1>
       <a href="/hospital" id="home-link">BACK</a>
     </div>
 
 
 
-    <form action="/" method="post">
-      <label for="registrationType">Registration Type:</label>
-      <select id="registrationType" name="registrationType" style="padding: 7px;
-        font-size: 16px; border: 1px solid #ccc; border-radius: 4px;">
-        <option value="all">All</option>
-        <option value="doctors">Doctors</option>
-        <option value="hospitals">Hospitals</option>
-        <option value="pharmacies">Pharmacies</option>
-      </select>
-      <button type="submit">Filter</button>
-    </form>
+    <label for="registrationType">Registration Type:</label>
+    <select id="registrationType" name="registrationType" style="padding: 7px;
+      font-size: 16px; border: 1px solid #ccc; border-radius: 4px;">
+      <option value="all" name="all">All</option>
+      <option value="doctors">Doctors</option>
+      <option value="hospitals">Hospitals</option>
+      <option value="pharmacies">Pharmacies</option>
+    </select>
 
 
-
-  
     <table>
       <tr style="text-align: center;">
         <th>ID</th>
@@ -52,29 +48,75 @@
             <td style="text-align: center;"><%= registration.name %></td>
 
 
-              <td>
-                <form action="/approve/<%= registration._id %>"
-                  method="post">
+             <td>
+  <% if (registration.approved === "true") { %>
+    <button id="approved" type="submit" class="btn btn-outline-success">Approved</button>
+  <% } else { %>
+    <form action="/approve" method="POST">
+      <input type="hidden" name="id" value="<%= registration._id %>">
+      <button id="approve" type="submit" class="btn btn-outline-success">Approve</button>
+    </form>
+  <% } %>
+</td>
 
-                  <button type="button" class="btn btn-outline-success">Approve</button>
-                </form>
-              </td>
 
 
 
-              <td>
-                <form action="/reject/<%= registration._id %>"
-                  method="post">
-                  <!-- <button type="submit" style="background-color: #dc3545;
-                    color: #fff; ">Reject</button> -->
-                  <button type="button" class="btn btn-outline-danger">Reject</button>
-                </form>
-              </td>
+                 <td>
+  <% if (registration.approved === "false") { %>
+    <button id="rejected" type="submit" class="btn btn-outline-danger">Rejected</button>
+  <% } else { %>
+    <form action="/reject" method="POST">
+      <input type="hidden" name="id" value="<%= registration._id %>">
+      <button id="reject" type="submit" class="btn btn-outline-danger">Reject</button>
+    </form>
+  <% } %>
+</td>
 
-            </tr>
-            <% }) %>
-            </table>
-                     
-          </body>
 
-        </html>
+
+                  </tr>
+                  <% }) %>
+
+                    <% RegistrationPharmacies.forEach(registration=> { %>
+                      <tr>
+                        <td style="text-align: center;"><%= registration._id %></td>
+                          <td style="text-align: center;"><%= registration.name
+                              %></td>
+
+                            
+             <td>
+  <% if (registration.approved === "true") { %>
+    <button id="approved" type="submit" class="btn btn-outline-success">Approved</button>
+  <% } else { %>
+    <form action="/approve" method="POST">
+      <input type="hidden" name="id" value="<%= registration._id %>">
+      <button id="approve" type="submit" class="btn btn-outline-success">Approve</button>
+    </form>
+  <% } %>
+</td>
+
+
+
+
+                 <td>
+  <% if (registration.approved === "false") { %>
+    <button id="rejected" type="submit" class="btn btn-outline-danger">Rejected</button>
+  <% } else { %>
+    <form action="/reject" method="POST">
+      <input type="hidden" name="id" value="<%= registration._id %>">
+      <button id="reject" type="submit" class="btn btn-outline-danger">Reject</button>
+    </form>
+  <% } %>
+</td>
+
+
+
+                          </tr>
+                          <% }) %>
+
+                          </table>
+
+                        </body>
+
+                      </html>

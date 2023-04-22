@@ -2,7 +2,7 @@
 const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
-const sqlite3 = require("sqlite3").verbose();
+// const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
 const cookie = require("cookie-parser");
 const PORT = 6969;
@@ -17,36 +17,40 @@ const app = express();
 // Set up MongoDB connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", true);
-const uri = "mongodb+srv://ANJALI:anjali123@cluster0.1cwx1sq.mongodb.net/medicare?retryWrites=true&w=majority";
-const MongooseClient = mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true});
+const uri =
+  "mongodb+srv://ANJALI:anjali123@cluster0.1cwx1sq.mongodb.net/medicare?retryWrites=true&w=majority";
+const MongooseClient = mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 if (MongooseClient) {
   console.log("Connected to MongoDB");
 }
 
 // Create hospital schema for MongoDB
-const hospitalSchema = {
+const hospitalSchema = new mongoose.Schema({
   name: String,
   location: String,
   contactNumber: Number,
   email: String,
   noOfDoctors: Number,
-};
+  approved: { type:String, default: null},
+});
+
 const Hospital = mongoose.model("HospitalDetail", hospitalSchema);
 
 
-
 // Create pharmacy schema for MongoDB
-const pharmacySchema = {
+const pharmacySchema = new mongoose.Schema({
   name: String,
   location: String,
   contactNumber: Number,
   email: String,
   noOfEmployees: Number,
   medicines: Array,
-};
+  approved: { type: String, default: null },
+});
 const Pharmacy = mongoose.model("PharmacyDetail", pharmacySchema);
-
-
 
 // Set up SQLite3 connection (currently commented out)
 // const db = new sqlite3.Database(
@@ -74,10 +78,17 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", require("./routes/pages"));
 app.use("/api", require("./controllers/auth"));
 
+
+
 // Display registration requests on admin page
 app.get("/admin_verification", (req, res) => {
   Hospital.find({}).then((hospitals) => {
-    res.render("admin_verification", { Registrations: hospitals });
+    Pharmacy.find({}).then((pharmacies) => {
+      res.render("admin_verification", {
+        Registrations: hospitals,
+        RegistrationPharmacies: pharmacies,
+      });
+    })
   });
 });
 
@@ -98,8 +109,6 @@ app.post("/hospital_reg", async function (req, res) {
     console.log(error);
   }
 });
-
-
 
 // Handle pharmacies registration form submission
 app.post("/pharmacy_registration", async function (req, res) {
@@ -130,18 +139,35 @@ const Drugs = [
   { name: "Metformin" },
   { name: "Levothyroxine" },
 ];
-console.log(Drugs);
 
-app.get("/hospital", (req, res) => {
-  Hospital.find({}).then((hospitals) => {
-    res.render("hospital", { HospitalDetails: hospitals });
-  });
+
+// console.log(Drugs);
+
+app.get("/hospital", async (req, res) => {
+  try {
+    const approvedHospitals = await Hospital.find({ approved: "true" });
+  
+     res.render("hospital", { HospitalDetails: approvedHospitals });
+ 
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
-app.get("/pharmecy", (req, res) => {
-  Pharmacy.find({}).then((pharmacies) => {
-    res.render("pharmecy", { PharmacyDetails: pharmacies});
-  });
+
+app.get("/pharmacy", async(req, res) => {
+ try {
+    const approvedPharmacies = await Pharmacy.find({ approved: "true" });
+  
+     res.render("pharmacy", { PharmacyDetails: approvedPharmacies });
+ 
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 // Render pharmacy registration page with drug names
@@ -149,5 +175,46 @@ app.get("/pharmacy_registration", (req, res) => {
   res.render("pharm_reg", { Drugs: Drugs });
 });
 
+
+app.post("/approve", async (req, res) => {
+  const id = req.body.id;
+  console.log(id);
+  try {
+    await Hospital.findByIdAndUpdate(
+      { _id: req.body.id },
+      { approved: "true" }
+    );
+
+     await Pharmacy.findByIdAndUpdate(
+       { _id: req.body.id },
+       { approved: "true" }
+     );
+    // console.log("Hospital approved:", hospital);
+    res.redirect("/admin_verification");
+  }
+  
+  catch (err) {
+    console.log(err);
+  }
+});
+
+
+
+app.post("/reject", async(req,res)=>{
+const id = req.body.id;
+console.log(id);
+try {
+  await Hospital.findByIdAndUpdate({ _id: req.body.id }, 
+                                    { approved: "false" });
+
+  await Pharmacy.findByIdAndUpdate({ _id: req.body.id },
+                                      { approved: "false" } );
+  // console.log("Hospital approved:", hospital);
+  res.redirect("/admin_verification");
+} catch (err) {
+  console.log(err);
+}});
+
 // Start the server
 app.listen(PORT, () => console.log("Server listening on port: ", PORT));
+
