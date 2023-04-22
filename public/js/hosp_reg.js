@@ -17,7 +17,7 @@ hospitalNameInput.addEventListener("input", function () {
   if (hospitalNameInput.validity.valid) {
     hospitalNameError.textContent = "";
   } else {
-    hospitalNameError.textContent = "Please enter alphabetic characters only";
+    hospitalNameError.textContent = "Please enter alphabetic characters, spaces only.";
   }
 });
 
@@ -25,7 +25,7 @@ locationInput.addEventListener("input", function () {
   if (locationInput.validity.valid) {
     locationError.textContent = "";
   } else {
-    locationError.textContent = "Please enter alphabetic characters only";
+    locationError.textContent = "Please enter alphabetic characters, numerics,spaces only.";
   }
 });
 

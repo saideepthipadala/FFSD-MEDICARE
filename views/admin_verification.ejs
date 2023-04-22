@@ -16,7 +16,7 @@
 
 
     <div class="logo-div">
-      <a href="/"><img style="margin-left: 10px;" src="images/Medicare.png"
+      <a href="/"><img style="margin-left: 20px;width: 186px;"src="images/Medicare.png"
           alt="" /></a>
       <h1>Registration Requests</h1>
       <a href="/hospital" id="home-link">BACK</a>
@@ -36,13 +36,18 @@
 
     <table>
       <tr style="text-align: center;">
+         <th>S.No</th>
         <th>ID</th>
         <th>Name</th>
         <th>Approve</th>
         <th>Reject</th>
       </tr>
+      <% let count = 1; %>
       <% Registrations.forEach(registration=> { %>
         <tr>
+          <td style="text-align: center;"><%= count %></td>
+
+
           <td style="text-align: center;"><%= registration._id %></td>
 
             <td style="text-align: center;"><%= registration.name %></td>
@@ -61,7 +66,6 @@
 
 
 
-
                  <td>
   <% if (registration.approved === "false") { %>
     <button id="rejected" type="submit" class="btn btn-outline-danger">Rejected</button>
@@ -76,10 +80,12 @@
 
 
                   </tr>
+                   <% count++ ;%>
                   <% }) %>
 
                     <% RegistrationPharmacies.forEach(registration=> { %>
                       <tr>
+                            <td style="text-align: center;"><%= count %></td>
                         <td style="text-align: center;"><%= registration._id %></td>
                           <td style="text-align: center;"><%= registration.name
                               %></td>
@@ -109,10 +115,8 @@
     </form>
   <% } %>
 </td>
-
-
-
                           </tr>
+                          <% count++;%>
                           <% }) %>
 
                           </table>

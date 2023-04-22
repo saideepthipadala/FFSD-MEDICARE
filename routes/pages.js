@@ -29,6 +29,13 @@ app.get("/about_page", (_, res) => res.render("about_page"));
 app.get("/success", (_, res) => res.render("success"));
 app.get("/hospital_reg", (_, res) => res.render("hospital_reg"));
 // app.get("/admin_verification", (_, res) => res.render("admin_verification"));
+app.get("/admin", (req, res) => {
+  res.render("admin");
+});
+app.get("/contactus", (req, res) => {
+  res.render("contact_us");
+});
+
 
 
 

@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us </title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" href="./css/contactUs.css">
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+
+    <header class="header">
+      <a href="/">
+        <img src="./images/Medicare.png" class="logo" alt="header-logo" />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li style="margin-top: 20px;">
+            <a class="main-nav-link main-nav-link-lc" href="/">Home</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+  
+  <div class="container contact">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="contact-info">
+				<img src="https://image.ibb.co/kUASdV/contact-image.png" alt="image"/>
+				<h2>Contact Us</h2>
+				<h4>We would love to hear from you !</h4>
+			</div>
+		</div>
+		<div class="col-md-9">
+
+      <form onsubmit="return validateComment()">
+			<div class="contact-form">
+				<div class="form-group">
+				  <label class="control-label col-sm-2" for="fname">First Name:</label>
+				  <div class="col-sm-10">          
+					<input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname" pattern="[A-Za-z\s]+" title="Please enter alphabetic characters, spaces only.
+				  <span class="error-message" id="fnameError"></span>
+        </div>
+
+				<div class="form-group">
+				  <label class="control-label col-sm-2" for="lname">Last Name:</label>
+				  <div class="col-sm-10">          
+					<input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname"pattern="[A-Za-z\s]+" title="Please enter alphabetic characters, spaces only.>
+         <span class="error-message" id="lnameError"></span>
+        </div>
+				</div>
+				<div class="form-group">
+				  <label class="control-label col-sm-2" for="email">Email:</label>
+				  <div class="col-sm-10">
+					<input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+				    <span class="error-message" id="emailError"></span>
+        </div>
+				</div>
+				<div class="form-group">
+				  <label class="control-label col-sm-2" for="comment">Comment:</label>
+				  <div class="col-sm-10">
+					<textarea class="form-control" rows="5" id="comment"></textarea>
+				    <span class="error-message" id="commentError"></span>
+        </div>
+				</div>
+				<div class="form-group">        
+				  <div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default">Submit</button>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+
+<script src="./js/contact.js"></script>
+    <script src="pages.js"></script>
+    <script src="./../index.js"></script>
+</body>
+</html>
+
+
+
+
