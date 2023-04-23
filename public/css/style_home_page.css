@@ -411,11 +411,6 @@ strong {
 .cta-form input::placeholder {
   color: #aaa;
 }
-.cta-form select {
-}
-
-.cta-form button {
-}
 
 .btn-form {
   background-color: #fff;
@@ -427,6 +422,8 @@ strong {
   background-color: #fff;
   color: #eee;
 }
+
+
 
 *:focus {
   outline: none;

@@ -13,8 +13,8 @@
     <link
       href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@44659d9/css/all.min.css"
       rel="stylesheet" type="text/css"/>
-    <link href="./css/style_home_page.css" rel="stylesheet" />
-    <link href="./css/hospital_card.css" rel="stylesheet" />
+    <link href="/css/style_home_page.css" rel="stylesheet" />
+    <link href="/css/hospital_card.css" rel="stylesheet" />
 
   </head>
   <body>
@@ -57,7 +57,7 @@
                   class="hospital_card-img"
                   />
               </div>
-              <div class="card-text">
+              <div class="card-text-hospital">
                 <div class="hospital-name"><h1> <%= h.name %> </h1> </div>
                   <div class="address-hospital">
                     <p>Address : <%= h.location%></p>
@@ -72,6 +72,7 @@
                               h.noOfDoctors %></p></div>
                         </div>
                       </figure>
+                      
                       <% }); %>
 
                       
@@ -132,12 +133,15 @@
                             Medicare</a></li>
                         <li><a class="footer-link" href="/hospital">Near by
                             hospitals</a></li>
-                        <li><a class="footer-link" href="/pharmecy">Near by
+                        <li><a class="footer-link" href="/pharmacy">Near by
                             pharmacies</a></li>
 
                       </ul>
                     </nav>
                   </div>
                 </footer>
+
+        
+              <script src="./js/hospital.js"></script>
               </body>
             </html>

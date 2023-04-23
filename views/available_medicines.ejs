@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Medicines</title>
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Rubik:wght@400;500;600;700&display=swap"
+      rel="stylesheet"/>
+      
+      <link rel="stylesheet" href="/css/style_home_page.css" />
+        <link href="/css/hospital_card.css" rel="stylesheet" />
+</head>
+<body>
+
+     <header class="header">
+      <a href="/">
+        <img src="/images/Medicare.png" class="logo" alt="header-logo" />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li>
+
+            <div class="search-box">
+              <h4><i class="fa-solid fa-magnifying-glass fa-lg"></i></h4>
+              <input type="text" style="height:52.9091px" id="search" placeholder="Search for medicines...">
+              <span>Search</span>
+            </div>
+          </li>
+
+
+          <li style="margin-top: 20px;"><a class="main-nav-link" href="#footer">Contact us</a></li>
+          <li style="margin-top: 20px;">
+            <a class="main-nav-link main-nav-link-lc" href="/">Home</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+
+
+
+
+<main>
+
+    <div class="heading">
+    <h1>Medicines Available in Pharmacy</h1>
+    </div>
+
+    <section class="Hospital-cards">
+  <div class="container grid grid--4--cols">
+
+      <% medicines.map(medicine => { %>
+    <figure class="card-medicines">
+       <div class="card-img">
+                <img
+                  src="/images/medicine.jpg"
+                  class="med_card-img"
+                  />
+              </div>
+        <div class="card-text-hospital">
+        
+          <div class="medicine-name"><h1><%= medicine %></h1></div>
+          <div class="card-text-price">$2.9</div>
+          <div class="card-text">per strip</div>
+        </div>
+   
+
+    </figure>
+      <% }); %>
+  
+  </div>
+  </section>
+</main>
+
+
+ <footer class="footer" id="footer">
+      <div class="container grid grid-footer">
+        <div class="logo-col">
+          <a href="#" class="footer-logo">
+            <img
+              alt="logo"
+              src="/images/Header_logo.png"
+              class="logo"
+            />
+          </a>
+          <ul class="social-links">
+            <li>
+              <a class="footer-link href="#"><ion-icon class="social-icon" name="logo-instagram"></ion-icon></a>
+            </li>
+            <li>
+              <a class="footer-link href="#"><ion-icon class="social-icon" name="logo-instagram"></ion-icon></a>
+            </li>
+            <li>
+              <a class="footer-link href="#"><ion-icon class="social-icon" name="logo-twitter"></ion-icon></a>
+            </li>
+          </ul>
+          <p class="copy-right">
+            Copyright &copy; 2023 by Medicare, Inc.All rights are reserved.
+          </p>
+        </div>
+        <div class="address-col">
+          <p class="footer-heading">Contact us</p>
+          <address class="contacts">
+            <p class="address">623 Star streets St., 2nd Floor, New Delhi</p>
+            <p>
+              <a class="footer-link" href="tel:415-201-6370">415-201-6370</a><br />
+              <a class="footer-link" href="mailto:hello@omnifood.com">hello@medicare.com</a>
+            </p>
+          </address>
+          
+        </div>
+        <nav class="nav-col">
+          <p class="footer-heading">Company</p>
+          <ul class="footer-nav">
+            <li><a class="footer-link" href="#">About Medicare</a></li>
+            <li><a class="footer-link" href="#Near_by_hospitals_id">Near by hospitals</a></li>
+            <li><a class="footer-link" href="#Near_by_pharmacy_id">Near by pharmacies</a></li>
+            <li><a class="footer-link" href="#Consult_a_doctor">Consult a doctor</a></li>
+
+          </ul>
+        </nav>
+      </div>
+    </footer>
+<script src="/js/available_medicines.js"></script>
+</body>
+</html>

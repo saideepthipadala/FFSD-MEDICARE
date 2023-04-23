@@ -1,0 +1,94 @@
+body {
+  background-color: #f6f1f1;
+}
+.contact {
+  padding: 1.3%;
+  height: 350px;
+  margin-top: -30px;
+}
+.col-md-3 {
+  background: #42c2ff;
+  padding: 4%;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+.contact-info {
+  margin-top: 10%;
+}
+.contact-info img {
+  margin-bottom: 15%;
+  margin-left: 25px;
+}
+.contact-info h2 {
+  margin-bottom: 10%;
+}
+.col-md-9 {
+  background: #fff;
+  padding: 1%;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+.contact-form label {
+  font-weight: 600;
+}
+.contact-form button {
+  background: #25274d;
+  color: #fff;
+  font-weight: 600;
+  width: 25%;
+}
+.contact-form button:focus {
+  box-shadow: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 9.2rem;
+  padding: 0 4.2rem;
+  align-items: center;
+  background-color: #f6f1f1;
+  margin-top: -20px;
+}
+
+.logo {
+  height: 5.2rem;
+}
+
+.error-message {
+  font-size: small;
+  color: rgb(199, 0, 0);
+}
+
+.main-nav-list {
+  list-style: none;
+  display: flex;
+  gap: 3.2rem;
+}
+
+.main-nav-link:link,
+.main-nav-link:visited {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.main-nav-link:hover,
+.main-nav-link:active {
+  color: #425ff0;
+}
+
+.main-nav-link.main-nav-link-lc:link,
+.main-nav-link.main-nav-link-lc:visited {
+  padding: 0.6rem 1.2rem;
+  border-radius: 9px;
+  background-color: #4823fc;
+  color: #fff;
+}
+
+.main-nav-link.main-nav-link-lc:hover,
+.main-nav-link.main-nav-link-lc:active {
+  background-color: #425ff0;
+}

@@ -32,6 +32,8 @@ label{
 font-family: inherit;
  font-size: 1rem;
   font-weight: 550;
+margin-left: 500px;
+  
 }
 
 h1 {
@@ -47,8 +49,8 @@ form {
 select {
   padding: 6px;
   font-size: 16px;
-  margin-right: 10px;
-  margin-left: 10px;
+
+ 
 }
 
 button[type="submit"] {
@@ -96,3 +98,54 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+#approve {
+    padding: 8px 20px;
+    font-size: 1rem;
+    font-weight: 450;
+    background-color: #28a745 ;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 20px;
+    font-family: inherit;
+   
+  }
+#approved {
+    padding: 8px 16px;
+    font-size: 1rem;
+    font-weight: 450;
+    background-color: #81c77f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 38px;
+    font-family: inherit;
+  }
+
+ #reject{
+   padding: 8px 25px;
+     font-size: 1rem;
+    font-weight: 450;
+    background-color:#dc3545 ;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 20px;
+    font-family: inherit;
+  }
+   #rejected{
+     padding: 8px 16px;
+     font-size: 1rem;
+    font-weight: 450;
+    background-color:#858e95 ;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 45px;
+    font-family: inherit;
+  }
