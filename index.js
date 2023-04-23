@@ -35,7 +35,7 @@ const hospitalSchema = new mongoose.Schema({
   contactNumber: Number,
   email: String,
   noOfDoctors: Number,
-  approved: { type:String, default: null},
+  approved: { type: String, default: null },
 });
 
 const Hospital = mongoose.model("HospitalDetail", hospitalSchema);
@@ -79,19 +79,21 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", require("./routes/pages"));
 app.use("/api", require("./controllers/auth"));
 
-
-
 // Display registration requests on admin page
 app.get("/admin_verification", (req, res) => {
   Hospital.find({}).then((hospitals) => {
     Pharmacy.find({}).then((pharmacies) => {
-      res.render("admin_verification", {
-        Registrations: hospitals,
-        RegistrationPharmacies: pharmacies,
-      });
-    })
+      doctor.find({}).then((doctors) => {
+        res.render("admin_verification", {
+          Registrations: hospitals,
+          RegistrationPharmacies: pharmacies,
+          RegistrationDoctors: doctors, 
+        });
+      }); 
+    });
   });
 });
+
 
 // Handle hospital registration form submission
 app.post("/hospital_reg", async function (req, res) {
@@ -147,9 +149,9 @@ const Drugs = [
 app.get("/hospital", async (req, res) => {
   try {
     const approvedHospitals = await Hospital.find({ approved: "true" });
-  
-     res.render("hospital", { HospitalDetails: approvedHospitals });
- 
+
+    res.render("hospital", { HospitalDetails: approvedHospitals });
+
 
   } catch (error) {
     console.error(error);
@@ -158,16 +160,89 @@ app.get("/hospital", async (req, res) => {
 });
 
 
-app.get("/pharmacy", async(req, res) => {
- try {
+app.get("/pharmacy", async (req, res) => {
+  try {
     const approvedPharmacies = await Pharmacy.find({ approved: "true" });
-  
-     res.render("pharmacy", { PharmacyDetails: approvedPharmacies });
- 
+
+    res.render("pharmacy", { PharmacyDetails: approvedPharmacies });
+
 
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
+  }
+});
+
+
+app.get("/medicines/:id", async (req, res) => {
+  try {
+    const pharmacy = await Pharmacy.findById(req.params.id);
+    if (!pharmacy) {
+      // handle error if pharmacy is not found
+      return res.status(404).send("Pharmacy not found");
+    }
+    res.render("available_medicines", { medicines: pharmacy.medicines });
+  } catch (err) {
+    // handle error
+    console.error(err);
+    res.status(500).send("Internal server error");
+  }
+});
+
+
+
+// app.post("/available_medicines", async (req, res) => {
+//   const pharmacy = await Pharmacy.findById(req.body.id);
+//   res.render("available_medicines", { medicines: pharmacy.medicines });
+//    res.redirect("/admin_verification");
+// });
+
+app.post("/approve", async (req, res) => {
+  const id = req.body.id;
+  console.log(id);
+  try {
+    await Hospital.findByIdAndUpdate(
+      { _id: req.body.id },
+      { approved: "true" }
+    );
+
+    await Pharmacy.findByIdAndUpdate(
+      { _id: req.body.id },
+      { approved: "true" }
+    );
+    await doctor.findByIdAndUpdate(
+      { _id: req.body.id },
+      { approved: "true" }
+    );
+    // console.log("Hospital approved:", hospital);
+    res.redirect("/admin_verification");
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/reject", async (req, res) => {
+  const id = req.body.id;
+  console.log(id);
+  try {
+    await Hospital.findByIdAndUpdate(
+      { _id: req.body.id },
+      { approved: "false" }
+    );
+
+    await Pharmacy.findByIdAndUpdate(
+      { _id: req.body.id },
+      { approved: "false" }
+    );
+
+     await doctor.findByIdAndUpdate(
+       { _id: req.body.id },
+       { approved: "false" }
+     );
+    // console.log("Hospital approved:", hospital);
+    res.redirect("/admin_verification");
+  } catch (err) {
+    console.log(err);
   }
 });
 
@@ -198,15 +273,16 @@ const doctor_schema = new mongoose.Schema({
   qualification: String,
   email: String,
   password: String,
-  _id: String,
-  approved: Boolean,
+  // _id: String,
+  approved: { type: String, default: null },
   appointments: [appointment_schema],
 });
 
 const doctor = mongoose.model('doctor', doctor_schema);
 
-app.post('/doc_register', (req, res) => {
+app.post('/doc_register', async(req, res) => {
   const hashedpass = bcrypt.hashSync(req.body.docpass, 10);
+ 
   const doc_object = new doctor({
     name: req.body.docname,
     gender: req.body.gender,
@@ -214,21 +290,30 @@ app.post('/doc_register', (req, res) => {
     qualification: req.body.Qualification,
     email: req.body.docemail,
     password: hashedpass,
-    _id: req.body.docemail,
-    approved: false,
+    // _id: req.body.docemail,
   });
-  console.log(doc_object);
-  doc_object.save().then(() => {
-    console.log("Data is Inserted");
-    const doctor = { email: req.body.docemail };
-    res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(doctor))}`);
-  }).catch((err) => {
-    console.log(err);
-    res.send('Email Has Been Already registered');
-  })
+
+  // console.log(doc_object);
+  // doc_object.save().then(() => {
+  //   console.log("Data is Inserted");
+  //   const doctor = { email: req.body.docemail };
+  //   res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(doctor))}`);
+  // }).catch((err) => {
+  //   console.log(err);
+  //   res.alert('Email Has Been Already registered');
+  // })
+
+  try {
+    await doc_object.save();
+    res.render("success");
+  } catch (error) {
+    console.log(error);
+  }
 })
 
-app.get('/doc_home', (req, res) => {
+
+
+app.get("/doc_home", (req, res) => {
   const doc = JSON.parse(decodeURIComponent(req.query.doctor));
   doctor.findOne({ email: doc.email }).then((doctor) => {
     var pending = 0;
@@ -240,25 +325,27 @@ app.get('/doc_home', (req, res) => {
       appointments_arr.push(appointment);
       if (appointment.appointmentStatus === true) {
         over++;
-        console.log('This appointment is accepted');
+        console.log("This appointment is accepted");
       } else {
         pending++;
       }
       if (appointment.acceptappointment === false) {
         unaccepted++;
-      }
-      else {
+      } else {
         accepted++;
       }
     });
     // console.log(pending);
 
-    res.render('doc_home', {
-      doctor, pending, over, unaccepted, appointments_arr
-    })
-  }
-  )
-})
+    res.render("doc_home", {
+      doctor,
+      pending,
+      over,
+      unaccepted,
+      appointments_arr,
+    });
+  });
+});
 
 app.post('/doc_login', (req, res) => {
   doctor.findOne({ email: req.body.email }).then((doctor) => {
@@ -331,32 +418,40 @@ app.get('/doc_login', (req, res) => {
 })
 
 
-app.get('/doc_medicines', (req, res) => {
-  res.render('buy_medicines');
-})
+// app.get('/doc_medicines', (req, res) => {
+//   res.render('buy_medicines');
+// })
 
 
 
 
-const doctors = [];
+// const doctors = [];
 
-doctor.find({})
-  .then((docs) => {
-    docs.forEach((doc) => {
-      doctors.push(doc);
-    });
-    console.log(doctors);
+// doctor.find({})
+//   .then((docs) => {
+//     docs.forEach((doc) => {
+//       doctors.push(doc);
+//     });
+//     console.log(doctors);
+//   }
+//   )
+//   .catch(err => {
+//     console.log(err);
+//   })
+
+app.get('/doctor', async(req, res) => {
+  try {
+    const approvedDoctors = await doctor.find({ approved: "true" });
+
+    res.render("doctor", { DoctorDetails: approvedDoctors });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
   }
-  )
-  .catch(err => {
-    console.log(err);
-  })
-
-app.get('/doctor', (req, res) => {
-  res.render('doctor', {
-    doctors: doctors
-  });
 })
+
+
 
 app.get('/filter', (req, res) => {
   console.log(req.query);

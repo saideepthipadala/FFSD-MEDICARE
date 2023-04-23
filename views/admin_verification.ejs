@@ -79,6 +79,8 @@
     <% count++ ;%>
     <% }) %>
 
+
+
     <% RegistrationPharmacies.forEach(registration=> { %>
     <tr>
       <td style="text-align: center;"><%= count %></td>
@@ -99,6 +101,39 @@
       </td>
 
 
+      <td>
+        <% if (registration.approved === "false") { %>
+        <button id="rejected" type="submit" class="btn btn-outline-danger">Rejected</button>
+        <% } else { %>
+        <form action="/reject" method="POST">
+          <input type="hidden" name="id" value="<%= registration._id %>">
+          <button id="reject" type="submit" class="btn btn-outline-danger">Reject</button>
+        </form>
+        <% } %>
+      </td>
+    </tr>
+    <% count++;%>
+    <% }) %>
+
+
+  <% RegistrationDoctors.forEach(registration=> { %>
+    <tr>
+      <td style="text-align: center;"><%= count %></td>
+      <td style="text-align: center;"><%= registration._id %></td>
+      <td style="text-align: center;"><%= registration.name
+                              %></td>
+
+
+      <td>
+        <% if (registration.approved === "true") { %>
+        <button id="approved" type="submit" class="btn btn-outline-success">Approved</button>
+        <% } else { %>
+        <form action="/approve" method="POST">
+          <input type="hidden" name="id" value="<%= registration._id %>">
+          <button id="approve" type="submit" class="btn btn-outline-success">Approve</button>
+        </form>
+        <% } %>
+      </td>
 
 
       <td>
@@ -114,6 +149,8 @@
     </tr>
     <% count++;%>
     <% }) %>
+
+
 
   </table>
 

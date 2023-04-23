@@ -13,7 +13,7 @@ const spanpass = document.querySelector("#error-pass");
 const spancnfpass = document.querySelector("#error-cnfpass");
 const label = document.querySelector("label");
 
-const nameregx = /^[a-z]+$/i;
+const nameregx = /^[a-z\s]+$/i;
 const emailregx = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
 // const passregx = /^(?=.*a-z)(?=.*A-Z)(?=.*\d)(?=.*!@#%&).{8,15}$/;
 const passregx1 = /[A-Z]/g;
