@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+main {
+    background-color: #4723fbd7;
+    border-radius: 0.25rem;
+    padding: 2rem 2rem 1.2rem 2rem;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+input,
+select {
+    border-radius: 0.25rem;
+    outline: none;
+    border: none;
+    display: block;
+    padding: 0.5rem 1.5rem;
+    width: 100%;
+}
+
+label,
+select {
+    margin-top: 1.2rem;
+}
+
+label {
+    position: relative;
+}
+
+
+#error-name {
+    color: rgb(255, 111, 0);
+    position: absolute;
+    top: 100%;
+    right: 2%;
+}
+
+#error-email {
+    color: rgb(255, 111, 0);
+    position: absolute;
+    top: 100%;
+    left: 40%;
+}
+
+#error-pass {
+    color: rgb(255, 111, 0);
+    position: absolute;
+    width: 383px;
+    text-align: center;
+    top: 100%;
+    display: block;
+    right: -45px;
+    /* left:25%; */
+}
+
+#error-cnfpass {
+    color: rgb(255, 111, 0);
+    position: absolute;
+    top: 100%;
+    left: 25%;
+}
+
+button {
+    display: block;
+    margin: 1.5rem auto 0.5rem auto;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    color: white;
+    border: none;
+    background-color: rgb(47, 191, 174);
+}
+
+
+h1 {
+    font-weight: 500;
+    color: white;
+}

@@ -12,7 +12,6 @@
     align-items: center;
     flex-grow: 1;
     flex-direction: row;
-    /* row-gap: 1rem; */
     background: rgb(2,0,36);
     background: linear-gradient(to right, rgba(2,0,36,1) 0%,rgba(122,138,255,1) 40%, rgba(122,138,255,1) 100%);
 }

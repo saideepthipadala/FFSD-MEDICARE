@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/doc_register.css">
+    <script defer src="./js/doc_register.js"></script>
+    <title>Doctor Register</title>
+</head>
+
+<body>
+    <main>
+        <h1>Doctor Register</h1>
+        <form action="/doc_register" method="post">
+            <label for="Doc_name">
+                <input type="text" id="Doc_name" placeholder="Name" name="docname" onkeyup="validateName()">
+                <span id="error-name"></span>
+            </label>
+
+            <select name="gender" id="Doc_gender" required>
+                <option value="" selected>Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <select name="specialization" id="Doc_spec" required>
+                <option value="" selected>Specialization</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Internal Medicine">Internal Medicine</option>
+                <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+                <option value="Dermatology">Dermatology</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Radiology">Radiology</option>
+                <option value="General Surgery">General Surgery</option>
+                <option value="Ophthalmology">Ophthalmology</option>
+                <option value="Family Medicine">Family Medicine</option>
+                <option value="Chest Medicine">Chest Medicine</option>
+                <option value="Anesthesia">Anesthesia</option>
+                <option value="Pathology">Pathology</option>
+                <option value="ENT">ENT</option>
+                <option value="Other">Other</option>
+            </select>
+            <select name="Qualification" id="Doc_Qual" required>
+                <option value="">Qualification</option>
+                <option value="RMP">RMP</option>
+                <option value="MBBS">MBBS</option>
+                <option value="MS">MS</option>
+                <option value="MD">MD</option>
+                <option value="Other">Other</option>
+            </select>
+            <label for="doc_email">
+                <input type="email" name="docemail" id="Doc_email" placeholder="email" onkeyup="validateEmail()">
+                <span id="error-email"></span>
+            </label>
+            <label for="doc_password">
+                <input type="password" name="docpass" id="Doc_password" placeholder="password"
+                    onkeyup="validatePassword()">
+                <span id="error-pass"></span>
+            </label>
+
+            <label for="cnf_password">
+                <input type="password" id="Cnf_password" placeholder="confirm password" onkeyup="validateCnfPassword()">
+                <span id="error-cnfpass"></span>
+            </label>
+
+            <button type="submit" class="mt-4 px-4 py-2 text-light rounded" id="submit">Regsiter</button>
+            <p>Already Registered? <a href="/doc_login">Login</a></p>
+        </form>
+    </main>
+</body>
+
+</html>

@@ -87,6 +87,14 @@ button {
     position: relative;
 } */
 
+
+#name-error,#problem-error{
+    display: none;
+    position: absolute;
+    font-size: 12px;
+    color:red;
+}
+
 .error{
     font-size: 10rem;
 }
@@ -99,4 +107,3 @@ button {
 .success-container{
     display: none;
 }
-

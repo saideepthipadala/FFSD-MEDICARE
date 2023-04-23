@@ -20,13 +20,13 @@ app.get("/login", (req, res) => {
 });
 
 
-app.get("/form", (_, res) => res.render("form"));
+// app.get("/form", (_, res) => res.render("form"));
 
 
 app.get("/blogs", (_, res) => res.render("blog"));
-app.get("/doctor", (_, res) => res.render("doctor"));
+// app.get("/doctor", (_, res) => res.render("doctor"));
 app.get("/about_page", (_, res) => res.render("about_page"));
-app.get("/success", (_, res) => res.render("success"));
+// app.get("/success", (_, res) => res.render("success"));
 app.get("/hospital_reg", (_, res) => res.render("hospital_reg"));
 app.get("/admin_verification", (_, res) => res.render("admin_verification"));
 
