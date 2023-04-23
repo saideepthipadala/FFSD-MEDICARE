@@ -54,6 +54,51 @@
   color: #4823fc;
 }
 
+.medicine-name h1{
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: #4823fc;
+}
+.heading{
+  margin-left: 450px;
+  margin-top: 30px;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+.med_card-img {
+  width: 100%;
+  align-self: center;
+  margin-bottom: -25px;
+}
+.heading h1{
+   font-size: 3rem;
+}
+.card-text-price{
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #42a411;
+  margin-left: 60px;
+}
+.card-medicines{
+
+  width: 95%;
+  box-shadow: 0 2.4rem 4.8rem rgba(27, 20, 128, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-top: -28px;
+}
+.card-text{
+  font-size: 1.3rem;
+  font-weight: 600;
+  /* color: #42a411; */
+  margin-left: 40px;
+
+}
+
 .address-hospital {
   font-weight: 600;
   font-size: 1.8rem;
@@ -95,7 +140,17 @@
   font-size: 2.4rem;
   font-weight: 700;
   margin-top: -10px;
+  background-color: #4823fc;
+  border-radius: 7px;
+  padding: 7px;
+  margin-left: 10px;
 }
+
+.pharmacy_btn:hover{
+  background-color:#425ff0;
+  color: #eee;
+}
+
 
 .align_center:hover {
   background-color: #425ff0;
@@ -160,4 +215,20 @@ search-box{
 input[type="text"] {
   font-size: 17.5px;
   font-family: Arial;
+}
+
+.submitBtn {
+  border: none;
+}
+.submitBtn:focus{
+  box-shadow: none;
+}
+
+.card-text{
+  padding: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  color: #333;
+  margin-top: -10px;
 }

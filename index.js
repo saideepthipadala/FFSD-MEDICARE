@@ -16,6 +16,7 @@ const app = express();
 
 // Set up MongoDB connection
 const mongoose = require("mongoose");
+const { log } = require("console");
 mongoose.set("strictQuery", true);
 const uri =
   "mongodb+srv://ANJALI:anjali123@cluster0.1cwx1sq.mongodb.net/medicare?retryWrites=true&w=majority";
@@ -174,6 +175,29 @@ app.get("/pharmacy", async(req, res) => {
 app.get("/pharmacy_registration", (req, res) => {
   res.render("pharm_reg", { Drugs: Drugs });
 });
+
+app.get("/medicines/:id", async (req, res) => {
+  try {
+    const pharmacy = await Pharmacy.findById(req.params.id);
+    if (!pharmacy) {
+      // handle error if pharmacy is not found
+      return res.status(404).send("Pharmacy not found");
+    }
+    res.render("available_medicines", { medicines: pharmacy.medicines });
+  } catch (err) {
+    // handle error
+    console.error(err);
+    res.status(500).send("Internal server error");
+  }
+});
+
+
+// app.post("/available_medicines", async (req, res) => {
+//   const pharmacy = await Pharmacy.findById(req.body.id);
+//   res.render("available_medicines", { medicines: pharmacy.medicines });
+//    res.redirect("/admin_verification");
+// });
+
 
 
 app.post("/approve", async (req, res) => {

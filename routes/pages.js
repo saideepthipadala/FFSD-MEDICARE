@@ -36,6 +36,9 @@ app.get("/contactus", (req, res) => {
   res.render("contact_us");
 });
 
+// app.get("/available_medicines", (req, res) => {
+//   res.render("available_medicines");
+// });
 
 
 
