@@ -12,6 +12,7 @@ const doctor = require("./../models/doctor");
 
 
 
+const { use } = require("../app");
 
 
 exports.dashboard_details = async (req, res, next) => {
@@ -84,8 +85,16 @@ exports.up_user_1 = async (req, res) => {
   });
 }
 
-exports.updateUser = (req, res) => {
-  const body = req.body
-  console.log(body)
-  res.sendStatus(200)
+exports.updateUser = async(req, res) => {
+  const {email,fullname,role} = req.body
+  let user = await User.findOne({email, fullname});
+  console.log('😜😜😜😜😜😀😀',user)
+  const new_data = await User.findByIdAndUpdate(user._id,{role:role}, {
+    // new: true,
+    // runValidators: true,
+  });
+  res.status(200).json({
+    status: 'success',
+    new_data,
+  });
 }
