@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +22,7 @@
             </diV>
             <diV class="box">
                 <div class="box-h2"><h2>DOCTORS</h2></div>
-                <div class="box-p"><P><%=count_details.doc_count%></P></div>
+                <div class="box-p"><P><%=count_details.doctorscount%></P></div>
             </diV>
             <diV class="box">
                 <div class="box-h2"><h2>PATIENTS</h2></div>
@@ -31,32 +32,32 @@
         <section class="data-circle">
             <diV class="circle circle-1">
                 <div class="circle-h2"><diV><h2>HOSPITALS</h2></diV></div>
-                <div class="circle-p"><div><P>10</P></div></div>
+               <div class="circle-p"><div><P><%=count_details.hospitalscount%></P></div></div>
             </diV>
             <diV class="circle circle-2">
                 <div class="circle-h2"><h2>PHARMACIES</h2></div>
-                <div class="circle-p"><P>10</P></div>
+                <div class="circle-p"><P><%=count_details.pharmaciescount%></P></div>
             </diV>
         </section>
         <section class="applications">
             <div class="pend-h2"><h2>PENDING APPLICATIONS</h2></div>
-            <div class="count">30</div>
+           <div class="count"><%= count_details.pendingdoct + count_details.pendinghosp + count_details.pendingpharm %></div>
             <div class="pend-2">
             
             <div class="app doc_app">
                 <div class="total-pending-h2"><h2>DOCTORS</h2></div>
-                <div class="total-pending-p"><P>10</P></div>
-                <div class="total-pending-a" ><a href="#">SUBMIT</a></div>
+                <div class="total-pending-p"><P><%=count_details. pendingdoct%></P></div>
+              
             </div>
             <div class="app hos_app">
                 <div class="total-pending-h2"><h2>HOSPITALS</h2></div>
-                <div class="total-pending-p"><P>10</P></div>
-                <div class="total-pending-a" ><a href="#">SUBMIT</a></div>
+              <div class="total-pending-p"><P><%=count_details. pendinghosp %></P></div>
+              
             </div>
             <div class="app phar_app">
                 <div class="total-pending-h2"><h2>PHARMACIES</h2></div>
-                <div class="total-pending-p"><P>10</P></div>
-                <div class="total-pending-a" ><a href="#">SUBMIT</a></div>
+             <div class="total-pending-p"><P><%=count_details. pendingpharm%></P></div>
+              
             </div>
 
         </div>
@@ -64,9 +65,8 @@
         </section>
         <section class="list-all">
             <div class="lis list-users"><a href="up_role_1">Update role</a></div>
-            <div class="lis list-doctors"><a href="#">See all doctors</a></div>
-            <div class="lis list-hospitals"><a href="#">See all hospitals</a></div>
-            <div class="lis list-pharaecies"><a href="#">See all pharmacies</a></div>
+            <div class="lis list-doctors"><a href="./admin_verification" target="_blank">See all Requests</a></div>
+
         </section>
         
     </div>

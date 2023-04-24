@@ -26,5 +26,9 @@
 
 a:hover{
     font-size: 22px;
-    
+    color: white;
+}
+
+a{
+     color: white;
 }

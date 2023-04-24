@@ -40,17 +40,7 @@ const userSchema = mongoose.Schema({
     },
     default: "user",
   },
-  // confirm_password: {
-  //   type: String,
-  //   required: [true, "Please confirm your password"],
-  //   validate: {
-  //     validator: function (el) {
-  //       return el === this.password;
-  //     },
-  //   },
-  //   message: "Password are not the same",
-  //   select: false,
-  // },
+
   passwordChangedAt: Date,
 });
 

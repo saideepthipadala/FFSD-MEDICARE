@@ -1,46 +1,27 @@
 // Import required modules
-const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const cookie = require("cookie-parser");
-const PORT = 6969;
 const bcrypt = require('bcrypt');
 const authController = require("./controllers/authController");
 const userController = require("./controllers/userController");
-const User = require("./models/user_model");
 const adminController = require("./controllers/adminController");
 const mongoose = require("mongoose")
+const dotenv = require("dotenv");
+const Hospital = require("./models/Hospital");
+const Pharmacy = require("./models/Pharmacy");
+const doctor = require("./models/doctor");
+const appointment_schema = require("./models/appointment_schema");
+
+
+
 
 // Create Express app instance
 const app = express();
 
-// Create hospital schema for MongoDB
-const hospitalSchema = new mongoose.Schema({
-  name: String,
-  location: String,
-  contactNumber: Number,
-  email: String,
-  noOfDoctors: Number,
-  approved: { type: String, default: null },
-  registrationType: { type: String, default: "Hospital"},
-});
-
-const Hospital = mongoose.model("HospitalDetail", hospitalSchema);
 
 
-// Create pharmacy schema for MongoDB
-const pharmacySchema = new mongoose.Schema({
-  name: String,
-  location: String,
-  contactNumber: Number,
-  email: String,
-  noOfEmployees: Number,
-  medicines: Array,
-  approved: { type: String, default: null },
-  registrationType: { type: String, default: "Pharmacy" },
-});
-const Pharmacy = mongoose.model("PharmacyDetail", pharmacySchema);
 
 
 
@@ -56,15 +37,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files from "public" directory
 app.use(express.static(path.join(__dirname, "public")));
 
+
+
 // Display registration requests on admin page
 app.get("/admin_verification", (req, res) => {
   Hospital.find({}).then((hospitals) => {
     Pharmacy.find({}).then((pharmacies) => {
       doctor.find({}).then((doctors) => {
-        res.render("admin_verification", {RegistrationHospitals: hospitals, RegistrationPharmacies: pharmacies, RegistrationDoctors: doctors,});
+        res.render("admin_verification", {RegistrationHospitals: hospitals, RegistrationPharmacies: pharmacies, RegistrationDoctors: doctors,},);
       }); 
     });
   });
+});
+
+app.get("/announcements",(req,res) =>{
+res.render("announcements");
 });
 
 
@@ -164,11 +151,7 @@ app.get("/medicines/:id", async (req, res) => {
 
 
 
-// app.post("/available_medicines", async (req, res) => {
-//   const pharmacy = await Pharmacy.findById(req.body.id);
-//   res.render("available_medicines", { medicines: pharmacy.medicines });
-//    res.redirect("/admin_verification");
-// });
+
 
 app.post("/approve", async (req, res) => {
   const id = req.body.id;
@@ -228,31 +211,7 @@ app.get('/doc_register', (req, res) => {
   res.render('doc_register');
 })
 
-const appointment_schema = new mongoose.Schema({
-  patientname: String,
-  patientgender: String,
-  patientage: Number,
-  patientproblem: String,
-  appointdate: Date,
-  appointtime: String,
-  acceptappointment: Boolean,
-  appointmentStatus: Boolean
-});
 
-const doctor_schema = new mongoose.Schema({
-  name: String,
-  gender: String,
-  specialization: String,
-  qualification: String,
-  email: String,
-  password: String,
-  // _id: String,
-  approved: { type: String, default: null },
-  appointments: [appointment_schema],
-  registrationType: { type: String, default: "Doctor" },
-});
-
-const doctor = mongoose.model('doctor', doctor_schema);
 
 app.post('/doc_register', async(req, res) => {
   const hashedpass = bcrypt.hashSync(req.body.docpass, 10);
@@ -342,8 +301,11 @@ app.post('/doc_login', (req, res) => {
 app.get('/success', (req, res) => {
   res.render('success');
 })
+app.get("/hospital_reg", (req, res) => {
+  res.render("hospital_reg");
+});
 
-const appointments = mongoose.model('appointments', appointment_schema);
+// const appointments = mongoose.model('appointments', appointment_schema);
 
 app.get('/form', function (req, res) {
   const email = req.query.name.split('|')[1];
@@ -392,26 +354,7 @@ app.get('/doc_login', (req, res) => {
 })
 
 
-// app.get('/doc_medicines', (req, res) => {
-//   res.render('buy_medicines');
-// })
 
-
-
-
-// const doctors = [];
-
-// doctor.find({})
-//   .then((docs) => {
-//     docs.forEach((doc) => {
-//       doctors.push(doc);
-//     });
-//     console.log(doctors);
-//   }
-//   )
-//   .catch(err => {
-//     console.log(err);
-//   })
 
 app.get('/doctor', async(req, res) => {
   try {
@@ -455,9 +398,7 @@ app.get('/search', (req, res) => {
     })
 })
 
-// app.get('/accept',(req,res)=>{
-//   console.log(req.query);
-// })
+
 
 app.post('/doc_home', (req, res) => {
   console.log(req.body);
@@ -528,6 +469,15 @@ app.get("/up_role_1", (req, res) => {
   res.render("up_role_1");
 });
 
+
+// const hospitalscount = await Hospital.countDocuments({approved:"true"});
+// const pharmaciescount = await Pharmacy.countDocuments({ approved: "true" });
+// const doctorscount = await doctor.countDocuments({ approved: "true" });
+// const pendinghosp = await Hospital.countDocuments({ approved: "null" });
+// const pendingpharm = await Hospital.countDocuments({ approved: "null" });
+// const pendingdoct = await Hospital.countDocuments({ approved: "null" });
+
+
 app.get("/dashboard",adminController.dashboard_details, (req, res) => {
   console.log(req.count_details)
   if (req.count_details) {
@@ -538,7 +488,6 @@ app.get("/dashboard",adminController.dashboard_details, (req, res) => {
 });
 
 app.get("/logout", authController.logout);
-// app.post("/signup", authControllers.signup);
 
 
 
