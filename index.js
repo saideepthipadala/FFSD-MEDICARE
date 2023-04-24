@@ -87,9 +87,9 @@ app.get("/admin_verification", (req, res) => {
         res.render("admin_verification", {
           Registrations: hospitals,
           RegistrationPharmacies: pharmacies,
-          RegistrationDoctors: doctors, 
+          RegistrationDoctors: doctors,
         });
-      }); 
+      });
     });
   });
 });
@@ -235,10 +235,10 @@ app.post("/reject", async (req, res) => {
       { approved: "false" }
     );
 
-     await doctor.findByIdAndUpdate(
-       { _id: req.body.id },
-       { approved: "false" }
-     );
+    await doctor.findByIdAndUpdate(
+      { _id: req.body.id },
+      { approved: "false" }
+    );
     // console.log("Hospital approved:", hospital);
     res.redirect("/admin_verification");
   } catch (err) {
@@ -262,7 +262,7 @@ const appointment_schema = new mongoose.Schema({
   patientproblem: String,
   appointdate: Date,
   appointtime: String,
-  acceptappointment: Boolean,
+  acceptappointment: String,
   appointmentStatus: Boolean
 });
 
@@ -280,9 +280,9 @@ const doctor_schema = new mongoose.Schema({
 
 const doctor = mongoose.model('doctor', doctor_schema);
 
-app.post('/doc_register', async(req, res) => {
+app.post('/doc_register', async (req, res) => {
   const hashedpass = bcrypt.hashSync(req.body.docpass, 10);
- 
+
   const doc_object = new doctor({
     name: req.body.docname,
     gender: req.body.gender,
@@ -315,12 +315,20 @@ app.post('/doc_register', async(req, res) => {
 
 app.get("/doc_home", (req, res) => {
   const doc = JSON.parse(decodeURIComponent(req.query.doctor));
+  console.log(doc);
   doctor.findOne({ email: doc.email }).then((doctor) => {
+    if (!doctor) {
+      // handle the case where the doctor is not found
+      console.log('Doctor not found');
+      return;
+    }
     var pending = 0;
     var over = 0;
     var unaccepted = 0;
     var accepted = 0;
     const appointments_arr = [];
+    // console.log(doctor);
+    console.log(doctor.appointments);
     doctor.appointments.forEach((appointment) => {
       appointments_arr.push(appointment);
       if (appointment.appointmentStatus === true) {
@@ -329,12 +337,17 @@ app.get("/doc_home", (req, res) => {
       } else {
         pending++;
       }
-      if (appointment.acceptappointment === false) {
+      if (appointment.acceptappointment === 'unchecked') {
         unaccepted++;
-      } else {
+      }
+      else if (appointment.acceptappointment === 'accepted') {
         accepted++;
       }
+      else if (appointment.acceptappointment === 'rejected') {
+        rejected++;
+      }
     });
+    console.log(appointments_arr);
     // console.log(pending);
 
     res.render("doc_home", {
@@ -342,6 +355,7 @@ app.get("/doc_home", (req, res) => {
       pending,
       over,
       unaccepted,
+      accepted,
       appointments_arr,
     });
   });
@@ -365,9 +379,6 @@ app.post('/doc_login', (req, res) => {
   })
 })
 
-app.get('/success', (req, res) => {
-  res.render('success');
-})
 
 const appointments = mongoose.model('appointments', appointment_schema);
 
@@ -382,6 +393,7 @@ app.get('/form', function (req, res) {
 
 app.post('/form', (req, res) => {
   // const name = req.query.name;
+  // console.log(req.body);
   const email = req.query.email;
   const appointment = new appointments({
     patientname: req.body.name,
@@ -390,28 +402,118 @@ app.post('/form', (req, res) => {
     patientproblem: req.body.problem,
     appointdate: req.body.date,
     appointtime: req.body.time,
-    acceptappointment: false,
+    acceptappointment: 'unchecked',
     appointmentStatus: false
   });
+  // console.log(appointment);
   // console.log(name);
   // console.log(email);
-  doctor.findById(email).then((doctor) => {
+  doctor.findOne({ email: email }).then((doctor) => {
     if (!doctor) {
       console.log("No doctor Found");
     }
     else {
+      console.log(doctor.appointments);
+      if (!doctor.appointments) {
+        doctor.appointments = []; // initialize appointments array if it is undefined
+      }
       doctor.appointments.push(appointment);
     }
 
     doctor.save().then(() => {
       console.log("form data submitted to database");
-      res.redirect('/success');
+      res.redirect('/appointsuccess');
     }).catch((err) => {
       console.log(err);
     })
   })
 })
 
+app.get('/accepted/:email/:id', (req, res) => {
+  // console.log(req.params.id);
+  // doctor.findOne({ email: req.params.email }).then((doctor) => {
+  //   doctor.appointments.forEach((appointment) => {
+  //     if (appointment._id === req.params.id) {
+  //       appointment.acceptappointment = 'accepted';
+  //     }
+  //   })
+  // })
+  // const email = req.params.email;
+  // res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(email))}`);
+  // app.get('/accept/:email/:id', (req, res) => {
+  doctor.findOneAndUpdate(
+    { email: req.params.email }, { $set: { "appointments.$[appointment].acceptappointment": "accepted" } },
+    {
+      // Use arrayFilters to specify the condition to find the appointment by ID
+      arrayFilters: [{ "appointment._id": req.params.id }],
+      // Return the updated document
+      new: true,
+    }
+  )
+    .then((updatedDoctor) => {
+      console.log(req.params.email);
+      console.log(`Appointment ${req.params.id} accepted in doctor's document`);
+      res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(req.params.email))}`);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Error updating doctor document');
+    });
+  // });
+
+})
+
+app.get('/rejected/:email/:id', (req, res) => {
+  console.log(req.params.id);
+  // doctor.updateOne({ email: req.params.email }, { $pull: { appointments: { _id: req.params.id } } })
+  //   .then(() => {
+  //     console.log("Appointment deleted from doctor's appointments array");
+  //     res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(req.params.email))}`);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // doctor.findOne({ email: req.params.email }).then((doctor) => {
+  //   doctor.appointments.forEach((appointment) => {
+  //     if (appointment._id === req.params.id) {
+  //       appointment.acceptappointment = 'rejected';
+  //     }
+  //   })
+  //   res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(req.params.email))}`);
+  // })
+
+  doctor.findOneAndUpdate(
+    { email: req.params.email },
+    { $set: { "appointments.$[appointment].acceptappointment": "rejected" } },
+    {
+      arrayFilters: [{ "appointment._id": req.params.id }],
+      new: true,
+    }
+  )
+    .then((updatedDoctor) => {
+      console.log(`Appointment ${req.params.id} rejected in doctor's document`);
+      res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(req.params.email))}`);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Error updating doctor document');
+    });
+
+})
+
+
+
+
+
+app.get('/success', (req, res) => {
+  res.render('success');
+})
+
+
+
+app.get('/appointsuccess', (req, res) => {
+  res.render('appointsuccess');
+})
 
 app.get('/doc_login', (req, res) => {
   res.render('doc_login');
@@ -439,10 +541,10 @@ app.get('/doc_login', (req, res) => {
 //     console.log(err);
 //   })
 
-app.get('/doctor', async(req, res) => {
+app.get('/doctor', async (req, res) => {
   try {
     const approvedDoctors = await doctor.find({ approved: "true" });
-
+    // console.log(approvedDoctors);
     res.render("doctor", { DoctorDetails: approvedDoctors });
 
   } catch (error) {
@@ -457,9 +559,10 @@ app.get('/filter', (req, res) => {
   console.log(req.query);
   const specialization = req.query.docspec;
   console.log(specialization);
-  doctor.find({ specialization: specialization }).then((doctors) => {
+  doctor.find({ specialization: specialization, approved: true }).then((doctors) => {
+    console.log(doctors);
     res.render('doctor', {
-      doctors
+      DoctorDetails: doctors
     });
   })
     .catch((err) => {
@@ -471,9 +574,9 @@ app.get('/filter', (req, res) => {
 app.get('/search', (req, res) => {
   console.log(req.query);
   const name = req.query.docname;
-  doctor.find({ name: { $regex: new RegExp(name, 'i') } }).then((doctors) => {
+  doctor.find({ name: { $regex: new RegExp(name, 'i') }, approved: true }).then((doctors) => {
     res.render('doctor', {
-      doctors
+      DoctorDetails: doctors
     });
   })
     .catch((err) => {
