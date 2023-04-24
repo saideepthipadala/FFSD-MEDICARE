@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Page</title>
+    <title>Document</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,18 +20,24 @@
       </a>
       <nav class="main-nav">
         <ul class="main-nav-list">
+
+          <li><a class="main-nav-link" href="/registrations">Registrations</a></li
          
           <li><a class="main-nav-link" href="/blogs">Blogs</a></li>
-          <li><a class="main-nav-link" href="/contactus">Contact us</a></li>
-
+          <li><a class="main-nav-link" href="/contact_us">Contact us</a></li>
           <%if(status == "loggedIn"){%>
           <li>
             <a class="main-nav-link main-nav-link-lc" href="/logout">
               Logout
             </a>
           </li>
+          <li>
+            <a class="main-nav-link main-nav-link-lc" href="/profile">
+              <%= user.fullname %>
+            </a>
+          </li>
           <%}else{%> 
-            <li><a class="main-nav-link" href="/login">Login</a></li>
+            <li><a class="main-nav-link" href="/login">login</a></li>
             <li>
               <a class="main-nav-link main-nav-link-lc" href="/register">
                 Signup
@@ -116,7 +122,7 @@
           <div class="step-text-box">
             <p class="step-number">03</p>
             <h3 class="heading-tertiary">
-              <a id="Near_by_pharmacy_id" href="/pharmacy" class="how-it-work-link"
+              <a id="Near_by_pharmacy_id" href="/pharmecy" class="how-it-work-link"
                 >Find Near By Pharmacy</a
               >
             </h3>
@@ -133,6 +139,57 @@
               alt="pharmecy image"
             />
           </div>
+
+          <%if(user.role == "admin"){%> 
+          
+
+
+          <div class="step-img-box">
+            <img
+              src="/images/admin.png"
+              class="step-img"
+              alt="pharmecy image"
+            />
+          </div>
+          <div class="step-text-box">
+            <p class="step-number">04</p>
+            <h3 class="heading-tertiary">
+              <a id="Near_by_pharmacy_id" href="/dashboard" class="how-it-work-link"
+                >ADMIN</a
+              >
+            </h3>
+            <p class="step-dscription">
+              ONLY ADMINS CAN ACCESS
+            </p>
+          </div>
+
+          <%}%>
+
+          <%if(user.role == "admin" || user.role == "doctor"){%> 
+
+
+          <div class="step-text-box">
+            <p class="step-number"><%if(user.role == "doctor"){%>04<%}else{%>05<%}%></p>
+            <h3 class="heading-tertiary">
+              <a id="Near_by_pharmacy_id" href="/doctor" class="how-it-work-link"
+                >DOCTORS</a
+              >
+            </h3>
+            <p class="step-dscription">
+              DOCTORS ACCESS POINT
+            </p>
+          </div>
+          <div class="step-img-box">
+            <img
+              src="/images/doctor_how_it_work.jpg"
+              class="step-img"
+              alt="pharmecy image"
+            />
+          </div>
+
+          <%}%>
+          
+          
         </div>
       </section>
       <%}%>
@@ -150,7 +207,7 @@
           </a>
           <ul class="social-links">
             <li>
-              <a class="footer-link href="#"><ion-icon class="social-icon" name="logo-instagram"></ion-icon></a>
+              <a class="footer-link href="#"><ion-icon class="social-icon" name="logo-facebook"></ion-icon></a>
             </li>
             <li>
               <a class="footer-link href="#"><ion-icon class="social-icon" name="logo-instagram"></ion-icon></a>

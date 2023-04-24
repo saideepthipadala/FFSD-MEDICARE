@@ -6,22 +6,14 @@ const path = require("path");
 const cookie = require("cookie-parser");
 const PORT = 6969;
 const bcrypt = require('bcrypt');
+const authController = require("./controllers/authController");
+const userController = require("./controllers/userController");
+const User = require("./models/user_model");
+const adminController = require("./controllers/adminController");
+const mongoose = require("mongoose")
 
 // Create Express app instance
 const app = express();
-
-// Set up MongoDB connection
-const mongoose = require("mongoose");
-mongoose.set("strictQuery", true);
-const uri =
-  "mongodb+srv://ANJALI:anjali123@cluster0.1cwx1sq.mongodb.net/medicare?retryWrites=true&w=majority";
-const MongooseClient = mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-if (MongooseClient) {
-  console.log("Connected to MongoDB");
-}
 
 // Create hospital schema for MongoDB
 const hospitalSchema = new mongoose.Schema({
@@ -63,10 +55,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files from "public" directory
 app.use(express.static(path.join(__dirname, "public")));
-
-// Set up routes
-app.use("/", require("./routes/pages"));
-app.use("/api", require("./controllers/auth"));
 
 // Display registration requests on admin page
 app.get("/admin_verification", (req, res) => {
@@ -494,6 +482,74 @@ app.post('/doc_home', (req, res) => {
   });
 });
 
+app.get("/", authController.loggedIn, (req, res) => {
+  console.log(req.user);
+  if (req.user) {
+    res.render("index", { status: "loggedIn", user: req.user });
+  } else {
+    res.render("index", { status: "no", user: "nothing" });
+  }
+});
+
+app.get("/profile", authController.loggedIn, (req, res) => {
+
+  
+  if (req.user) {
+    res.render("profile", { status: "loggedIn", user: req.user });
+  } else {
+    res.render("index", { status: "no", user: "nothing" });
+  }
+});
+
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.get("/about_page", (req, res) => {
+  res.render("about_page");
+});
+
+app.get("/blogs", (req, res) => {
+  res.render("blog");
+});
+
+app.get("/contact_us", (req, res) => {
+  res.render("contact_us");
+});
+
+app.get("/registrations", (req, res) => {
+  res.render("registrations");
+});
+
+app.get("/up_role_1", (req, res) => {
+  res.render("up_role_1");
+});
+
+app.get("/dashboard",adminController.dashboard_details, (req, res) => {
+  console.log(req.count_details)
+  if (req.count_details) {
+    res.render("dashboard", { status: "loggedIn", count_details: req.count_details });
+  } else {
+    res.render("index");
+  }
+});
+
+app.get("/logout", authController.logout);
+// app.post("/signup", authControllers.signup);
+
+
+
+app.post("/api/register", authController.signup);
+app.post("/api/up_role_1", adminController.up_user_1);
+
+app.post("/api/login", authController.login);
+app.patch("/api/update_user", userController.update_details);
+app.post("/admin/updateRole", adminController.updateUser)
+
+module.exports = app;
+
 // Start the server
-app.listen(PORT, () => console.log("Server listening on port: ", PORT));
 

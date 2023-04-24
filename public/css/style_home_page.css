@@ -321,6 +321,8 @@ strong {
   line-height: 1.8;
 }
 
+.step-dscription {
+}
 
 .how-it-work-link:link,
 .how-it-work-link:visited {
@@ -411,6 +413,11 @@ strong {
 .cta-form input::placeholder {
   color: #aaa;
 }
+.cta-form select {
+}
+
+.cta-form button {
+}
 
 .btn-form {
   background-color: #fff;
@@ -422,8 +429,6 @@ strong {
   background-color: #fff;
   color: #eee;
 }
-
-
 
 *:focus {
   outline: none;

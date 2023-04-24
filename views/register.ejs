@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style_home_page.css" />
+    <link rel="stylesheet" href="css/register.css" />
   </head>
   <body>
     <header class="header">
@@ -40,7 +41,7 @@
               our family. By creating an account and logging in, you'll gain
               access to a variety of benefits and opportunities.
             </p>
-            <form class="cta-form" onsubmit="return false;" id="form">
+            <form class="cta-form" id="form">
               <div>
                 <label class="cta-label" for="fullname">Full name</label>
                 <input
@@ -61,6 +62,69 @@
                 />
               </div>
 
+             
+              <div>
+                <label class="cta-label" for="age"
+                  >Age</label
+                >
+                <input
+                  id="age"
+                  type="intger"
+                  placeholder="should be greater then -1"
+                  required
+                />
+              </div>
+              <div>
+                <label class="cta-label" for="address"
+                  >Address</label
+                >
+                <input
+                  id="address"
+                  type="text"
+                  placeholder="ABXC XYSJHBA"
+                  required
+                />
+              </div>
+              <div>
+                <label class="cta-label" for="phone_num_1"
+                  >Phone number</label
+                >
+                <input
+                  id="phone_num_1"
+                  type="intger"
+                  placeholder="9999999999"
+                  required
+                />
+              </div>
+              <div>
+                <label class="cta-label" for="phone_num_2"
+                  >Phone number</label
+                >
+                <input
+                  id="phone_num_2"
+                  type="intger"
+                  placeholder="9999999999"
+                  required
+                />
+              </div>
+              <div>
+                <label class="cta-label" for="gender">Gender</label>
+                <select id="gender" >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Others">Others</option>
+                </select>
+                <br /><br />
+              </div>
+              <div>
+                <label class="cta-label" for="role">Role</label>
+                <select id="role" >
+                  <option value="patient">Patient</option>
+                  <option value="admin">Admin</option>
+                  <option value="doctor">Doctor</option>
+                </select>
+                <br /><br />
+              </div>
               <div>
                 <label class="cta-label" for="Password">Password</label>
                 <input
@@ -70,8 +134,19 @@
                   required
                 />
               </div>
+              <div>
+                <label class="cta-label" for="confirm_password"
+                  >Confirm Password</label
+                >
+                <input
+                  id="confirm_password"
+                  type="password"
+                  placeholder="gnk7bfg89456/*"
+                  required
+                />
+              </div>
 
-              <button class="btn btn-form">Sign up now</button>
+              <div class="btn btn-form " id="submit_btn">Sign up now</div>
               <div
                 class="alert alert-danger"
                 role="alert"
@@ -116,5 +191,8 @@
     </section>
 
     <script src="/js/register.js"></script>
+  </body>
+</html>
+
   </body>
 </html>
