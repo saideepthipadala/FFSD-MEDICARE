@@ -6,8 +6,6 @@ const pending = document.querySelectorAll(".pending");
 const registrationType = document.getElementById("registrationType");
 const statusType = document.getElementById("statusType");
 
-// const tocheck = document.getElementById("status").value;
-
 document.addEventListener("DOMContentLoaded", () => {
 
   registrationType.addEventListener("change", () => {
@@ -22,8 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
       hospitals.forEach((hospital) => {
         hospital.style.display = "table-row";
       });
-
-
 
     }
 
@@ -160,8 +156,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       pharmacies.forEach((pharmacy) => {
+      
         const names = pharmacy.querySelectorAll("button");
         if (!(names[0].textContent.toLowerCase().includes(keyword0)) && !(names[1].textContent.toLowerCase().includes(keyword1))) {
+          alert("pharrmm");
           pharmacy.style.display = "table-row";
         } else {
           pharmacy.style.display = "none";
@@ -193,10 +191,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
   });
-
-
-
-
 
 });
 
