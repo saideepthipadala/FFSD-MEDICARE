@@ -39,5 +39,33 @@ save.addEventListener("click", async () => {
 
 
 save_changes.addEventListener("click", async () => {
-  await fetch("/")
+  const survey = {
+    email: email.value,
+    fullname: fullname.value,
+    role:role.value,
+  };
+  console.log('role',role);
+  await fetch("/api/up_role", {
+    method: "POST",
+    body: JSON.stringify(survey),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(async (res) => await res.json())
+    .then((data) => {
+      message.setAttribute('value',data.message);
+      if(data.status == "success"){
+    
+        console.log('data : ',data)
+        message.innerText = 'Role updates';
+        role.value = data.new_data.role;
+        setTimeout(() => {
+          window.location.replace("/dashboard");
+        }, 300);
+    
+
+      }
+    })
+    .catch(console.log);
 })

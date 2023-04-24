@@ -491,6 +491,16 @@ app.get("/", authController.loggedIn, (req, res) => {
   }
 });
 
+app.get("/contact_us",authController.loggedIn, (req, res) => {
+
+  if (req.user) {
+    res.render("contact_us", { status: "loggedIn", user: req.user });
+  } else {
+    res.render("index", { status: "no", user: "nothing" });
+  }
+ 
+});
+
 app.get("/profile", authController.loggedIn, (req, res) => {
 
   
@@ -516,9 +526,7 @@ app.get("/blogs", (req, res) => {
   res.render("blog");
 });
 
-app.get("/contact_us", (req, res) => {
-  res.render("contact_us");
-});
+
 
 app.get("/registrations", (req, res) => {
   res.render("registrations");
@@ -544,6 +552,8 @@ app.get("/logout", authController.logout);
 
 app.post("/api/register", authController.signup);
 app.post("/api/up_role_1", adminController.up_user_1);
+app.post("/api/up_role", adminController.updateUser);
+app.post("/api/contact_us", userController.send_data);
 
 app.post("/api/login", authController.login);
 app.patch("/api/update_user", userController.update_details);

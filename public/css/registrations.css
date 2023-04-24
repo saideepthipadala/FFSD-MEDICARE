@@ -12,7 +12,9 @@
 }
 
 .cont-c{
+  
     display: flex;
+    gap: 50px;
     justify-content: center;
     align-items: center;
     height: 300px;
@@ -20,7 +22,7 @@
     font-size: 20px;
     border-radius: 12px;
 
-    background-color: rgba(0, 0, 255, 0.679);
+    background-color: rgba(0, 0, 255, 0.31);
     color: white;
 }
 
