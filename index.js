@@ -2,21 +2,16 @@
 const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
-// const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
 const cookie = require("cookie-parser");
 const PORT = 6969;
 const bcrypt = require('bcrypt');
-// Import controllers
-const loggedIn = require("./controllers/loggedIn");
-const logout = require("./controllers/logout");
 
 // Create Express app instance
 const app = express();
 
 // Set up MongoDB connection
 const mongoose = require("mongoose");
-const { log } = require("console");
 mongoose.set("strictQuery", true);
 const uri =
   "mongodb+srv://ANJALI:anjali123@cluster0.1cwx1sq.mongodb.net/medicare?retryWrites=true&w=majority";
@@ -36,6 +31,7 @@ const hospitalSchema = new mongoose.Schema({
   email: String,
   noOfDoctors: Number,
   approved: { type: String, default: null },
+  registrationType: { type: String, default: "Hospital"},
 });
 
 const Hospital = mongoose.model("HospitalDetail", hospitalSchema);
@@ -50,18 +46,11 @@ const pharmacySchema = new mongoose.Schema({
   noOfEmployees: Number,
   medicines: Array,
   approved: { type: String, default: null },
+  registrationType: { type: String, default: "Pharmacy" },
 });
 const Pharmacy = mongoose.model("PharmacyDetail", pharmacySchema);
 
-// Set up SQLite3 connection (currently commented out)
-// const db = new sqlite3.Database(
-//   `${__dirname}/routes/sql_login.sqlite3`,
-//   sqlite3.OPEN_READWRITE,
-//   (err) => {
-//     if (err) return console.log(err.message);
-//     console.log("connection successful");
-//   }
-// );
+
 
 // Set up Express app settings
 app.set("view engine", "ejs");
@@ -84,11 +73,7 @@ app.get("/admin_verification", (req, res) => {
   Hospital.find({}).then((hospitals) => {
     Pharmacy.find({}).then((pharmacies) => {
       doctor.find({}).then((doctors) => {
-        res.render("admin_verification", {
-          Registrations: hospitals,
-          RegistrationPharmacies: pharmacies,
-          RegistrationDoctors: doctors, 
-        });
+        res.render("admin_verification", {RegistrationHospitals: hospitals, RegistrationPharmacies: pharmacies, RegistrationDoctors: doctors,});
       }); 
     });
   });
@@ -276,6 +261,7 @@ const doctor_schema = new mongoose.Schema({
   // _id: String,
   approved: { type: String, default: null },
   appointments: [appointment_schema],
+  registrationType: { type: String, default: "Doctor" },
 });
 
 const doctor = mongoose.model('doctor', doctor_schema);
@@ -507,7 +493,6 @@ app.post('/doc_home', (req, res) => {
     }
   });
 });
-
 
 // Start the server
 app.listen(PORT, () => console.log("Server listening on port: ", PORT));

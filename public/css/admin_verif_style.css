@@ -32,8 +32,11 @@ label{
 font-family: inherit;
  font-size: 1rem;
   font-weight: 550;
-margin-left: 500px;
-  
+   margin-left: 500px; 
+}
+
+.statusType{
+     margin-left: 20px; 
 }
 
 h1 {
@@ -77,8 +80,12 @@ table {
 
 th,
 td {
-  padding: 12px 10px;
+ align-content: safe;
+  padding: 13px 15px;
   text-align: left;
+
+ 
+  
 }
 
 th {
@@ -99,6 +106,20 @@ a:hover {
   text-decoration: underline;
 }
 
+.pending{
+   padding: 8px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color:  #FFC107;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 40px;
+    font-family: inherit;
+
+}
+
 #approve {
     padding: 8px 20px;
     font-size: 1rem;
@@ -108,7 +129,7 @@ a:hover {
     border: none;
     cursor: pointer;
     border-radius: 10px;
-    margin-left: 20px;
+    margin-left: 35px;
     font-family: inherit;
    
   }
@@ -134,7 +155,7 @@ a:hover {
     border: none;
     cursor: pointer;
     border-radius: 10px;
-    margin-left: 20px;
+    margin-left: 35px;
     font-family: inherit;
   }
    #rejected{
