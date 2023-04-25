@@ -3,7 +3,6 @@ const error = document.getElementById("error");
 const section_how = document.getElementsByClassName("section-how");
 
 form.addEventListener("submit", async () => {
-  console.log("something");
   const login = {
     email: email.value,
     password: password.value,
@@ -18,7 +17,7 @@ form.addEventListener("submit", async () => {
     .then(async (res) => await res.json())
     .then((data) => {
       console.log(data);
-      if (data.status == "error") {
+      if (data.status === "error") {
         success.style.display = "none";
         error.style.display = "block";
         error.innerText = data.error;
@@ -27,6 +26,10 @@ form.addEventListener("submit", async () => {
         success.style.display = "block";
         success.innerText = data.success;
         section_how.style = "block";
+        localStorage.setItem("session", JSON.stringify(data));
+        setTimeout(() => {
+          window.location.replace("/");
+        }, 300);
       }
     })
     .catch(console.log);

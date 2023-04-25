@@ -6,9 +6,7 @@ searchInput.addEventListener("input", function () {
   const keyword = this.value.toLowerCase().trim();
 
   cards.forEach((card) => {
-    const name = card
-      .querySelector(".hospital-name h1")
-      .textContent.toLowerCase();
+    const name = card.querySelector(".hospital-name h1").textContent.toLowerCase();
 
     if (name.includes(keyword)) {
       card.style.display = "block";
