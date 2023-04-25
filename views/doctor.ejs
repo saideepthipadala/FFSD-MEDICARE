@@ -111,26 +111,30 @@
     </form> -->
 
     <div id="doctors-container" class="container">
-  <% if (DoctorDetails.length === 0) { %>
-    <h1 class="container mx-auto fs-7">No Doctors Found</h1>
-  <% } else { %>
-    <% DoctorDetails.forEach((doctor) => { %>
-      <div class="doctor-container">
-        <img src="./images/img_avatar.png" alt="">
-        <h2><%= doctor.name %></h2>
-        <p>Gender: <%= doctor.gender %></p>
-        <p>Email: <%= doctor.email %></p>
-        <p>Specialization: <%= doctor.specialization %></p>
-        <p>Qualification: <%= doctor.qualification %></p>
-        <p>Availability: <%= doctor.Availability %></p>
-        <p>Timings: <%= doctor.Timings %></p>
-        <a href="./form?name=<%= doctor.name %>|<%= doctor.email %>">Consult</a>
-      </div>
-    <% }) %>
-  <% } %>
-</div>
+      <% if (DoctorDetails.length===0) { %>
+        <h1 class="container mx-auto fs-7">No Doctors Found</h1>
+        <% } else { %>
+          <% DoctorDetails.forEach((doctor)=> { %>
+            <div class="doctor-container">
+              <img src="./images/img_avatar.png" alt="">
+              <h2>
+                <%= doctor.name %>
+              </h2>
+              <p>Gender: <%= doctor.gender %>
+              </p>
+              <p>Email: <%= doctor.email %>
+              </p>
+              <p>Specialization: <%= doctor.specialization %>
+              </p>
+              <p>Qualification: <%= doctor.qualification %>
+              </p>
+              <a href="./form?name=<%= doctor.name %>|<%= doctor.email %>">Consult</a>
+            </div>
+            <% }) %>
+              <% } %>
+    </div>
 
-   
+
 
 
 

@@ -38,12 +38,17 @@ app.get("/admin_verification", (req, res) => {
       doctor.find({}).then((doctors) => {
         res.render("admin_verification", { RegistrationHospitals: hospitals, RegistrationPharmacies: pharmacies, RegistrationDoctors: doctors, },);
       });
+        
     });
   });
 });
 
+
 app.get("/announcements", (req, res) => {
   res.render("announcements");
+app.get("/announcements", (req, res) => {
+  res.render("announcements");
+});
 });
 
 
@@ -254,6 +259,7 @@ app.get('/accepted/:email/:id', (req, res) => {
     appointment.acceptappointment = 'true';
     return doctor.save();
   }).then(() => {
+    // res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(email))}`);
     return res.status(200).send('Appointment accepted successfully');
   }).catch((error) => {
     console.error(error);
@@ -264,25 +270,70 @@ app.get('/accepted/:email/:id', (req, res) => {
 app.get('/rejected/:email/:id', (req, res) => {
   const { email, id } = req.params;
   doctor.findOne({ email }).then((doctor) => {
-    if (!doctor) {
-      return res.status(404).send('Doctor not found');
-    }
-
-    const appointment = doctor.appointments.id(id);
-    if (!appointment) {
+    console.log(doctor);
+    // if (!doctor) {
+    //   return res.status(404).send('Doctor not found');
+    // }
+    const appointmentIndex = doctor.appointments.findIndex((appointment) => appointment.id === id);
+    if (appointmentIndex === -1) {
       return res.status(404).send('Appointment not found');
     }
-
-    return appointment.remove().then(() => {
-      return doctor.save();
-    });
+    doctor.appointments.splice(appointmentIndex, 1);
+    return doctor.save();
   }).then(() => {
+    // res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(email))}`);
     return res.status(200).send('Appointment rejected successfully');
   }).catch((error) => {
     console.error(error);
     return res.status(500).send('Internal server error');
   });
 });
+
+
+
+// app.get('/rejected/:email/:id', (req, res) => {
+//   const { email, id } = req.params;
+//   doctor.findOne({ email }).then((doctor) => {
+//     if (!doctor) {
+//       return res.status(404).send('Doctor not found');
+//     }
+
+//     const appointment = doctor.appointments.id(id);
+//     if (!appointment) {
+//       return res.status(404).send('Appointment not found');
+//     }
+
+//     return appointment.remove().then(() => {
+//       return doctor.save();
+//     });
+//   }).then(() => {
+//     return res.status(200).send('Appointment rejected successfully');
+//   }).catch((error) => {
+//     console.error(error);
+//     return res.status(500).send('Internal server error');
+//   });
+// });
+
+// app.get('/rejected/:email/:id', async (req, res) => {
+//   const { email, id } = req.params;
+//   try {
+//     const doctor = await doctor.findOne({ email });
+//     if (!doctor) {
+//       return res.status(404).send('Doctor not found');
+//     }
+//     const appointmentIndex = doctor.appointments.findIndex(appointment => appointment.id === id);
+//     if (appointmentIndex === -1) {
+//       return res.status(404).send('Appointment not found');
+//     }
+//     doctor.appointments.splice(appointmentIndex, 1);
+//     await doctor.save();
+//     res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(email))}`);
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).send('Internal server error');
+//   }
+// });
+
 
 
 
@@ -293,7 +344,12 @@ app.get('/rejected/:email/:id', (req, res) => {
 
 app.get("/doc_home", (req, res) => {
   const doc = JSON.parse(decodeURIComponent(req.query.doctor));
+  // console.log(doc.email);
   doctor.findOne({ email: doc.email }).then((doctor) => {
+    console.log(doctor);
+    if (!doctor) {
+      return res.status(404).send("Doctor not found");
+    }
     var pending = 0;
     var over = 0;
     var unaccepted = 0;
@@ -304,10 +360,8 @@ app.get("/doc_home", (req, res) => {
       if (appointment.appointmentStatus === true) {
         over++;
         console.log("This appointment is accepted");
-      } else {
-        pending++;
       }
-      if (appointment.acceptappointment === false) {
+      else if (appointment.acceptappointment === false) {
         unaccepted++;
       } else {
         accepted++;
@@ -319,6 +373,7 @@ app.get("/doc_home", (req, res) => {
       doctor,
       pending,
       over,
+      accepted,
       unaccepted,
       appointments_arr,
     });
@@ -372,7 +427,9 @@ app.post('/form', (req, res) => {
     acceptappointment: false,
     appointmentStatus: false
   });
- 
+  // console.log(appointment);
+  // console.log(name);
+  // console.log(email);
   doctor.findOne({ email }).then((doc) => {
     if (!doc) {
       console.log("No doctor Found");
@@ -524,6 +581,7 @@ app.get("/up_role_1", (req, res) => {
 
 
 
+
 app.get("/dashboard", adminController.dashboard_details, (req, res) => {
   console.log(req.count_details)
   if (req.count_details) {
@@ -544,9 +602,6 @@ app.post("/api/contact_us", userController.send_data);
 
 app.post("/api/login", authController.login);
 app.patch("/api/update_user", userController.update_details);
-app.post("/admin/updateRole", adminController.updateUser)
+app.post("/admin/updateRole", adminController.updateUser);
 
 module.exports = app;
-
-// Start the server
-
