@@ -19,7 +19,8 @@
     <div class="sidebar">
         <a class="active" href="#home" onclick="showhome()">Home</a>
         <a href="#newappoint" onclick="shownewappoint()">New Appointments</a>
-        <a href="#pastappoint" onclick="showpastappoint()">Past Appointments</a>
+        <a href="#pastappoint" onclick="showpastappoint()">Accepted
+            Appointments</a>
         <a href="#profile" onclick="showprofile()">Profile</a>
     </div>
     <!-- 
@@ -31,8 +32,6 @@
         <h2>Home</h2>
         <p>Welcome to my website!</p>
     </div> -->
-
-
     <!-- -->
 
     <div class="content">
@@ -43,13 +42,13 @@
                 <div class="grid-items">
                     <p>Appointments Pending</p>
                     <h1>
-                        <%= pending %>
+                        <%= unaccepted %>
                     </h1>
                 </div>
                 <div class="grid-items">
-                    <p>Past Appointments</p>
+                    <p>Accepted Appointments</p>
                     <h1>
-                        <%= over %>
+                        <%= accepted %>
                     </h1>
                 </div>
                 <div class="grid-items">
@@ -58,100 +57,143 @@
                         <%= unaccepted %>
                     </h1>
                 </div>
-                <div class="grid-items">
-                    <% if(doctor.approved) { %>
+                <% if(doctor.approved==='true' ) { %>
+                    <div class="grid-items" style="background-color: green;">
                         <p>Approved</p>
-                        <% }else{ %>
+                        <p>You are an Approved Doctor</p>
+                    </div>
+                    <% }else{ %>
+                        <div class="grid-items" style="background-color: red;">
                             <p>Un Approved</p>
-                            <p style="font-size: 15px;margin-top: 0.25rem;">You are Yet to be get an Approval from the
+                            <p style="font-size:
+                                                15px;margin-top: 0.25rem;">You
+                                are Yet to be get an
+                                Approval from the
                                 admin</p>
-                            <% } %>
-
-
-                </div>
+                        </div>
+                        <% } %>
             </div>
         </div>
-        <div id="newappoint" style="display: none;">
+        <div id="newappoint" style="display:
+                                            none;">
             <h1>New Appointments</h1>
-            <% appointments_arr.forEach((appoint)=>{ %>
-                <div class="appoint">
-                    <p>
-                        Patient Name: <%=appoint.patientname%>
-                    </p>
-                    <p>
-                        PatientGender: <%=appoint.patientgender%>
-                    </p>
-                    <p>
-                        Patient Age: <%=appoint.patientage%>
-                    </p>
-                    <p>
-                        Patient Problem: <%=appoint.patientproblem%>
-                    </p>
-                    <p>
-                        Appointment Date: <%=appoint.appointdate %>
-                    </p>
-                    <p>
-                        Appointment Time: <%=appoint.appointtime %>
-                    </p>
-                    <a href="">Accept</a>
-                    <a href="">Reject</a>
-                </div>
-                <% }) %>
-
-        </div>
-
-
-        <div id="pastappoint" style="display: none;">
-            <h1>Past Appointments</h1>
-            <% appointments_arr.forEach((appoint)=>{ %>
-                <% if(appoint.appointmentStatus===true){ %>
+            <% appointments_arr.forEach((appoint)=>{
+                %>
+                <% if(appoint.acceptappointment===false) {%>
                     <div class="appoint">
-
                         <p>
+                            Patient Name:
                             <%=appoint.patientname%>
                         </p>
                         <p>
+                            PatientGender:
                             <%=appoint.patientgender%>
                         </p>
                         <p>
+                            Patient Age:
                             <%=appoint.patientage%>
                         </p>
                         <p>
+                            Patient
+                            Problem:
                             <%=appoint.patientproblem%>
                         </p>
                         <p>
+                            Appointment
+                            Date:
                             <%=appoint.appointdate %>
                         </p>
                         <p>
+                            Appointment
+                            Time:
+                            <%=appoint.appointtime %>
+                        </p>
+                        <a href="/accepted/<%=doctor.email%>/<%=appoint._id%>">Accept</a>
+                        <a href="/rejected/<%=doctor.email%>/<%=appoint._id%>">Reject</a>
+                    </div>
+                    <%}%>
+                        <% }) %>
+        </div>
+        <div id="pastappoint" style="display:
+                                                                                            none;">
+            <h1>Accepted
+                Appointments</h1>
+            <% appointments_arr.forEach((appoint)=>{
+                %>
+                <% if(appoint.acceptappointment===true){ %>
+                    <div class="appoint">
+                        <p>
+                            Patient
+                            Name:<%=appoint.patientname%>
+                        </p>
+                        <p>
+                            Patient
+                            Gender:
+                            <%=appoint.patientgender%>
+                        </p>
+                        <p>
+                            Patient
+                            Age:
+                            <%=appoint.patientage%>
+                        </p>
+                        <p>
+                            Patient
+                            Problem:
+                            <%=appoint.patientproblem%>
+                        </p>
+                        <p>
+                            Appointment
+                            Date:
+                            <%=appoint.appointdate %>
+                        </p>
+                        <p>
+                            Appointment
+                            Time:
                             <%=appoint.appointtime %>
                         </p>
                     </div>
                     <%}%>
                         <% }) %>
         </div>
-        <div id="profile" style="display: none;">
-            <h1>Your Details</h1>
+        <div id="profile"
+            style="display:
+                                                                                                                                    none;">
+            <h1>Your
+                Details</h1>
             <p>Name:<%= doctor.name %>
             </p>
-            <p>Gender: <%= doctor.gender %>
+            <p>Gender:
+                <%= doctor.gender %>
             </p>
-            <p>Specialization: <%= doctor.specialization %>
+            <p>Specialization:
+                <%= doctor.specialization %>
             </p>
-            <p>Qualification: <%= doctor.qualification %>
+            <p>Qualification:
+                <%= doctor.qualification %>
             </p>
-            <p>Registered Email: <%= doctor.email %>
+            <p>Registered
+                Email:
+                <%= doctor.email %>
             </p>
-            <button onclick="displayform()">Update Profile</button>
+            <button onclick="displayform()">Update
+                Profile</button>
             <form action="/doc_home" id="update-form" method="post">
                 <div class="d-flex">
                     <label for="Doc_name">Name:
-                        <input type="text" id="Doc_name" value="<%= doctor.name %>" placeholder="Name" name="docname"
-                            onkeyup="validateName()">
+                        <input type="text" id="Doc_name"
+                            value="<%=
+                                                                                                                                                                        doctor.name
+                                                                                                                                                                        %>"
+                            placeholder="Name" name="docname" onkeyup="validateName()">
                         <span id="error-name"></span>
                     </label>
                     <label for="Doc_gender">Gender:
                         <select name="gender" id="Doc_gender" required>
-                            <option value="<%= doctor.gender %>" selected>
+                            <option
+                                value="<%=
+                                                                                                                                                                            doctor.gender
+                                                                                                                                                                            %>"
+                                selected>
                                 <%= doctor.gender %>
                             </option>
                             <option value="Male">Male</option>
@@ -161,19 +203,45 @@
                     </label>
                     <label for="Doc_spec">Specialization
                         <select name="specialization" id="Doc_spec" required>
-                            <option value="<%= doctor.specialization %>" selected>
+                            <option
+                                value="<%=
+                                                                                                                                                                                doctor.specialization
+                                                                                                                                                                                %>"
+                                selected>
                                 <%= doctor.specialization %>
                             </option>
                             <option value="Orthopedics">Orthopedics</option>
-                            <option value="Internal Medicine">Internal Medicine</option>
-                            <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+                            <option
+                                value="Internal
+                                                                                                                                                                                    Medicine">
+                                Internal
+                                Medicine</option>
+                            <option
+                                value="Obstetrics
+                                                                                                                                                                                    and
+                                                                                                                                                                                    Gynecology">
+                                Obstetrics
+                                and
+                                Gynecology</option>
                             <option value="Dermatology">Dermatology</option>
                             <option value="Pediatrics">Pediatrics</option>
                             <option value="Radiology">Radiology</option>
-                            <option value="General Surgery">General Surgery</option>
+                            <option
+                                value="General
+                                                                                                                                                                                    Surgery">
+                                General
+                                Surgery</option>
                             <option value="Ophthalmology">Ophthalmology</option>
-                            <option value="Family Medicine">Family Medicine</option>
-                            <option value="Chest Medicine">Chest Medicine</option>
+                            <option
+                                value="Family
+                                                                                                                                                                                    Medicine">
+                                Family
+                                Medicine</option>
+                            <option
+                                value="Chest
+                                                                                                                                                                                    Medicine">
+                                Chest
+                                Medicine</option>
                             <option value="Anesthesia">Anesthesia</option>
                             <option value="Pathology">Pathology</option>
                             <option value="ENT">ENT</option>
@@ -182,7 +250,10 @@
                     </label>
                     <label for="Doc_Qual">Qualification
                         <select name="Qualification" id="Doc_Qual" required>
-                            <option value="<%= doctor.qualification %>">
+                            <option
+                                value="<%=
+                                                                                                                                                                                    doctor.qualification
+                                                                                                                                                                                    %>">
                                 <%= doctor.qualification %>
                             </option>
                             <option value="RMP">RMP</option>
@@ -192,10 +263,12 @@
                             <option value="Other">Other</option>
                         </select>
                     </label>
-
                     <label for="doc_email">Email:
-                        <input type="email" name="docemail" value="<%= doctor.email %>" id="Doc_email"
-                            placeholder="email" onkeyup="validateEmail()" readonly>
+                        <input type="email" name="docemail"
+                            value="<%=
+                                                                                                                                                                                    doctor.email
+                                                                                                                                                                                    %>"
+                            id="Doc_email" placeholder="email" onkeyup="validateEmail()" readonly>
                         <span id="error-email"></span>
                     </label>
                     <label for="doc_password">Password:
@@ -203,14 +276,21 @@
                             onkeyup="validatePassword()">
                         <span id="error-pass"></span>
                     </label>
-
-                    <label for="cnf_password">Confirm Password
-                        <input type="password" id="Cnf_password" placeholder="confirm password"
+                    <label for="cnf_password">Confirm
+                        Password
+                        <input type="password" id="Cnf_password"
+                            placeholder="confirm
+                                                                                                                                                                                    password"
                             onkeyup="validateCnfPassword()">
                         <span id="error-cnfpass"></span>
                     </label>
-
-                    <button type="submit" class="mt-4 px-4 py-2 text-light rounded" id="submit">Update</button>
+                    <button type="submit"
+                        class="mt-4
+                                                                                                                                                                                px-4
+                                                                                                                                                                                py-2
+                                                                                                                                                                                text-light
+                                                                                                                                                                                rounded"
+                        id="submit">Update</button>
                 </div>
             </form>
         </div>

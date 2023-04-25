@@ -13,7 +13,7 @@ const timeInput = document.querySelector('#time');
 const error = document.querySelector('.error');
 const Name = document.querySelector("#pname");
 const patientproblem = document.querySelector('textarea');
-const nameregx = /^[a-z]+$/i;
+const nameregx = /^[a-z\s]+$/i;
 
 const nameerr = document.querySelector('#name-error');
 const problemerr = document.querySelector("#problem-error");
