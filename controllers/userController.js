@@ -6,6 +6,8 @@ dotenv.config({ path: "./../config.env" });
 const bcrypt = require("bcryptjs");
 const { emit } = require("process");
 const { decode } = require("punycode");
+const user_model = require("./../models/contact_us");
+const contact_us = require("./../models/contact_us");
 
 
 exports.update_details = async(req, res) => {
@@ -56,4 +58,19 @@ exports.update_details = async(req, res) => {
       });
 
     
+}
+
+exports.send_data = async (req,res)=>{
+  const newUser = await  contact_us.create(req.body);
+  res.status(201).json({
+    status: "success",
+
+    data: {
+      user: newUser,
+    },
+
+  });
+
+
+
 }

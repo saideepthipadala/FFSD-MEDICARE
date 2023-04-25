@@ -19,7 +19,7 @@
     <div class="sidebar">
         <a class="active" href="#home" onclick="showhome()">Home</a>
         <a href="#newappoint" onclick="shownewappoint()">New Appointments</a>
-        <a href="#pastappoint" onclick="showpastappoint()">Accepted Appointments</a>
+        <a href="#pastappoint" onclick="showpastappoint()">Past Appointments</a>
         <a href="#profile" onclick="showprofile()">Profile</a>
     </div>
     <!-- 
@@ -47,9 +47,9 @@
                     </h1>
                 </div>
                 <div class="grid-items">
-                    <p>Accepted Appointments</p>
+                    <p>Past Appointments</p>
                     <h1>
-                        <%= accepted %>
+                        <%= over %>
                     </h1>
                 </div>
                 <div class="grid-items">
@@ -58,82 +58,73 @@
                         <%= unaccepted %>
                     </h1>
                 </div>
-                <% if(doctor.approved=='true' ) { %>
-                    <div class="grid-items" style="background-color: green;">
+                <div class="grid-items">
+                    <% if(doctor.approved) { %>
                         <p>Approved</p>
-                        <p>You are an approved doctor</p>
-                    </div>
-                    <% }else{ %>
-                        <div class="grid-items" style="background-color: red;">
-                            <p>UnApproved</p>
+                        <% }else{ %>
+                            <p>Un Approved</p>
                             <p style="font-size: 15px;margin-top: 0.25rem;">You are Yet to be get an Approval from the
                                 admin</p>
-                        </div>
-                        <% }%>
+                            <% } %>
+
+
+                </div>
             </div>
         </div>
         <div id="newappoint" style="display: none;">
             <h1>New Appointments</h1>
             <% appointments_arr.forEach((appoint)=>{ %>
-                <% if(appoint.acceptappointment==='unchecked' ){ %>
-                    <div class="appoint">
-                        <p>
-                            Patient Name: <%=appoint.patientname%>
-                        </p>
-                        <p>
-                            PatientGender: <%=appoint.patientgender%>
-                        </p>
-                        <p>
-                            Patient Age: <%=appoint.patientage%>
-                        </p>
-                        <p>
-                            Patient Problem: <%=appoint.patientproblem%>
-                        </p>
-                        <p>
-                            Appointment Date: <%=appoint.appointdate %>
-                        </p>
-                        <p>
-                            Appointment Time: <%=appoint.appointtime %>
-                        </p>
-                        <a href="/accepted/<%=doctor.email%>/<%=appoint._id%>">Accept</a>
-                        <a href="/rejected/<%=doctor.email%>/<%=appoint._id%>">Reject</a>
-                    </div>
-                    <% } %>
-                        <% }) %>
+                <div class="appoint">
+                    <p>
+                        Patient Name: <%=appoint.patientname%>
+                    </p>
+                    <p>
+                        PatientGender: <%=appoint.patientgender%>
+                    </p>
+                    <p>
+                        Patient Age: <%=appoint.patientage%>
+                    </p>
+                    <p>
+                        Patient Problem: <%=appoint.patientproblem%>
+                    </p>
+                    <p>
+                        Appointment Date: <%=appoint.appointdate %>
+                    </p>
+                    <p>
+                        Appointment Time: <%=appoint.appointtime %>
+                    </p>
+                    <a href="">Accept</a>
+                    <a href="">Reject</a>
+                </div>
+                <% }) %>
 
         </div>
 
 
         <div id="pastappoint" style="display: none;">
-            <h1>Accepted Appointments</h1>
+            <h1>Past Appointments</h1>
             <% appointments_arr.forEach((appoint)=>{ %>
-                <% if(appoint.acceptappointment==='accepted' ){ %>
+                <% if(appoint.appointmentStatus===true){ %>
                     <div class="appoint">
-                        <p>
-                            Patient Name:<%=appoint.patientname%>
-                        </p>
-                        <p>
-                            Patient Gender:<%=appoint.patientgender%>
-                        </p>
-                        <p>
-                            Patient Age:<%=appoint.patientage%>
-                        </p>
-                        <p>
-                            Patient Problem:<%=appoint.patientproblem%>
-                        </p>
-                        <p>
-                            Appointment Date:<%=appoint.appointdate %>
-                        </p>
-                        <p>
-                            Appointment Time:<%=appoint.appointtime %>
-                        </p>
-                        <!-- 
-                    <% if(appoint.acceptappointment===false){ %>
-                        <p>Appointment Rejected</p>
-                        <% } else{%>
-                            <p>Accepted Appointment</p>
-                            <% }%> -->
 
+                        <p>
+                            <%=appoint.patientname%>
+                        </p>
+                        <p>
+                            <%=appoint.patientgender%>
+                        </p>
+                        <p>
+                            <%=appoint.patientage%>
+                        </p>
+                        <p>
+                            <%=appoint.patientproblem%>
+                        </p>
+                        <p>
+                            <%=appoint.appointdate %>
+                        </p>
+                        <p>
+                            <%=appoint.appointtime %>
+                        </p>
                     </div>
                     <%}%>
                         <% }) %>
