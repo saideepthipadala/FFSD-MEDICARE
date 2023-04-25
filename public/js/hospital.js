@@ -15,3 +15,4 @@ searchInput.addEventListener("input", function () {
     }
   });
 });
+
