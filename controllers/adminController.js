@@ -23,14 +23,14 @@ exports.dashboard_details = async (req, res, next) => {
   );
 
   const count_users = (await User.find().count());
-  console.log('user', count_users)
+  // console.log('user', count_users)
 
   const admin_count = (await User.find({ role: "admin" }).count());
-  console.log('admin', admin_count)
+  // console.log('admin', admin_count)
 
 
   const patient_count = (await User.find({ role: "patient" }).count());
-  console.log('admin', patient_count)
+  // console.log('admin', patient_count)
   
     
   

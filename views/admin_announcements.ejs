@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Announcements</title>
+    <link rel="stylesheet" href="/css/admin_announcements.css">
+  </head>
+  <body>
+    <h1>Make Public Announcements</h1>
+    <form action="/admin_announcements" method="POST">
+      <label for="announcement_title">Announcement Title:</label>
+      <input type="text" id="announcement_title" name="announcement_title" required>
+
+      <label for="announcement_content">Announcement Content:</label>
+      <textarea id="announcement_content" name="announcement_content" rows="10" cols="50" required></textarea>
+
+      <label for="post_announcement">Post Announcement :</label>
+      <input type="checkbox" id="post_announcement" name="post_announcement">
+
+      <input type="submit" value="Create Announcement and Send">
+    </form>
+  </body>
+</html>
