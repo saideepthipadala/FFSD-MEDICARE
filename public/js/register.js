@@ -15,11 +15,10 @@ let phone_num_2 = document.getElementById("phone_num_2");
 const section_how = document.getElementsByClassName("section-how");
 
 function ValidateEmail(mail) {
-  const a = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
-  if (a.test(mail)) {
+  const a = '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$';
+  if (mail.match(a)) {
     return true;
   }
-
   return false;
 }
 
@@ -32,20 +31,20 @@ function containsOnlyNumbers(str) {
   return /^\d+$/.test(str);
 }
 
-function ValidatePhoneNumber(phone){
+function ValidatePhoneNumber(phone) {
   const result = containsOnlyNumbers(phone)
-  if(!result){
+  if (!result) {
     return false;
   }
-  else{
-    if(phone.length == 10){
+  else {
+    if (phone.length == 10) {
       return true;
     }
-    else{
+    else {
       return false;
     }
   }
-  
+
 }
 
 function diaplay_error_block(message) {
@@ -75,31 +74,33 @@ function form_validation(register) {
     flag = false;
   }
 
-  if(register.phone_num_1 == "" && register.phone_num_2 == ""){
+  if (register.phone_num_1 == "" && register.phone_num_2 == "") {
     diaplay_error_block("Enter atlest one contact number");
     flag = false;
   }
 
-  if(register.phone_num_1 !== ""){
-    if(!ValidatePhoneNumber(register.phone_num_1)){
+  if (register.phone_num_1 !== "") {
+    if (!ValidatePhoneNumber(register.phone_num_1)) {
       diaplay_error_block("Please enter a valid phone number");
       flag = false;
 
     }
   }
 
-  if(register.phone_num_2 !== ""){
-    if(!ValidatePhoneNumber(register.phone_num_2)){
+  if (register.phone_num_2 !== "") {
+    if (!ValidatePhoneNumber(register.phone_num_2)) {
       diaplay_error_block("Please enter a valid phone number");
       flag = false;
 
     }
   }
 
-  // if (!ValidateEmail(register.email)) {
-  //   diaplay_error_block("Please enter a valid email");
-  //   flag = false;
-  // }
+  if (!ValidateEmail(register.email)) {
+    diaplay_error_block("Please enter a valid email");
+    flag = false;
+  }
+
+
   if (!isAlphaSpace(register.fullname)) {
     diaplay_error_block("Name should contain only letters");
     flag = false;
@@ -133,11 +134,11 @@ submit_btn.addEventListener("click", async () => {
     gender: gender.value,
     role: role.value,
     age: age.value,
-    address:address.value,
-    phone_num_1:phone_num_1.value,
-    phone_num_2:phone_num_2.value,
+    address: address.value,
+    phone_num_1: phone_num_1.value,
+    phone_num_2: phone_num_2.value,
   };
- 
+
   if (!form_validation(register)) {
     return;
   }

@@ -64,22 +64,24 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
+
   statusType.addEventListener('change', () => {
 
     if (statusType.value === "Approved") {
       keyword = "approved";
 
       doctors.forEach((doctor) => {
-
         const names = doctor.querySelectorAll("button");
         if (names[0].textContent.toLowerCase().includes(keyword)) {
           doctor.style.display = "table-row";
-
         }
+
+
         else {
           doctor.style.display = "none";
         }
       });
+      
 
       pharmacies.forEach((pharmacy) => {
         const names = pharmacy.querySelectorAll("button");

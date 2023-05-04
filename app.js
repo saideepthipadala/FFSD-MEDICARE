@@ -13,6 +13,8 @@ const Pharmacy = require("./models/Pharmacy");
 const doctor = require("./models/doctor");
 const appointment_schema = require("./models/appointment_schema");
 const Announcement = require("./models/Announcement");
+const User = require("./models/user_model");
+
 
 
 // Create Express app instance
@@ -39,12 +41,21 @@ app.get("/admin_verification", (req, res) => {
       doctor.find({}).then((doctors) => {
         res.render("admin_verification", { RegistrationHospitals: hospitals, RegistrationPharmacies: pharmacies, RegistrationDoctors: doctors, },);
       });
-        
+
     });
   });
 });
 
 
+app.get("/allUsers", (req, res) => {
+
+  User.find().then((users) => {
+    doctor.find({}).then((doctors) => {
+      res.render("allUsers", { users: users, doctors: doctors },);
+    });
+
+  });
+});
 
 
 // Handle hospital registration form submission
@@ -124,20 +135,19 @@ app.get("/pharmacy", async (req, res) => {
   }
 });
 
-    // Display page for making public announcements and sending emails to all users
-    app.get("/admin_announcements", async (req, res) => {
-      try {
-        res.render("admin_announcements");
-      } catch (err) {
-        console.error(err);
-        res.status(500).send("Internal server error");
-      }
-    });
+app.get("/admin_announcements", async (req, res) => {
+  try {
+    res.render("admin_announcements");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal server error");
+  }
+});
 
 app.get("/announcements", async (req, res) => {
   try {
     let announcements = await Announcement.find({});
-    res.render("announcements", { announcements: announcements});
+    res.render("announcements", { announcements: announcements });
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal server error");
@@ -146,21 +156,21 @@ app.get("/announcements", async (req, res) => {
 
 
 
-    app.post("/admin_announcements", async (req, res) => {
-      try {
-        const { announcement_title, announcement_content } = req.body;
-        const newAnnouncement = await Announcement.create({
-          title: announcement_title,
-          content: announcement_content,
-          date: Date.now()
-        });
-        res.redirect('/announcements');
-      } catch (err) {
-        console.error(err);
-        res.status(500).send("Internal server error");
-      }
+app.post("/admin_announcements", async (req, res) => {
+  try {
+    const { announcement_title, announcement_content } = req.body;
+    const newAnnouncement = await Announcement.create({
+      title: announcement_title,
+      content: announcement_content,
+      date: Date.now()
     });
-  
+    res.redirect('/announcements');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal server error");
+  }
+});
+
 
 
 app.get("/medicines/:id", async (req, res) => {
@@ -183,8 +193,6 @@ app.get("/medicines/:id", async (req, res) => {
 
 
 app.post("/approve", async (req, res) => {
-  const id = req.body.id;
-  console.log(id);
   try {
     await Hospital.findByIdAndUpdate(
       { _id: req.body.id },
@@ -199,7 +207,6 @@ app.post("/approve", async (req, res) => {
       { _id: req.body.id },
       { approved: "true" }
     );
-    // console.log("Hospital approved:", hospital);
     res.redirect("/admin_verification");
   } catch (err) {
     console.log(err);
@@ -282,7 +289,8 @@ app.get('/accepted/:email/:id', (req, res) => {
     return doctor.save();
   }).then(() => {
     // res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(email))}`);
-    return res.status(200).send('Appointment accepted successfully');
+    const doc = { email: email }
+    res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(doc))}`);
   }).catch((error) => {
     console.error(error);
     return res.status(500).send('Internal server error');
@@ -293,7 +301,7 @@ app.get('/rejected/:email/:id', (req, res) => {
   const { email, id } = req.params;
   doctor.findOne({ email }).then((doctor) => {
     // console.log(doctor);
-   
+
     const appointmentIndex = doctor.appointments.findIndex((appointment) => appointment.id === id);
     if (appointmentIndex === -1) {
       return res.status(404).send('Appointment not found');
@@ -302,7 +310,8 @@ app.get('/rejected/:email/:id', (req, res) => {
     return doctor.save();
   }).then(() => {
     // res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(email))}`);
-    return res.status(200).send('Appointment rejected successfully');
+    const doc = { email: email }
+    res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(doc))}`);
   }).catch((error) => {
     console.error(error);
     return res.status(500).send('Internal server error');
@@ -336,9 +345,15 @@ app.get("/doc_home", (req, res) => {
         accepted++;
       }
     });
+    const feedbacks_arr = [];
+    doctor.feedback.forEach((feedback)=>{
+      feedbacks_arr.push(feedback);
+    })
     // console.log(pending);
+    console.log(feedbacks_arr);
 
     res.render("doc_home", {
+      feedbacks_arr,
       doctor,
       pending,
       over,
@@ -552,7 +567,7 @@ app.get("/up_role_1", (req, res) => {
 
 
 app.get("/dashboard", adminController.dashboard_details, (req, res) => {
-  // console.log(req.count_details)
+  console.log(req.count_details)
   if (req.count_details) {
     res.render("dashboard", { status: "loggedIn", count_details: req.count_details });
   } else {
@@ -572,5 +587,11 @@ app.post("/api/contact_us", userController.send_data);
 app.post("/api/login", authController.login);
 app.patch("/api/update_user", userController.update_details);
 app.post("/admin/updateRole", adminController.updateUser);
+
+app.get("/doc_feedback", (req, res) => {
+  res.render("doc_feedback");
+})
+
+app.patch("/api/feedback",userController.send_feedback);
 
 module.exports = app;

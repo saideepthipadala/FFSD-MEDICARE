@@ -23,23 +23,30 @@ exports.dashboard_details = async (req, res, next) => {
   );
 
   const count_users = (await User.find().count());
-  // console.log('user', count_users)
+  console.log('user', count_users)
 
   const admin_count = (await User.find({ role: "admin" }).count());
-  // console.log('admin', admin_count)
+  console.log('admin', admin_count)
 
 
   const patient_count = (await User.find({ role: "patient" }).count());
-  // console.log('admin', patient_count)
-  
-    
-  
+  console.log('patient', patient_count)
+
+
+
   const hospitalscount = await Hospital.countDocuments({ approved: "true" });
+  console.log('hospcount', hospitalscount)
   const pharmaciescount = await Pharmacy.countDocuments({ approved: "true" });
+  console.log('pharmcount', pharmaciescount)
   const doctorscount = await doctor.countDocuments({ approved: "true" });
-  const pendinghosp = await Hospital.countDocuments({ approved: "null" });
-  const pendingpharm = await Pharmacy.countDocuments({ approved: "null" });
-  const pendingdoct = await doctor.countDocuments({ approved: "null" });
+  console.log('doccount', doctorscount)
+
+  const pendinghosp = await Hospital.countDocuments({approved: "null"});
+  console.log('hosp', pendinghosp)
+  const pendingpharm = await Pharmacy.countDocuments({approved: "null" });
+  console.log('p', pendingpharm)
+  const pendingdoct = await doctor.countDocuments({approved: "null" });
+  console.log('doc', pendingdoct)
 
   const count_details = {
     user_count: count_users,
@@ -85,11 +92,11 @@ exports.up_user_1 = async (req, res) => {
   });
 }
 
-exports.updateUser = async(req, res) => {
-  const {email,fullname,role} = req.body
-  let user = await User.findOne({email, fullname});
-  console.log('😜😜😜😜😜😀😀',user)
-  const new_data = await User.findByIdAndUpdate(user._id,{role:role}, {
+exports.updateUser = async (req, res) => {
+  const { email, fullname, role } = req.body
+  let user = await User.findOne({ email, fullname });
+  console.log('😜😜😜😜😜😀😀', user)
+  const new_data = await User.findByIdAndUpdate(user._id, { role: role }, {
     // new: true,
     // runValidators: true,
   });

@@ -63,7 +63,7 @@ save.addEventListener("click", async () => {
   if (fullname.value != "" && isAlphaSpace(fullname.value)) {
     register.fullname = fullname.value;
   }
-  if (email.value != "") {
+  if (email.value != "" && ValidateEmail(email.value)) {
     register.email = email.value;
   }
   if (age.value != "") {

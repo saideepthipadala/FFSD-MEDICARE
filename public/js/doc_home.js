@@ -2,6 +2,7 @@
 const home = document.querySelector('#home');
 const newappoint = document.querySelector('#newappoint');
 const pastappoint = document.querySelector('#pastappoint');
+const feedbacks = document.querySelector('#feedbacks');
 const profile = document.querySelector('#profile');
 const links = document.querySelectorAll(".sidebar a");
 const form = document.querySelector('#update-form');
@@ -26,21 +27,35 @@ function shownewappoint() {
     setActiveLink(links[1]);
     newappoint.style.display = 'block';
     home.style.display = 'none';
+    feedbacks.style.display = 'none';
     pastappoint.style.display = 'none';
     profile.style.display = 'none';
 }
 
 function showpastappoint() {
+    // console.log("appoint di");
     setActiveLink(links[2]);
     pastappoint.style.display = 'block';
     home.style.display = 'none';
+    feedbacks.style.display = 'none';
     newappoint.style.display = 'none';
     profile.style.display = 'none';
 }
-function showprofile() {
+function showfeedbacks() {
+    console.log("hellow");
     setActiveLink(links[3]);
+    feedbacks.style.display = 'block';
+    profile.style.display = 'none';
+    home.style.display = 'none';
+    pastappoint.style.display = 'none';
+    newappoint.style.display = 'none';
+}
+
+function showprofile() {
+    setActiveLink(links[4]);
     profile.style.display = 'block';
     home.style.display = 'none';
+    feedbacks.style.display = 'none';
     pastappoint.style.display = 'none';
     newappoint.style.display = 'none';
 }
@@ -48,6 +63,7 @@ function showhome() {
     setActiveLink(links[0]);
     home.style.display = 'block';
     newappoint.style.display = 'none';
+    feedbacks.style.display = 'none';
     pastappoint.style.display = 'none';
     profile.style.display = 'none';
 }

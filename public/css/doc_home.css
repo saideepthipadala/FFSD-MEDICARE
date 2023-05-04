@@ -69,6 +69,12 @@ body {
     left:24%;
 }
 
+#feedbacks{
+    position: absolute;
+    top:25%;
+    left:24%;
+}
+
 
 #profile p{
     font-size: 1.2rem;
