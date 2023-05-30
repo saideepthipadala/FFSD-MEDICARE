@@ -23,30 +23,30 @@ exports.dashboard_details = async (req, res, next) => {
   );
 
   const count_users = (await User.find().count());
-  console.log('user', count_users)
+ // console.log('user', count_users)
 
   const admin_count = (await User.find({ role: "admin" }).count());
-  console.log('admin', admin_count)
+  //console.log('admin', admin_count)
 
 
   const patient_count = (await User.find({ role: "patient" }).count());
-  console.log('patient', patient_count)
+  //console.log('patient', patient_count)
 
 
 
   const hospitalscount = await Hospital.countDocuments({ approved: "true" });
-  console.log('hospcount', hospitalscount)
+ // console.log('hospcount', hospitalscount)
   const pharmaciescount = await Pharmacy.countDocuments({ approved: "true" });
-  console.log('pharmcount', pharmaciescount)
+  //console.log('pharmcount', pharmaciescount)
   const doctorscount = await doctor.countDocuments({ approved: "true" });
-  console.log('doccount', doctorscount)
+  //console.log('doccount', doctorscount)
 
   const pendinghosp = await Hospital.countDocuments({approved: "null"});
-  console.log('hosp', pendinghosp)
+  //console.log('hosp', pendinghosp)
   const pendingpharm = await Pharmacy.countDocuments({approved: "null" });
-  console.log('p', pendingpharm)
+  //console.log('p', pendingpharm)
   const pendingdoct = await doctor.countDocuments({approved: "null" });
-  console.log('doc', pendingdoct)
+ // console.log('doc', pendingdoct)
 
   const count_details = {
     user_count: count_users,
@@ -65,7 +65,7 @@ exports.dashboard_details = async (req, res, next) => {
 }
 
 exports.up_user_1 = async (req, res) => {
-  console.log(req.body)
+  //console.log(req.body)
   const { fullname, email } = req.body;
   if (!email || !fullname) {
     return res.json({
@@ -76,7 +76,7 @@ exports.up_user_1 = async (req, res) => {
 
   let user = await User.findOne({ email, fullname });
 
-  console.log('usre', user)
+ // console.log('usre', user)
   if (!user) {
     return res.json({
       status: "error",
@@ -95,7 +95,6 @@ exports.up_user_1 = async (req, res) => {
 exports.updateUser = async (req, res) => {
   const { email, fullname, role } = req.body
   let user = await User.findOne({ email, fullname });
-  console.log('😜😜😜😜😜😀😀', user)
   const new_data = await User.findByIdAndUpdate(user._id, { role: role }, {
     // new: true,
     // runValidators: true,

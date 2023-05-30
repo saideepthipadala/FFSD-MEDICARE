@@ -215,7 +215,7 @@ app.post("/approve", async (req, res) => {
 
 app.post("/reject", async (req, res) => {
   const id = req.body.id;
-  console.log(id);
+ // console.log(id);
   try {
     await Hospital.findByIdAndUpdate(
       { _id: req.body.id },
@@ -337,7 +337,7 @@ app.get("/doc_home", (req, res) => {
       appointments_arr.push(appointment);
       if (appointment.appointmentStatus === true) {
         over++;
-        console.log("This appointment is accepted");
+       // console.log("This appointment is accepted");
       }
       else if (appointment.acceptappointment === false) {
         unaccepted++;
@@ -350,7 +350,7 @@ app.get("/doc_home", (req, res) => {
       feedbacks_arr.push(feedback);
     })
     // console.log(pending);
-    console.log(feedbacks_arr);
+   // console.log(feedbacks_arr);
 
     res.render("doc_home", {
       feedbacks_arr,
@@ -425,7 +425,7 @@ app.post('/form', (req, res) => {
       doc.appointments.push(appointment);
       // console.log(doc);
       doc.save().then(() => {
-        console.log("form data submitted to database");
+        //console.log("form data submitted to database");
         res.redirect('/success');
       }).catch((err) => {
         console.log(err);
@@ -457,7 +457,7 @@ app.get('/doctor', async (req, res) => {
 
 
 app.get('/filter', (req, res) => {
-  console.log(req.query);
+  //console.log(req.query);
   const specialization = req.query.docspec;
   // console.log(specialization);
   doctor.find({ specialization: specialization }).then((doctors) => {
@@ -499,7 +499,7 @@ app.post('/doc_home', (req, res) => {
       const hashedpass = bcrypt.hashSync(req.body.docpass, 10);
       doc.password = hashedpass;
       doc.save().then(() => {
-        console.log("Doctor profile updated");
+       // console.log("Doctor profile updated");
         res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(doc))}`);
       }).catch((err) => {
         console.log(err);

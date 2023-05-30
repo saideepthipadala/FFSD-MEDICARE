@@ -23,12 +23,12 @@ save.addEventListener("click", async () => {
   })
     .then(async (res) => await res.json())
     .then((data) => {
-      console.log(data);
+    //  console.log(data);
       hidden.style.display = "block";
       message.setAttribute('value',data.message);
       if(data.status == "success"){
         user_exist.style.display = "block";
-        console.log(data)
+       // console.log(data)
         role.value = data.user.role;
         user_exist.style.display = "block";
 
@@ -44,7 +44,7 @@ save_changes.addEventListener("click", async () => {
     fullname: fullname.value,
     role:role.value,
   };
-  console.log('role',role);
+ // console.log('role',role);
   await fetch("/api/up_role", {
     method: "POST",
     body: JSON.stringify(survey),
@@ -57,7 +57,7 @@ save_changes.addEventListener("click", async () => {
       message.setAttribute('value',data.message);
       if(data.status == "success"){
     
-        console.log('data : ',data)
+       // console.log('data : ',data)
         message.innerText = 'Role updates';
         role.value = data.new_data.role;
         setTimeout(() => {

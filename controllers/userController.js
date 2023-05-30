@@ -12,10 +12,6 @@ const doctor = require("./../models/doctor")
 
 
 exports.update_details = async (req, res) => {
-  console.log("usercontroleer💥💥💥💥💥💥", req.body.password);
-  console.log("email👋👋👋👋👋👋", req.body.email);
-
-
 
   const decoded = jwt.verify(
     req.cookies.userRegistered,
@@ -23,19 +19,6 @@ exports.update_details = async (req, res) => {
   );
 
 
-  // const spam_email = await User.find({email:req.body.email}).toArray(function(err, result) {
-  //   if (err) throw err;
-  //   console.log(result);
-  //   db.close();
-  // });
-  // console.log('spam email 😤😤😤😤😤😤' , spam_email)
-  // console.log('reg email 😤😤😤😤😤😤' , req.body._id)
-  // if(spam_email){
-  //   if(spam_email._id != req.body.id ){
-  //     delete req.body.email;
-  //   }
-
-  // }
 
   if (req.body.password == undefined) {
 
@@ -78,7 +61,7 @@ exports.send_data = async (req, res) => {
 exports.send_feedback = async (req, res) => {
   const { fullname: name, email, message: feedback } = req.body;
   const newUser = await doctor.find({ "name": name, "email": email });
-  console.log(newUser);
+ // console.log(newUser);
   if (newUser.length > 0) {
 
     await doctor.findOneAndUpdate({ "name": name, "email": email }, { "$addToSet": { feedback: feedback } });

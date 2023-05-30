@@ -42,7 +42,7 @@ function showpastappoint() {
     profile.style.display = 'none';
 }
 function showfeedbacks() {
-    console.log("hellow");
+   // console.log("hellow");
     setActiveLink(links[3]);
     feedbacks.style.display = 'block';
     profile.style.display = 'none';

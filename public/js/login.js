@@ -16,7 +16,7 @@ form.addEventListener("submit", async () => {
   })
     .then(async (res) => await res.json())
     .then((data) => {
-      console.log(data);
+    //  console.log(data);
       if (data.status === "error") {
         success.style.display = "none";
         error.style.display = "block";

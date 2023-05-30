@@ -11,7 +11,7 @@ save.addEventListener('click', async () => {
         email: email.value,
         message: message.value,
     }
-    console.log("feedback", data);
+    //console.log("feedback", data);
       await fetch("/api/feedback", {
           method: "PATCH",
           body: JSON.stringify(data),

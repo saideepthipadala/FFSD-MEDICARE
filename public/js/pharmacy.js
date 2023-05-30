@@ -1,4 +1,3 @@
-console.log("search hospitals");
 const searchInput = document.getElementById("search");
 const cards = document.querySelectorAll(".card");
 
