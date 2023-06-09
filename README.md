@@ -7,34 +7,6 @@ Welcome to the Medicare Healthcare Website! Our platform aims to provide accessi
 
 The Medicare Healthcare Website is designed to make it easier for users to find healthcare resources and medical providers. It offers various functionalities such as booking appointments, reading health-related blogs, contacting the team, and learning about the platform's mission.
 
-## Project Structure
-
-The project contains the following folders and files:
-
-1. Controller
-   - adminController.js
-   - authController.js
-   - userController.js
-2. node_module
-3. public
-   - css
-   - images
-   - js
-   - blog.html
-   - doctor.html
-   - form.html
-   - hospital.html
-   - login.html
-   - pharmacy.html
-   - register.html
-   - success.html
-4. server.js
-5. views
-6. index.js
-7. package.json
-8. package-lock.json
-9. app.js
-
 ## Installation
 
 To run the Medicare Healthcare Website, follow these steps:
@@ -48,11 +20,11 @@ npm install nodemon bcryptjs cookie-parser dotenv ejs express jsonwebtoken mongo
 2. Start the server by running one of the following commands:
 
 ```bash
-npm run start
+npm start
 ```
 or
 ```bash
-node index.js
+node server.js
 ```
 
 The server will start listening on port number '8000'. You can access the website by opening the following link in your browser: [http://localhost:8000/](http://localhost:8000/)
