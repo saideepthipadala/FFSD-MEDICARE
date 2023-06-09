@@ -47,9 +47,11 @@ The project was developed by the following participants:
 
 The Medicare Healthcare Website offers the following features:
 
-1. Booking Appointments: Users can book appointments with medical providers directly from the website.
-2. Blogs: The blog section provides helpful health tips, information about the latest medical research, and expert advice on various health topics.
-3. Contact Us: Users can get in touch with the team if they have any questions, comments, or concerns about the website or services.
-4. About Us: The "About Us" section provides information about the platform and its mission to provide accessible and affordable healthcare services.
+1.Booking Appointments: Users can book appointments with medical providers directly from the website.
+2.Blogs: The blog section provides helpful health tips, information about the latest medical research, and expert advice on various health topics.
+3.Nearby Pharmacies: Users can find information about nearby pharmacies to locate and access medications easily.
+4.Nearby Hospitals: Users can find information about nearby hospitals to quickly locate emergency medical services.
+5.Contact Us: Users can get in touch with the team if they have any questions, comments, or concerns about the website or services.
+6.About Us: The "About Us" section provides information about the platform and its mission to provide accessible and affordable healthcare services.
 
 Thank you for choosing the Medicare Healthcare Website! For any further assistance or inquiries, please refer to the contact information on the website.
