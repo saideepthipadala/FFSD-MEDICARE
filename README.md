@@ -1,5 +1,5 @@
 
-# Medicare Healthcare Website
+# Medicare - Your Trusted Healthcare Companion
 
 Welcome to the Medicare Healthcare Website! Our platform aims to provide accessible and affordable healthcare services to individuals and families. This README.md file provides an overview of the project, its contents, installation instructions, and features.
 
