@@ -106,7 +106,17 @@ const Drugs = [
   { name: "Atorvastatin" },
   { name: "Metformin" },
   { name: "Levothyroxine" },
+  { name: "Acetaminophen" },
+  { name: "Omeprazole" },
+  { name: "Losartan" },
+  { name: "Amlodipine" },
+  { name: "Escitalopram" },
+  { name: "Tramadol" },
+  { name: "Zolpidem" },
+  { name: "Furosemide" },
+  { name: "Lisinopril" }
 ];
+
 
 
 // console.log(Drugs);
@@ -148,7 +158,7 @@ app.get("/admin_announcements", async (req, res) => {
 
 app.get("/announcements", async (req, res) => {
   try {
-    let announcements = await Announcement.find({});
+    const announcements = await Announcement.find({});
     res.render("announcements", { announcements: announcements });
   } catch (err) {
     console.error(err);
@@ -590,7 +600,7 @@ app.post('/form', (req, res) => {
 
   doctor.findOne({ email }).then((doc) => {
     if (!doc) {
-      console.log("No doctor Found");
+      // console.log("No doctor Found");
     }
     else {
       if (doc.appointments == null) {
