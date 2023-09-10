@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const express = require("express");
 const appointment_schema = require("./appointment_schema");
+const feedback_schema = require('./doctorfeedback');
 
 const doctor_schema = new mongoose.Schema({
     name: String,
@@ -12,6 +13,7 @@ const doctor_schema = new mongoose.Schema({
     // _id: String,
     approved: { type: String, default: null },
     appointments: [appointment_schema],
+    feedbacks: [feedback_schema],
     registrationType: { type: String, default: "Doctor" },
 });
 

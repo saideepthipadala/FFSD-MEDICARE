@@ -13,7 +13,9 @@ const Hospital = require("./models/Hospital");
 const Pharmacy = require("./models/Pharmacy");
 const doctor = require("./models/doctor");
 const appointment_schema = require("./models/appointment_schema");
+const feedback_schema = require('./models/doctorfeedback');
 const { log } = require("console");
+// const doctor = require("./models/doctor");
 
 
 
@@ -227,15 +229,6 @@ app.post('/doc_register', async (req, res) => {
     // _id: req.body.docemail,
   });
 
-  // console.log(doc_object);
-  // doc_object.save().then(() => {
-  //   console.log("Data is Inserted");
-  //   const doctor = { email: req.body.docemail };
-  //   res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(doctor))}`);
-  // }).catch((err) => {
-  //   console.log(err);
-  //   res.alert('Email Has Been Already registered');
-  // })
 
   try {
     await doc_object.save();
@@ -246,94 +239,48 @@ app.post('/doc_register', async (req, res) => {
 })
 
 
-app.get('/accepted/:email/:id', (req, res) => {
-  const { email, id } = req.params;
-  doctor.findOne({ email }).then((doctor) => {
-    if (!doctor) {
-      return res.status(404).send('Doctor not found');
-    }
-
-    const appointment = doctor.appointments.id(id);
-    if (!appointment) {
-      return res.status(404).send('Appointment not found');
-    }
-
-    appointment.acceptappointment = 'true';
-    return doctor.save();
-  }).then(() => {
-    // res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(email))}`);
-    return res.status(200).send('Appointment accepted successfully');
-  }).catch((error) => {
-    console.error(error);
-    return res.status(500).send('Internal server error');
-  });
-});
-
-app.get('/rejected/:email/:id', (req, res) => {
-  const { email, id } = req.params;
-  doctor.findOne({ email }).then((doctor) => {
-    console.log(doctor);
-    // if (!doctor) {
-    //   return res.status(404).send('Doctor not found');
-    // }
-    const appointmentIndex = doctor.appointments.findIndex((appointment) => appointment.id === id);
-    if (appointmentIndex === -1) {
-      return res.status(404).send('Appointment not found');
-    }
-    doctor.appointments.splice(appointmentIndex, 1);
-    return doctor.save();
-  }).then(() => {
-    // res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(email))}`);
-    return res.status(200).send('Appointment rejected successfully');
-  }).catch((error) => {
-    console.error(error);
-    return res.status(500).send('Internal server error');
-  });
-});
-
-
-
-// app.get('/rejected/:email/:id', (req, res) => {
-//   const { email, id } = req.params;
-//   doctor.findOne({ email }).then((doctor) => {
-//     if (!doctor) {
+// app.get('/accepted/:docId/:id', (req, res) => {
+//   const { docId, id } = req.params;
+//   doctor.findOne({ _id: docId }).then((doc) => {
+//     if (!doc) {
 //       return res.status(404).send('Doctor not found');
 //     }
 
-//     const appointment = doctor.appointments.id(id);
+//     const appointment = doc.appointments.id(id);
 //     if (!appointment) {
 //       return res.status(404).send('Appointment not found');
 //     }
 
-//     return appointment.remove().then(() => {
-//       return doctor.save();
-//     });
+//     appointment.acceptappointment = 'true';
+//     return doc.save();
 //   }).then(() => {
-//     return res.status(200).send('Appointment rejected successfully');
+//     res.render('doc_home',doc);
 //   }).catch((error) => {
 //     console.error(error);
 //     return res.status(500).send('Internal server error');
 //   });
 // });
 
-// app.get('/rejected/:email/:id', async (req, res) => {
-//   const { email, id } = req.params;
-//   try {
-//     const doctor = await doctor.findOne({ email });
-//     if (!doctor) {
+// app.get('/accepted/:docId/:id', (req, res) => {
+//   const { docId, id } = req.params;
+//   doctor.findOne({ _id: docId }).then((doc) => {
+//     if (!doc) {
 //       return res.status(404).send('Doctor not found');
 //     }
-//     const appointmentIndex = doctor.appointments.findIndex(appointment => appointment.id === id);
-//     if (appointmentIndex === -1) {
+
+//     const appointment = doc.appointments.id(id);
+//     if (!appointment) {
 //       return res.status(404).send('Appointment not found');
 //     }
-//     doctor.appointments.splice(appointmentIndex, 1);
-//     await doctor.save();
-//     res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(email))}`);
-//   } catch (error) {
+
+//     appointment.acceptappointment = 'true';
+//     return doc.save();
+//   }).then((doc) => {
+//     res.render('doc_home', { doctor: doc, appointments: doc.appointments });
+//   }).catch((error) => {
 //     console.error(error);
 //     return res.status(500).send('Internal server error');
-//   }
+//   });
 // });
 
 
@@ -342,63 +289,231 @@ app.get('/rejected/:email/:id', (req, res) => {
 
 
 
+// app.get('/rejected/:email/:id', (req, res) => {
+//   const { email, id } = req.params;
+//   doctor.findOne({ email }).then((doctor) => {
+//     console.log(doctor);
+//     // if (!doctor) {
+//     //   return res.status(404).send('Doctor not found');
+//     // }
+//     const appointmentIndex = doctor.appointments.findIndex((appointment) => appointment.id === id);
+//     if (appointmentIndex === -1) {
+//       return res.status(404).send('Appointment not found');
+//     }
+//     doctor.appointments.splice(appointmentIndex, 1);
+//     return doctor.save();
+//   }).then(() => {
+//     const doc = { email: email }
+//     res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(doc))}`);
+//     // res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(email))}`);
+//     // return res.status(200).send('Appointment rejected successfully');
+//   }).catch((error) => {
+//     console.error(error);
+//     return res.status(500).send('Internal server error');
+//   });
+// });
+
+
 
 
 app.get("/doc_home", (req, res) => {
-  const doc = JSON.parse(decodeURIComponent(req.query.doctor));
-  // console.log(doc.email);
-  doctor.findOne({ email: doc.email }).then((doctor) => {
-    console.log(doctor);
-    if (!doctor) {
-      return res.status(404).send("Doctor not found");
-    }
-    var pending = 0;
-    var over = 0;
-    var unaccepted = 0;
-    var accepted = 0;
-    const appointments_arr = [];
-    doctor.appointments.forEach((appointment) => {
-      appointments_arr.push(appointment);
-      if (appointment.appointmentStatus === true) {
-        over++;
-        console.log("This appointment is accepted");
-      }
-      else if (appointment.acceptappointment === false) {
-        unaccepted++;
-      } else {
-        accepted++;
-      }
-    });
-    // console.log(pending);
+  res.render('doc_home');
+  // const doc = JSON.parse(decodeURIComponent(req.query.doctor));
+  // // console.log(doc.email);
+  // doctor.findOne({ email: doc.email }).then((doctor) => {
+  //   console.log(doctor);
+  //   if (!doctor) {
+  //     return res.status(404).send("Doctor not found");
+  //   }
+  //   var pending = 0;
+  //   var over = 0;
+  //   var unaccepted = 0;
+  //   var accepted = 0;
+  //   const appointments_arr = [];
+  //   doctor.appointments.forEach((appointment) => {
+  //     appointments_arr.push(appointment);
+  //     if (appointment.appointmentStatus === true) {
+  //       over++;
+  //       console.log("This appointment is accepted");
+  //     }
+  //     else if (appointment.acceptappointment === false) {
+  //       unaccepted++;
+  //     } else {
+  //       accepted++;
+  //     }
+  //   });
+  //   // console.log(pending);
 
-    res.render("doc_home", {
-      doctor,
-      pending,
-      over,
-      accepted,
-      unaccepted,
-      appointments_arr,
-    });
-  });
+  //   res.render("doc_home", {
+  //     doctor,
+  //     pending,
+  //     over,
+  //     accepted,
+  //     unaccepted,
+  //     appointments_arr,
+  //   });
+  // });
 });
 
-app.post('/doc_login', (req, res) => {
-  doctor.findOne({ email: req.body.email }).then((doctor) => {
-    if (!doctor) {
-      res.send("User not found");
-    }
-    else {
-      const IsPassValid = bcrypt.compareSync(req.body.password, doctor.password);
-      if (IsPassValid) {
-        const doc = { email: req.body.email }
-        res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(doc))}`);
+// app.post('/doc_home', (req, res) => {
+//   doctor.findOne({ email: req.body.email }).then((doctor) => {
+//     if (!doctor) {
+//       res.send("Doctor not found");
+//     }
+//     else {
+//       const IsPassValid = bcrypt.compareSync(req.body.password, doctor.password);
+//       if (IsPassValid) {
+//         const doc = { email: req.body.email }
+//         console.log(doctor);
+//         res.render('doc_home', { doctor: doctor, appointments: doctor.appointments });
+//       }
+//       else {
+//         res.send('Incorrect Password');
+//       }
+//     }
+//   })
+// })
+
+
+
+// app.post('/doc_home', (req, res) => {
+//   const id = req.body.id;
+//   console.log(id)
+//   doctor.findOne({ _id:id}).then((doc) => {
+//     if (!doc) {
+//       res.send("User not found");
+//     } else {
+//       doc.name = req.body.docname;
+//       doc.gender = req.body.gender;
+//       doc.specialization = req.body.specialization;
+//       doc.qualification = req.body.Qualification;
+//       const hashedpass = bcrypt.hashSync(req.body.docpass, 10);
+//       doc.password = hashedpass;
+//       doc.save().then(() => {
+//         console.log("Doctor profile updated");
+//         res.render('doc_home',{doctor:doc,appointments:doc.appointments})
+//       }).catch((err) => {
+//         console.log(err);
+//         res.send("Error updating profile");
+//       });
+//     }
+//   });
+// });
+
+
+app.post('/doc_home', (req, res) => {
+
+  if (req.body.doctorId && req.body.appointmentId && req.body.accept) {
+    const { doctorId, appointmentId } = req.body;
+
+    // Find the doctor by ID and update the appointment status
+    doctor.findOne({ _id: doctorId }).then((doc) => {
+      if (!doc) {
+        res.send("Doctor not found");
+      } else {
+        const appointment = doc.appointments.id(appointmentId);
+        if (!appointment) {
+          res.send("Appointment not found");
+        } else {
+          // Update the appointment status to 'accepted'
+          appointment.acceptappointment = true;
+          doc.save().then(() => {
+            console.log("Appointment accepted");
+            res.render('doc_home', { doctor: doc, appointments: doc.appointments });
+          }).catch((err) => {
+            console.log(err);
+            res.send("Error accepting appointment");
+          });
+        }
       }
-      else {
-        res.send('Incorrect Password');
+    });
+  }
+
+  else if (req.body.doctorId && req.body.appointmentId && req.body.reject) {
+    const { doctorId, appointmentId } = req.body;
+
+    doctor.findOne({ _id: doctorId }).then((doc) => {
+      if (!doc) {
+        return res.send("Doctor not found");
+      } else {
+        const appointmentIndex = doc.appointments.findIndex(appoint => appoint._id.toString() === appointmentId);
+
+        if (appointmentIndex === -1) {
+          return res.send("Appointment not found");
+        } else {
+
+          doc.appointments.splice(appointmentIndex, 1);
+          doc.save().then(() => {
+            console.log("Appointment rejected");
+            res.render('doc_home', { doctor: doc, appointments: doc.appointments });
+          }).catch((err) => {
+            console.log(err);
+            res.send("Error rejecting appointment");
+          });
+        }
       }
-    }
-  })
-})
+    });
+  }
+
+
+
+  else if (req.body.id) {
+    const id = req.body.id;
+    console.log(id);
+
+    doctor.findOne({ _id: id }).then((doc) => {
+      if (!doc) {
+        res.send("User not found");
+      } else {
+
+        const acceptedAppoint = doc.appointments.filter((appoint) => {
+          return appoint.acceptappointment === true;
+        })
+
+        const appointStatus = doc.appointments.filter((appoint) => {
+          return appoint.appointmentStatus === true;
+        })
+        doc.name = req.body.docname;
+        doc.gender = req.body.gender;
+        doc.specialization = req.body.specialization;
+        doc.qualification = req.body.Qualification;
+        const hashedpass = bcrypt.hashSync(req.body.docpass, 10);
+        doc.password = hashedpass;
+        count = {
+          accepted: acceptedAppoint.length,
+          over: appointStatus.length,
+          unaccepted: doc.appointments.length - acceptedAppoint.length
+        }
+        doc.save().then(() => {
+          console.log("Doctor profile updated");
+          res.render('doc_home', {
+            doctor: doc, appointments: doc.appointments
+          });
+        }).catch((err) => {
+          console.log(err);
+          res.send("Error updating profile");
+        });
+      }
+    });
+  }
+  else {
+    doctor.findOne({ email: req.body.email }).then((doctor) => {
+      if (!doctor) {
+        res.send("Doctor not found");
+      } else {
+        const isPassValid = bcrypt.compareSync(req.body.password, doctor.password);
+        if (isPassValid) {
+          console.log(doctor);
+          res.render('doc_home', { doctor: doctor, appointments: doctor.appointments });
+        } else {
+          res.send('Incorrect Password');
+        }
+      }
+    });
+  }
+});
+
+
 
 app.get('/success', (req, res) => {
   res.render('success');
@@ -409,10 +524,17 @@ app.get("/hospital_reg", (req, res) => {
 
 const appointments = mongoose.model('appointments', appointment_schema);
 
-app.get('/form', function (req, res) {
-  const email = req.query.name.split('|')[1];
-  // console.log(email);
-  res.render('form', { email });
+app.get('/form/:id', async function (req, res) {
+  try {
+    const id = req.params.id;
+    console.log(id)
+    const doc = await doctor.findOne({ _id: id });
+    console.log(doc);
+    res.render('form', { formDoctor: doc })
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 
@@ -429,9 +551,7 @@ app.post('/form', (req, res) => {
     acceptappointment: false,
     appointmentStatus: false
   });
-  // console.log(appointment);
-  // console.log(name);
-  // console.log(email);
+
   doctor.findOne({ email }).then((doc) => {
     if (!doc) {
       console.log("No doctor Found");
@@ -452,6 +572,39 @@ app.post('/form', (req, res) => {
   })
 })
 
+app.get("/feedback/:email", authController.loggedIn, (req, res) => {
+  const email = req.params.email; // Use req.params.email to extract the email parameter
+  console.log(email);
+  if (req.user) {
+    res.render("feedback", { status: "loggedIn", user: req.user, email: email });
+  } else {
+    res.render("index", { status: "no", user: "nothing" });
+  }
+});
+
+
+const Feedback = mongoose.model('Feedback', feedback_schema);
+
+app.post('/feedback', authController.loggedIn, async (req, res) => {
+  const { username, email, message, docemail } = req.body;
+  console.log(docemail);
+  try {
+    const doctor = await doctor.findOne({ docemail });
+
+    const feedback = new Feedback({ username, email, message, docemail });
+    doctor.feedbacks.push(feedback);
+    await doctor.save();
+    res.send("feedback sent");
+    console.log(doctor.feedbacks);
+    // res.render('feedback', { status: 'success', user: req.user });
+  } catch (error) {
+    console.error(error);
+    res.send("Error in sending feedback");
+    // res.render('feedback', { status: 'error', user: req.user });
+  }
+});
+
+
 
 app.get('/doc_login', (req, res) => {
   res.render('doc_login');
@@ -463,8 +616,8 @@ app.get('/doc_login', (req, res) => {
 app.get('/doctor', async (req, res) => {
   try {
     const approvedDoctors = await doctor.find({ approved: "true" });
-
     res.render("doctor", { DoctorDetails: approvedDoctors });
+    // res.json({approvedDoctors});
     console.log(approvedDoctors)
   } catch (error) {
     console.error(error);
@@ -474,58 +627,65 @@ app.get('/doctor', async (req, res) => {
 
 
 
-app.get('/filter', (req, res) => {
-  console.log(req.query);
-  const specialization = req.query.docspec;
-  console.log(specialization);
-  doctor.find({ specialization: specialization }).then((doctors) => {
-    res.render('doctor', {
-      DoctorDetails: doctors
-    });
-  })
-    .catch((err) => {
-      console.log(err);
-    })
+// app.get('/filter', (req, res) => {
+//   console.log(req.query);
+//   const specialization = req.query.docspec;
+//   console.log(specialization);
+//   doctor.find({ specialization: specialization }).then((doctors) => {
+//     res.render('doctor', {
+//       DoctorDetails: doctors
+//     });
+//   })
+//     .catch((err) => {
+//       console.log(err);
+//     })
 
-})
+// })
 
-app.get('/search', (req, res) => {
-  console.log(req.query);
-  const name = req.query.docname;
-  doctor.find({ name: { $regex: new RegExp(name, 'i') } }).then((doctors) => {
-    res.render('doctor', {
-      DoctorDetails: doctors
-    });
-  })
-    .catch((err) => {
-      console.log(err);
-    })
-})
+// app.get("/search", async (req, res) => {
+//   const searchTerm = req.query.docname;
+//   console.log(searchTerm);
+//   let results;
+//   try {
+//     results = await doctor.find({ name: { $regex: new RegExp(searchTerm, 'i') } });
+//         res.render('doctor', {
+//       DoctorDetails: results
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
 
 
 
-app.post('/doc_home', (req, res) => {
-  console.log(req.body);
-  doctor.findOne({ email: req.body.docemail }).then((doc) => {
-    if (!doc) {
-      res.send("User not found");
-    } else {
-      doc.name = req.body.docname;
-      doc.gender = req.body.gender;
-      doc.specialization = req.body.specialization;
-      doc.qualification = req.body.Qualification;
-      const hashedpass = bcrypt.hashSync(req.body.docpass, 10);
-      doc.password = hashedpass;
-      doc.save().then(() => {
-        console.log("Doctor profile updated");
-        res.redirect(`/doc_home?doctor=${encodeURIComponent(JSON.stringify(doc))}`);
-      }).catch((err) => {
-        console.log(err);
-        res.send("Error updating profile");
-      });
-    }
-  });
-});
+
+
+// app.post('/doc_home/:id', (req, res) => {
+//   const docId = req.params.id;
+//   doctor.findOne({ _id: docId }).then((doc) => {
+//     if (!doc) {
+//       res.send("User not found");
+//     } else {
+//       doc.name = req.body.docname;
+//       doc.gender = req.body.gender;
+//       doc.specialization = req.body.specialization;
+//       doc.qualification = req.body.Qualification;
+//       const hashedpass = bcrypt.hashSync(req.body.docpass, 10);
+//       doc.password = hashedpass;
+//       doc.save().then(() => {
+//         console.log("Doctor profile updated");
+//         res.render('doc_home', { doctor: doc, appointments: doc.appointments });
+//       }).catch((err) => {
+//         console.log(err);
+//         res.send("Error updating profile");
+//       });
+//     }
+//   })
+// });
+
+
+
 
 app.get("/", authController.loggedIn, (req, res) => {
   console.log(req.user);

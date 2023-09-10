@@ -70,7 +70,6 @@ exports.send_data = async (req,res)=>{
     },
 
   });
-
-
-
 }
+
+

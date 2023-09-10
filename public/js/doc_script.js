@@ -1,154 +1,89 @@
-// class Doctor {
-//   constructor(
-//     Name,
-//     Gender,
-//     Specialization,
-//     Experience,
-//     Qualification,
-//     Availability,
-//     Timings,
-//     image,
-//     DocId
-//   ) {
-//     this.Name = Name;
-//     this.Gender = Gender;
-//     this.Specialization = Specialization;
-//     this.Experience = Experience;
-//     this.Qualification = Qualification;
-//     this.Availability = Availability;
-//     this.Timings = Timings;
-//     this.image = image;
-//     this.DocId = DocId;
-//   }
-// }
 
-// const doctors = [
-//   new Doctor(
-//     "Dr.Chand",
-//     "Male",
-//     "Cardiologist",
-//     10,
-//     "MBBS, PhD",
-//     true,
-//     "Monday-Friday 9am-5pm",
-//     "./images/img_avatar.png",
-//     1
-//   ),
-//   new Doctor(
-//     "Dr.Monica",
-//     "Female",
-//     "Pediatrician",
-//     5,
-//     "FRCS",
-//     false,
-//     "Monday-Friday 9am-5pm",
-//     "./images/img_avatar.png",
-//     2
-//   ),
-//   new Doctor(
-//     "Dr.Brad",
-//     "Male",
-//     "Neurologist",
-//     15,
-//     "MD, PhD",
-//     true,
-//     "Monday-Friday 9am-5pm",
-//     "./images/img_avatar.png",
-//     3
-//   ),
-//   new Doctor(
-//     "Dr.Chand",
-//     "Male",
-//     "Cardiologist",
-//     10,
-//     "MBBS, PhD",
-//     true,
-//     "Monday-Friday 9am-5pm",
-//     "./images/img_avatar.png",
-//     4
-//   ),
-//   new Doctor(
-//     "Dr.Monica",
-//     "Female",
-//     "Pediatrician",
-//     5,
-//     "FRCS",
-//     false,
-//     "Monday-Friday 9am-5pm",
-//     "./images/img_avatar.png",
-//     5
-//   ),
-//   new Doctor(
-//     "Dr.Brad",
-//     "Male",
-//     "Neurologist",
-//     15,
-//     "MD, PhD",
-//     true,
-//     "Monday-Friday 9am-5pm",
-//     "./images/img_avatar.png",
-//     6
-//   ),
-// ];
+const doctorsContainer = document.getElementById("doctors-container");
 
-// function generateDoctorHTML(doctor) {
-//   const container = document.createElement("div");
-//   container.classList.add("doctor-container");
-//   const image = document.createElement("img");
-//   image.src = doctor.image;
-//   8;
-//   container.appendChild(image);
+const doctorDetailsData = JSON.parse(document.body.getAttribute('data-doctor-details'));
+const searchInput = document.getElementById("doc-search");
+const filterInput = document.getElementById("docspec");
+console.log(filterInput.value);
 
-//   const nameElement = document.createElement("h2");
-//   nameElement.textContent = doctor.Name;
+function updateSearchResults() {
+    const searchValue = searchInput.value.toLowerCase();
+    const searchDoc = doctorDetailsData.filter(doctor => {
+        return doctor.name.toLowerCase().includes(searchValue);
+    });
 
-//   const genderElement = document.createElement("p");
-//   genderElement.textContent = `Gender: ${doctor.Gender}`;
+    doctorsContainer.innerHTML = '';
 
-//   const specializationElement = document.createElement("p");
-//   specializationElement.textContent = `Specialization: ${doctor.Specialization}`;
+    if (searchDoc.length === 0) {
+        doctorsContainer.innerHTML = '<p>No matching doctors found.</p>';
+    } else {
+        searchDoc.forEach(doctor => {
+            const doctordiv = document.createElement("div");
+            doctordiv.classList.add("doctor-container");
+            doctordiv.innerHTML = `
+          <img src="./images/img_avatar.png" alt="">
+          <h2>${doctor.name}</h2>
+          <p>Gender: ${doctor.gender}</p>
+          <p>Email: ${doctor.email}</p>
+          <p>Specialization: ${doctor.specialization}</p>
+          <p>Qualification: ${doctor.qualification}</p>
+          <div class="div" style="display: flex;">
+          <a href="./form/${doctor._id}">Consult</a>
+          </div>
+        `;
+            doctorsContainer.appendChild(doctordiv);
+        });
+    }
+}
+searchInput.addEventListener('keyup', updateSearchResults);
 
-//   const experienceElement = document.createElement("p");
-//   experienceElement.textContent = `Experience: ${doctor.Experience} years`;
-//   const qualificationElement = document.createElement("p");
+updateSearchResults();
 
-//   qualificationElement.textContent = `Qualification: ${doctor.Qualification}`;
-//   const availabilityElement = document.createElement("p");
+function updateContent(selectedSpecialization) {
+    doctorsContainer.innerHTML = '';
 
-//   if (doctor.Availability === true) {
-//     availabilityElement.textContent = "Availability:online";
-//   } else {
-//     availabilityElement.textContent = "Availability:offline";
-//   }
+    const filteredDoctors = doctorDetailsData.filter(doctor => {
+        return selectedSpecialization === '' || doctor.specialization === selectedSpecialization;
+    });
 
-//   const timingElement = document.createElement("p");
-//   timingElement.textContent = `Timings: ${doctor.Timings.toString()}`;
+    if (filteredDoctors.length === 0) {
+        doctorsContainer.innerHTML = '<p>No doctors found for the selected specialization.</p>';
+    } else {
+        filteredDoctors.forEach(doctor => {
+            const doctordiv = document.createElement("div");
+            doctordiv.classList.add("doctor-container");
+            doctordiv.innerHTML = `
+          <img src="./images/img_avatar.png" alt="">
+          <h2>${doctor.name}</h2>
+          <p>Gender: ${doctor.gender}</p>
+          <p>Email: ${doctor.email}</p>
+          <p>Specialization: ${doctor.specialization}</p>
+          <p>Qualification: ${doctor.qualification}</p>
+          <div class="div" style="display: flex;">
+            <a href="./form/${doctor._id}">Consult</a>
+          </div>
+        `;
+            doctorsContainer.appendChild(doctordiv);
+        });
+    }
+}
 
-//   const consultButton = document.createElement("a");
-//   consultButton.textContent = "Consult";
-//   consultButton.setAttribute("href", "./form?" + doctor.Name);
-//   consultButton.classList.add("consultButton");
-//   container.appendChild(nameElement);
-//   container.appendChild(genderElement);
-//   container.appendChild(specializationElement);
-//   container.appendChild(experienceElement);
-//   container.appendChild(qualificationElement);
-//   container.appendChild(availabilityElement);
-//   container.appendChild(timingElement);
-//   container.appendChild(consultButton);
+filterInput.addEventListener('change', function () {
+    const selectedSpecialization = filterInput.value;
+    updateContent(selectedSpecialization);
+  });
+  
+  // Call updateContent initially to load all doctors
+  updateContent('');
 
-//   return container;
-// }
-
-// function displayDoctors(doctors) {
-//   const container = document.querySelector("#doctors-container");
-
-//   doctors.forEach((doctor) => {
-//     const doctorElement = generateDoctorHTML(doctor);
-//     container.appendChild(doctorElement);
-//   });
-// }
-
-// displayDoctors(doctors);
-
-// const consultButtons = document.querySelectorAll(".consultButton");
+const form = document.querySelector('#filter-form');
+const filterbtn = document.querySelector('#filter-btn');
+function showfilterform() {
+    if (form.classList.contains('d-hidden')) {
+        form.classList.remove('d-hidden');
+        form.classList.add('d-visible');
+    } else {
+        form.classList.remove('d-visible');
+        form.classList.add('d-hidden');
+    }
+}

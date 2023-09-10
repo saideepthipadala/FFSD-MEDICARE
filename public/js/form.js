@@ -1,9 +1,9 @@
-var QueryString = location.search.substring(1)
-var A = QueryString.split("=");
-var DocName = A[1].split('|')[0];
+// var QueryString = location.search.substring(1)
+// var A = QueryString.split("=");
+// var DocName = A[1].split('|')[0];
 
-const heading = document.getElementById("Heading");
-heading.textContent = DocName + "'s Consultation Form";
+// const heading = document.getElementById("Heading");
+// heading.textContent = DocName + "'s Consultation Form";
 
 
 const form = document.querySelector('form');

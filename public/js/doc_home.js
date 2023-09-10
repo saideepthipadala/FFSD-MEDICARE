@@ -5,6 +5,27 @@ const pastappoint = document.querySelector('#pastappoint');
 const profile = document.querySelector('#profile');
 const links = document.querySelectorAll(".sidebar a");
 const form = document.querySelector('#update-form');
+const doctor = JSON.parse(document.body.getAttribute('data-doctor-details'));
+const accepted = document.getElementById("accepted");
+const unAccepted = document.getElementById("unaccepted");
+const over = document.getElementById("over");
+
+console.log(doctor.appointments);
+
+const acceptedAppoint = doctor.appointments.filter((appoint) => {
+    return appoint.acceptappointment === false;
+})
+
+console.log(acceptedAppoint.length)
+
+accepted.innerHTML = acceptedAppoint.length
+
+const appointStatus = doctor.appointments.filter((appoint) => {
+    return appoint.appointmentStatus === false;
+})
+over.innerHTML = appointStatus.length;
+
+unAccepted.innerHTML = doctor.appointments.length - acceptedAppoint.length
 
 function setActiveLink(link) {
     for (var i = 0; i < links.length; i++) {
