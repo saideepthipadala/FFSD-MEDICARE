@@ -164,6 +164,7 @@ body {
     position: fixed;
 }
 
+
 .sidebar a {
     padding: 15px;
     text-decoration: none;
@@ -228,15 +229,6 @@ h1 {
     color: #333;
 }
 
-/* .appoint a {
-    display: inline-block;
-    padding: 5px 10px;
-    margin-top: 10px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-} */
 
 .appoint-form{
     display: inline;

@@ -46,48 +46,38 @@ function displayform() {
 
 function shownewappoint() {
     setActiveLink(links[1]);
-    newappoint.style.display = 'block';
     home.style.display = 'none';
-    feedbacks.style.display = 'none';
     pastappoint.style.display = 'none';
     profile.style.display = 'none';
+    newappoint.style.display = 'block';
 }
 
 function showpastappoint() {
-    // console.log("appoint di");
     setActiveLink(links[2]);
+    home.style.display = 'none';
+    newappoint.style.display = 'none';
+    profile.style.display = 'none';
     pastappoint.style.display = 'block';
-    home.style.display = 'none';
-    feedbacks.style.display = 'none';
-    newappoint.style.display = 'none';
-    profile.style.display = 'none';
-}
-function showfeedbacks() {
-   // console.log("hellow");
-    setActiveLink(links[3]);
-    feedbacks.style.display = 'block';
-    profile.style.display = 'none';
-    home.style.display = 'none';
-    pastappoint.style.display = 'none';
-    newappoint.style.display = 'none';
 }
 
+
 function showprofile() {
-    setActiveLink(links[4]);
-    profile.style.display = 'block';
+    setActiveLink(links[3]);
     home.style.display = 'none';
-    feedbacks.style.display = 'none';
     pastappoint.style.display = 'none';
     newappoint.style.display = 'none';
+    profile.style.display = 'block';
 }
+
 function showhome() {
     setActiveLink(links[0]);
-    home.style.display = 'block';
     newappoint.style.display = 'none';
-    feedbacks.style.display = 'none';
     pastappoint.style.display = 'none';
     profile.style.display = 'none';
+    home.style.display = 'block';
 }
+
+
 
 
 const docname = document.querySelector("#Doc_name");
@@ -114,14 +104,12 @@ const passregx3 = /[!@#%&]/g;
 function validateName() {
     if (!(nameregx.test(docname.value))) {
         span.innerText = "Name Should Conatain Alphabets Only";
-        // span.style.color = "red";
         span.style.fontSize = "12.5px";
         return false;
     }
 
     else if (docname.value.length < 3) {
         span.innerText = "Name Should Conatain Atleast 3 alphabets";
-        // span.style.color = "red";
         span.style.fontSize = "12.5px";
         return false;
     }
@@ -135,7 +123,6 @@ function validateName() {
 function validateEmail() {
     if (!(emailregx.test(docemail.value))) {
         spanemail.innerText = "Invalid Email";
-        // spanemail.style.color = "red";
         spanemail.style.fontSize = "12.5px";
         return false;
     }
