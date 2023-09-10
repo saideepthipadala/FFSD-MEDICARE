@@ -1,8 +1,10 @@
 
 const searchInput = document.getElementById("search");
+
 const cards = document.querySelectorAll(".card");
 
 searchInput.addEventListener("input", function () {
+  
   const keyword = this.value.toLowerCase().trim();
 
   cards.forEach((card) => {
@@ -15,3 +17,4 @@ searchInput.addEventListener("input", function () {
     }
   });
 });
+

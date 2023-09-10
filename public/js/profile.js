@@ -58,12 +58,12 @@ function genderValidate(gen) {
 
 
 save.addEventListener("click", async () => {
-  console.log("💥💥💥💥💥💥 address",address.value);
+ // console.log("💥💥💥💥💥💥 address",address.value);
   let register = {};
   if (fullname.value != "" && isAlphaSpace(fullname.value)) {
     register.fullname = fullname.value;
   }
-  if (email.value != "") {
+  if (email.value != "" && ValidateEmail(email.value)) {
     register.email = email.value;
   }
   if (age.value != "") {
@@ -77,7 +77,7 @@ save.addEventListener("click", async () => {
 
   if (gender.value != "") {
     const gen = genderValidate(gender.value);
-    console.log("gender", gen)
+   // console.log("gender", gen)
     if (gen !== "nothing") {
       register.gender = gen;
     }
@@ -86,7 +86,7 @@ save.addEventListener("click", async () => {
   if(address.value != ""){
     register.address = address.value;
   }
-  console.log(password.value)
+ // console.log(password.value)
 
   if (password.value !== "" && password.value.length >= 8) {
     register.password = password.value;
@@ -110,7 +110,7 @@ save.addEventListener("click", async () => {
 
 
 
-  console.log(register);
+  //console.log(register);
 
   await fetch("/api/update_user",{
     method:"PATCH",

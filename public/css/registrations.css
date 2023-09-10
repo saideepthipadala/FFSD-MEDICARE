@@ -1,36 +1,117 @@
-.register{
-    margin: 30px;
+   body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      color: #fff;
+    }
+    
+    .header .logo {
+      width: 200px;
+      height: auto;
+    }
+    
+    .header .main-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .header .main-nav li {
+      margin-left: 20px;
+    }
+    
+    .header .main-nav-link {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+       background-color: #4823fc;
+       padding: 12px;
+       border-radius: 13px;
+    }
+    
+    .header .main-nav-link:hover {
+      color: #ccc;
+    }
+    
+.register {
+  padding: 50px;
+  margin-top: 20px;
+}
+
+.register h2 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.register .container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.register .card {
+  width: 30%;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(79, 72, 72, 0.2);
+  transition: transform 0.2s;
+  margin-top: -5px;
 
 }
 
-.cont{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap :30px
-
-
+.card p{
+    font-size: 15px;
 }
 
-.cont-c{
-  
-    display: flex;
-    gap: 50px;
+.register .card:hover {
+  transform: translateY(-5px);
+}
+
+.register .card a {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 20px;
+  transition: color 0.2s;
+}
+
+.register .card a:hover {
+  color: #007bff;
+}
+
+@media only screen and (max-width: 768px) {
+  .register .container {
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    height: 300px;
-    text-align: center;
-    font-size: 20px;
-    border-radius: 12px;
+  }
 
-    background-color: rgba(0, 0, 255, 0.31);
-    color: white;
+  .register .card {
+    width: 45%;
+    margin-bottom: 30px;
+  }
 }
 
-a:hover{
-    font-size: 22px;
-    color: white;
+@media only screen and (max-width: 480px) {
+  .register .card {
+    width: 90%;
+  }
 }
 
-a{
-     color: white;
-}

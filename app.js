@@ -8,7 +8,6 @@ const authController = require("./controllers/authController");
 const userController = require("./controllers/userController");
 const adminController = require("./controllers/adminController");
 const mongoose = require("mongoose")
-const dotenv = require("dotenv");
 const Hospital = require("./models/Hospital");
 const Pharmacy = require("./models/Pharmacy");
 const doctor = require("./models/doctor");
@@ -22,11 +21,6 @@ const { log } = require("console");
 
 // Create Express app instance
 const app = express();
-
-
-
-
-
 
 // Set up Express app settings
 app.set("view engine", "ejs");
@@ -49,12 +43,20 @@ app.get("/admin_verification", (req, res) => {
       doctor.find({}).then((doctors) => {
         res.render("admin_verification", { RegistrationHospitals: hospitals, RegistrationPharmacies: pharmacies, RegistrationDoctors: doctors, },);
       });
+
     });
   });
 });
 
-app.get("/announcements", (req, res) => {
-  res.render("announcements");
+
+app.get("/allUsers", (req, res) => {
+
+  User.find().then((users) => {
+    doctor.find({}).then((doctors) => {
+      res.render("allUsers", { users: users, doctors: doctors },);
+    });
+
+  });
 });
 
 
@@ -129,12 +131,48 @@ app.get("/pharmacy", async (req, res) => {
 
     res.render("pharmacy", { PharmacyDetails: approvedPharmacies });
 
-
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
   }
 });
+
+app.get("/admin_announcements", async (req, res) => {
+  try {
+    res.render("admin_announcements");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/announcements", async (req, res) => {
+  try {
+    let announcements = await Announcement.find({});
+    res.render("announcements", { announcements: announcements });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal server error");
+  }
+});
+
+
+
+app.post("/admin_announcements", async (req, res) => {
+  try {
+    const { announcement_title, announcement_content } = req.body;
+    const newAnnouncement = await Announcement.create({
+      title: announcement_title,
+      content: announcement_content,
+      date: Date.now()
+    });
+    res.redirect('/announcements');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal server error");
+  }
+});
+
 
 
 app.get("/medicines/:id", async (req, res) => {
@@ -157,8 +195,6 @@ app.get("/medicines/:id", async (req, res) => {
 
 
 app.post("/approve", async (req, res) => {
-  const id = req.body.id;
-  console.log(id);
   try {
     await Hospital.findByIdAndUpdate(
       { _id: req.body.id },
@@ -173,7 +209,6 @@ app.post("/approve", async (req, res) => {
       { _id: req.body.id },
       { approved: "true" }
     );
-    // console.log("Hospital approved:", hospital);
     res.redirect("/admin_verification");
   } catch (err) {
     console.log(err);
@@ -182,7 +217,7 @@ app.post("/approve", async (req, res) => {
 
 app.post("/reject", async (req, res) => {
   const id = req.body.id;
-  console.log(id);
+ // console.log(id);
   try {
     await Hospital.findByIdAndUpdate(
       { _id: req.body.id },
@@ -206,9 +241,11 @@ app.post("/reject", async (req, res) => {
 });
 
 // Render pharmacy registration page with drug names
-app.get("/pharmacy_registration", (req, res) => {
+app.get("/pharm_reg", (req, res) => {
   res.render("pharm_reg", { Drugs: Drugs });
 });
+
+
 
 app.get('/doc_register', (req, res) => {
   res.render('doc_register');
@@ -226,7 +263,6 @@ app.post('/doc_register', async (req, res) => {
     qualification: req.body.Qualification,
     email: req.body.docemail,
     password: hashedpass,
-    // _id: req.body.docemail,
   });
 
 
@@ -561,9 +597,9 @@ app.post('/form', (req, res) => {
         doc.appointments = [];
       }
       doc.appointments.push(appointment);
-      console.log(doc);
+      // console.log(doc);
       doc.save().then(() => {
-        console.log("form data submitted to database");
+        //console.log("form data submitted to database");
         res.redirect('/success');
       }).catch((err) => {
         console.log(err);
@@ -688,7 +724,7 @@ app.get('/doctor', async (req, res) => {
 
 
 app.get("/", authController.loggedIn, (req, res) => {
-  console.log(req.user);
+  // console.log(req.user);
   if (req.user) {
     res.render("index", { status: "loggedIn", user: req.user });
   } else {
@@ -742,12 +778,6 @@ app.get("/up_role_1", (req, res) => {
 });
 
 
-// const hospitalscount = await Hospital.countDocuments({approved:"true"});
-// const pharmaciescount = await Pharmacy.countDocuments({ approved: "true" });
-// const doctorscount = await doctor.countDocuments({ approved: "true" });
-// const pendinghosp = await Hospital.countDocuments({ approved: "null" });
-// const pendingpharm = await Hospital.countDocuments({ approved: "null" });
-// const pendingdoct = await Hospital.countDocuments({ approved: "null" });
 
 
 app.get("/dashboard", adminController.dashboard_details, (req, res) => {
@@ -770,6 +800,12 @@ app.post("/api/contact_us", userController.send_data);
 
 app.post("/api/login", authController.login);
 app.patch("/api/update_user", userController.update_details);
-app.post("/admin/updateRole", adminController.updateUser)
+app.post("/admin/updateRole", adminController.updateUser);
+
+app.get("/doc_feedback", (req, res) => {
+  res.render("doc_feedback");
+})
+
+app.patch("/api/feedback",userController.send_feedback);
 
 module.exports = app;

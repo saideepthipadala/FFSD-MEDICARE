@@ -11,10 +11,12 @@ const doctor_schema = new mongoose.Schema({
     email: String,
     password: String,
     // _id: String,
-    approved: { type: String, default: null },
+    approved: { type: String, default:"null" },
     appointments: [appointment_schema],
     feedbacks: [feedback_schema],
     registrationType: { type: String, default: "Doctor" },
+    feedback: [String],
+
 });
 
 const doctor = mongoose.model('doctor', doctor_schema);

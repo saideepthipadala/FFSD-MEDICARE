@@ -62,7 +62,7 @@ function validateDate() {
 
 form.addEventListener('submit', (e) => {
   if ((validateDate() && validatename() && validateproblem())) {
-    console.log("form submitted");
+   // console.log("form submitted");
     return true;
   }
   else {

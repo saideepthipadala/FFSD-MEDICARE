@@ -7,7 +7,7 @@ const pharmacySchema = new mongoose.Schema({
     email: String,
     noOfEmployees: Number,
     medicines: Array,
-    approved: { type: String, default: null },
+    approved: { type: String, default: "null" },
     registrationType: { type: String, default: "Pharmacy" },
 });
 const Pharmacy = mongoose.model("PharmacyDetails", pharmacySchema);

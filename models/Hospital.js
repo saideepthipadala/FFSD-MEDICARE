@@ -8,7 +8,7 @@ const hospitalSchema = new mongoose.Schema({
     contactNumber: Number,
     email: String,
     noOfDoctors: Number,
-    approved: { type: String, default: null },
+    approved: { type: String, default:"null"},
     registrationType: { type: String, default: "Hospital" },
 });
 

@@ -13,7 +13,12 @@
     <div class="container">
         <header class="header">
             <diV><h1>DASHBOARD</h1></diV>
-            <nav><a href="/">HOME</a></nav>
+            <nav><a href="/admin_announcements" target="_blank">Post Announcements</a></nav>
+             <nav><a href="/admin_verification" target="_blank">See All Requests</a></nav>
+            <nav><a href="/allUsers" target="_blank">See All Users</a></nav>
+            <nav><a href="up_role_1" target="_blank">Update Role of  User</a></nav>
+           <nav><a href="/">Home</a></nav>
+
         </header>
         <section class="data-boxes">
             <diV class="box">
@@ -41,7 +46,7 @@
         </section>
         <section class="applications">
             <div class="pend-h2"><h2>PENDING APPLICATIONS</h2></div>
-           <div class="count"><%= count_details.pendingdoct + count_details.pendinghosp + count_details.pendingpharm %></div>
+           <div class="count"> <%= count_details.pendingdoct + count_details.pendinghosp + count_details.pendingpharm %> </div>
             <div class="pend-2">
             
             <div class="app doc_app">
@@ -63,11 +68,13 @@
         </div>
 
         </section>
-        <section class="list-all">
-            <div class="lis list-users"><a href="up_role_1">Update role</a></div>
-            <div class="lis list-doctors"><a href="./admin_verification" target="_blank">See all Requests</a></div>
 
-        </section>
+        <!-- <section class="list-all">
+            <div class="lis list-users"><a href="up_role_1" target="_blank">Update Role</a></div>
+             <div class="lis list-doctors"><a href="./admin_verification" target="_blank">See All Users</a></div>
+            <div class="lis list-doctors"><a href="./admin_verification" target="_blank">See All Requests</a></div>
+
+        </section> -->
         
     </div>
     
