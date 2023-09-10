@@ -17,7 +17,7 @@
   <title>Consult a Doctor</title>
 </head>
 
-<body>
+<body data-doctor-details='<%- JSON.stringify(DoctorDetails) %>'>
 
   <div class="main-container">
     <div class="text-div">
@@ -75,83 +75,38 @@
   </div>
   <div id="consult-div" class="container-fluid bg-light p-5">
     <h2 class="container fw-semibold mb-5">Consult A Doctor</h2>
-    <form action="/search" class="container d-flex my-3" id="seach-form">
-      <input type="text" name="docname" class="w-50 px-3 py-2 rounded border border-secondary"
-        placeholder="Search with doctor's name">
-      <button type="submit" class="px-3 py-2 bg-primary border border-none text-light mx-1 rounded">Search</button>
-    </form>
-    <div class="container my-3">
-      <button type="button" onclick="showfilterform()" id="filter-btn"
-        class=" bg-primary border border-none border-radius px-3 py-2 text-light rounded">Add Filter</button>
-      <button type="button" class="bg-primary border border-none border-radius px-3 py-2 rounded"><a
-          class="text-light text-decoration-none" href="/doctor">Remove
-          Filters</a></button>
-    </div>
-    <form action="/filter" id="filter-form" class="container d-none p-2">
-      <select name="docspec" id="docspec" class="px-3 py-2" required>
-        <option value="" selected>Specialization</option>
-        <option value="Orthopedics">Orthopedics</option>
-        <option value="Internal Medicine">Internal Medicine</option>
-        <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
-        <option value="Dermatology">Dermatology</option>
-        <option value="Pediatrics">Pediatrics</option>
-        <option value="Radiology">Radiology</option>
-        <option value="General Surgery">General Surgery</option>
-        <option value="Ophthalmology">Ophthalmology</option>
-        <option value="Family Medicine">Family Medicine</option>
-        <option value="Chest Medicine">Chest Medicine</option>
-        <option value="Anesthesia">Anesthesia</option>
-        <option value="Pathology">Pathology</option>
-        <option value="ENT">ENT</option>
-        <option value="Other">Other</option>
-      </select>
-      <button type="submit" class="bg-primary border border-none text-light p-2">Submit</button>
-    </form>
-    <!-- <form action="/search" id="search-form">
-      <input type="text">
-    </form> -->
-
-    <div id="doctors-container" class="container">
-      <% if (DoctorDetails.length===0) { %>
-        <h1 class="container mx-auto fs-7">No Doctors Found</h1>
-        <% } else { %>
-          <% DoctorDetails.forEach((doctor)=> { %>
-            <div class="doctor-container">
-              <img src="./images/img_avatar.png" alt="">
-              <h2>
-                <%= doctor.name %>
-              </h2>
-              <p>Gender: <%= doctor.gender %>
-              </p>
-              <p>Email: <%= doctor.email %>
-              </p>
-              <p>Specialization: <%= doctor.specialization %>
-              </p>
-              <p>Qualification: <%= doctor.qualification %>
-              </p>
-              <a href="./form?name=<%= doctor.name %>|<%= doctor.email %>">Consult</a>
-            </div>
-            <% }) %>
-              <% } %>
+    <div class="d-flex justify-content-center px-4 mx-4 max-w-sm">
+      <div class="container d-flex w-100" id="search-form">
+        <input type="text" id="doc-search" name="docname" class="w-100 px-3 py-2 rounded border border-secondary"
+          placeholder="Search with doctor's name">
+      </div>
+      <div id="filter-form" class="container">
+        <select name="docspec" id="docspec" class="px-3 py-2 rounded border border-secondary" required>
+          <option value="" selected>Specialization</option>
+          <option value="Orthopedics">Orthopedics</option>
+          <option value="Internal Medicine">Internal Medicine</option>
+          <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+          <option value="Dermatology">Dermatology</option>
+          <option value="Pediatrics">Pediatrics</option>
+          <option value="Radiology">Radiology</option>
+          <option value="General Surgery">General Surgery</option>
+          <option value="Ophthalmology">Ophthalmology</option>
+          <option value="Family Medicine">Family Medicine</option>
+          <option value="Chest Medicine">Chest Medicine</option>
+          <option value="Anesthesia">Anesthesia</option>
+          <option value="Pathology">Pathology</option>
+          <option value="ENT">ENT</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
     </div>
 
 
-
-
+    <div id="doctors-container" class="container my-4"></div>
 
   </div>
-  <script>
-    const form = document.querySelector('#filter-form');
-    const filterbtn = document.querySelector('#filter-btn');
-    function showfilterform() {
-      if (form.classList.contains('d-none')) {
-        form.classList.remove('d-none');
-      }
-      else {
-        form.classList.add('d-none');
-      }
-    }
-  </script>
+  <script src="./js/doc_script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>

@@ -13,6 +13,7 @@ const Pharmacy = require("./models/Pharmacy");
 const doctor = require("./models/doctor");
 const appointment_schema = require("./models/appointment_schema");
 const Announcement = require("./models/Announcement");
+const User = require("./models/user_model");
 
 // Create Express app instance
 const app = express();
@@ -425,6 +426,10 @@ app.post("/form", (req, res) => {
                 });
         }
     });
+});
+
+app.get("/doc_login", (req, res) => {
+    res.render("doc_login");
 });
 
 app.get("/doc_login", (req, res) => {
