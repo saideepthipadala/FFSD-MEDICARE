@@ -19,7 +19,9 @@
     <a href="/hospital" id="home-link">BACK</a>
   </div>
   <div class="container-css pt-4 mb-4">
-    <p id="Heading"><%= formDoctor.name %>'s Consultation  Form</p>
+    <p id="Heading">
+      <%= formDoctor.name %>'s Consultation Form
+    </p>
     <form action="/form?email=<%= formDoctor.email %>" method="post">
       <label for=" pname" style="position: relative;">Name of the Patient :
         <input type="text" id="pname" name="name" required onkeyup="validatename()" />
@@ -48,7 +50,8 @@
       <label for="time">Time of Consultation :
         <input type="time" name="time" id="time" min="09:00" max="17:00" required />
       </label>
-      <button type="submit">Book Appointment</button>
+      <button type="submit" id="submit-btn">Book Appointment</button>
+      <div class="rectangle"></div>
     </form>
   </div>
 

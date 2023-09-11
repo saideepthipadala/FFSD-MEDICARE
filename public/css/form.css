@@ -63,7 +63,7 @@ textarea {
 
 button {
     display: block;
-    margin: 1.5rem auto 0 auto;
+    margin: 1.5rem auto 0.5rem auto;
     padding: 0.5rem 1rem;
     width: 60%;
     color: white;
@@ -75,6 +75,7 @@ button {
 
 
 .container-css {
+    position: relative;
     color: white;
     background-color: #4723fbd7;
     padding: 1rem;
@@ -82,10 +83,6 @@ button {
     border-radius: 0.25rem;
    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
 }
-
-/* #date{
-    position: relative;
-} */
 
 
 #name-error,#problem-error{
@@ -107,3 +104,20 @@ button {
 .success-container{
     display: none;
 }
+
+
+#rectangles{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.rectangle {
+    width: 25px;
+    height: 2px;
+    position: absolute;
+    display: none;
+    bottom:16px;
+    left:0px;
+    background-color: rgb(47, 191, 174);
+}
+

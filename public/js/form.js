@@ -1,10 +1,3 @@
-// var QueryString = location.search.substring(1)
-// var A = QueryString.split("=");
-// var DocName = A[1].split('|')[0];
-
-// const heading = document.getElementById("Heading");
-// heading.textContent = DocName + "'s Consultation Form";
-
 
 const form = document.querySelector('form');
 const ageInput = document.querySelector('#age');
@@ -59,10 +52,50 @@ function validateDate() {
   }
 }
 
+const elem = document.querySelector(".rectangle");
+let id = null;
+let posLeft = 90; 
+let direction = 1;
+const buttonWidth = 200; 
+const submitBtn = document.getElementById("submit-btn");
+
+function frame() {
+  if (posLeft >= 90 + buttonWidth) { 
+    direction = -1;
+  } else if (posLeft <= 90) {
+    direction = 1;
+  }
+
+  posLeft += direction;
+
+  elem.style.left = posLeft + "px";
+}
+
+function startAnimation() {
+  clearInterval(id);
+  posLeft = 90;
+  direction = 1;
+  id = setInterval(frame, 5);
+}
+
+function stopAnimation() {
+  clearInterval(id);
+  elem.style.display = "none";
+}
+
+submitBtn.addEventListener('mouseover', () => {
+  elem.style.display = "block";
+  startAnimation();
+});
+
+submitBtn.addEventListener('mouseout', () => {
+  stopAnimation();
+});
+
+
 
 form.addEventListener('submit', (e) => {
   if ((validateDate() && validatename() && validateproblem())) {
-   // console.log("form submitted");
     return true;
   }
   else {
