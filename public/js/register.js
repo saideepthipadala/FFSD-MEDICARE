@@ -15,8 +15,8 @@ let phone_num_2 = document.getElementById("phone_num_2");
 const section_how = document.getElementsByClassName("section-how");
 
 function ValidateEmail(mail) {
-  const a = '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$';
-  if (mail.match(a)) {
+  const a = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+  if (a.test(mail)) {
     return true;
   }
   return false;
