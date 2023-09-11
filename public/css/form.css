@@ -89,7 +89,7 @@ button {
     display: none;
     position: absolute;
     font-size: 12px;
-    color:red;
+    color:rgb(12, 0, 12);
 }
 
 .error{
