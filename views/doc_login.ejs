@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="/css/doc_login.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Rubik:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Rubik:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
     <title>Doctor Login</title>
 </head>
 
@@ -26,5 +25,50 @@
     </main>
 
 </body>
+
+<script>
+    const form = document.querySelector('form');
+    const emailInput = document.querySelector('#doc_email');
+    const passwordInput = document.querySelector('#doc_pass');
+
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+    const emailError = document.createElement('span');
+    emailError.classList.add('error');
+    emailInput.insertAdjacentElement('afterend', emailError);
+
+    const passwordError = document.createElement('span');
+    passwordError.classList.add('error');
+    passwordInput.insertAdjacentElement('afterend', passwordError);
+
+    function validateEmail() {
+        if (!emailRegex.test(emailInput.value)) {
+            emailError.textContent = 'Invalid email address';
+            return false;
+        } else {
+            emailError.textContent = '';
+            return true;
+        }
+    }
+
+    function validatePassword() {
+        if (!passwordRegex.test(passwordInput.value)) {
+            passwordError.textContent = 'Invalid password';
+            return false;
+        } else {
+            passwordError.textContent = '';
+            return true;
+        }
+    }
+
+    form.addEventListener('submit', (e) => {
+        if (!validateEmail() || !validatePassword()) {
+            e.preventDefault();
+        }
+    });
+</script>
+
+
 
 </html>
