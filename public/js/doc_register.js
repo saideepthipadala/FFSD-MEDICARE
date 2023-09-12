@@ -15,11 +15,7 @@ const label = document.querySelector("label");
 
 const nameregx = /^[a-z\s]+$/i;
 const emailregx = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
-// const passregx = /^(?=.*a-z)(?=.*A-Z)(?=.*\d)(?=.*!@#%&).{8,15}$/;
-const passregx1 = /[A-Z]/g;
-const passregx2 = /[0-9]/g;
-const passregx3 = /[!@#%&]/g;
-
+const passregx = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&]).{8,}$/;
 
 function validateName() {
     if (!(nameregx.test(docname.value))) {
@@ -97,46 +93,14 @@ function checkSpecialCharacter() {
 }
 
 
-
-
 function validatePassword() {
-
-    if (!checkUpperCase()) {
-        spanpass.innerText = "Password Should contain atleast one UpperCase Alphabet";
-        // spanpass.style.color = "red";
-        spanpass.style.fontSize = "12.5px";
-    }
-
-    else if (!checkNumber()) {
-        spanpass.innerText = "";
-        spanpass.innerText = "Password Should contain atleast one Number";
-        // spanpass.style.color = "red";
-        spanpass.style.fontSize = "12.5px";
-    }
-    else if (!checkSpecialCharacter()) {
-        spanpass.innerText = "";
-        spanpass.innerText = "Password Should contain atleast one Special Character";
-        // spanpass.style.color = "red";
-        spanpass.style.fontSize = "12.5px";
-    }
-
-    else if (!passwordStrength()) {
-        spanpass.innerText = "Password be atleast 8 characters";
-        // spanpass.style.color = "red";
-        spanpass.style.fontSize = "12.5px";
-    }
-
-    else {
-        spanpass.innerText = "";
-    }
-
-
-    if (passwordStrength() && checkUpperCase() && checkNumber() && checkSpecialCharacter()) {
-        return true;
-    }
-
-    else {
+    if (!passregx.test(docpass.value)) {
+        spanpass.innerText = "Password should be at least 8 characters long and include at least one uppercase letter, one number, and one special character (!@#%&).";
+        spanpass.style.fontSize = "9.5px";
         return false;
+    } else {
+        spanpass.innerText = "";
+        return true;
     }
 }
 
