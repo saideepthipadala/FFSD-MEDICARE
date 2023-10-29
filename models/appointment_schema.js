@@ -1,8 +1,4 @@
 const mongoose = require("mongoose")
-const express = require("express");
-
-
-
 const appointment_schema = new mongoose.Schema({
     patientname: String,
     patientgender: String,
@@ -13,5 +9,4 @@ const appointment_schema = new mongoose.Schema({
     acceptappointment: Boolean,
     appointmentStatus: Boolean
 });
-const appointment = mongoose.model('appointmentDetails', appointment_schema);
 module.exports =appointment_schema;

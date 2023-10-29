@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-const express = require("express");
 const pharmacySchema = new mongoose.Schema({
     name: String,
     location: String,

@@ -1,13 +1,8 @@
-const { promisify } = require("util");
 const User = require("./../models/user_model");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./../config.env" });
 const bcrypt = require("bcryptjs");
-const { emit } = require("process");
-const { decode } = require("punycode");
-const user_model = require("./../models/contact_us");
-const contact_us = require("./../models/contact_us");
 const doctor = require("./../models/doctor")
 
 

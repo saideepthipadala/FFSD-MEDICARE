@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 const query_data = mongoose.Schema({
     fullname : {
         type:String,

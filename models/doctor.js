@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-const express = require("express");
 const appointment_schema = require("./appointment_schema");
 const feedback_schema = require('./doctorfeedback');
 

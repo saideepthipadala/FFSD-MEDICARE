@@ -14,7 +14,6 @@ const doctor = require("./models/doctor");
 const appointment_schema = require("./models/appointment_schema");
 const feedback_schema = require('./models/doctorfeedback');
 const Announcement=require('./models/Announcement');
-const { log } = require("console");
 // const doctor = require("./models/doctor");
 
 
